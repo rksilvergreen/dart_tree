@@ -1,0 +1,9 @@
+couple of comments:
+1. '_objectToNode' will be generated in the user's project, but originally called from the Tree class in 'dart_tree'. So until it is generated there wont be a '_objectToNode' to invoke. This can be solved by maing Tree abstract, and forcing the user to define their own tree class that extends Tree. And that uesr defined tree is associated with the objects/nodes that the user defines, so only those objects/nodes can be used in the tree. Thin of how to link between a tree and ints objects/nodes that requires minimal effort from the user while remaining elegant.
+
+2. In your TreeObject examples you still use primitves like String and bool. These should be StringValue and BoolValue etc'..They will also be nodes. This is important because they should contain metadata information about the syntax (for example, string - single/double/no quotes.). This information should always be added if the object came from parsing a json/yaml string.  If it was created manually by the user, then they can choose to add it or not. Presumably we will provide default values.
+But it is also important because the Union classes should accept only classes that are tree objects/nodes.
+
+3. No need for 'OptionalChild' annotation. If the property is defined as nullable then it is optional.
+
+4. I have created a new project called 'dart_tree_gen' for our generator logic.
