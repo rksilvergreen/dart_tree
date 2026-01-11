@@ -59,6 +59,14 @@ class CommentsListNode extends ListTreeNode<CommentNode> {
   CommentsListNode clone() => CommentsListNode(id: id);
 }
 
+/// Generated map node for ContentMap
+class ContentMapNode extends MapTreeNode<ContentNode> {
+  ContentMapNode({super.id});
+
+  @override
+  ContentMapNode clone() => ContentMapNode(id: id);
+}
+
 // =============================================================================
 // GENERATED TREE EXTENSION
 // =============================================================================
@@ -124,6 +132,14 @@ extension BlogTreeExtension on BlogTree {
         edges.add((Edge(CommentNode, '$i'), object[i]));
       }
       return (CommentsListNode(), edges);
+    }
+
+    if (object is ContentMap) {
+      final edges = <(Edge, Object)>[];
+      for (var entry in object.entries) {
+        edges.add((Edge(ContentNode, entry.key), entry.value));
+      }
+      return (ContentMapNode(), edges);
     }
 
     return null;
@@ -301,6 +317,33 @@ extension CommentsListSerialization on CommentsList {
 
   static CommentsList fromYaml(dynamic yaml) {
     return _$CommentsListFromYaml(yaml);
+  }
+}
+
+/// Deserializes [ContentMap] from JSON.
+ContentMap _$ContentMapFromJson(dynamic json) {
+  if (json is! Map<String, dynamic>) {
+    throw ArgumentError('Expected Map<String, dynamic>, got ${json.runtimeType}');
+  }
+  return ContentMap(json.map((key, value) => MapEntry(key, ContentSerialization.fromJson(value))));
+}
+
+/// Deserializes [ContentMap] from YAML.
+ContentMap _$ContentMapFromYaml(dynamic yaml) {
+  if (yaml is! Map) {
+    throw ArgumentError('Expected Map, got ${yaml.runtimeType}');
+  }
+  return ContentMap(yaml.map((key, value) => MapEntry(key.toString(), ContentSerialization.fromYaml(value))));
+}
+
+/// Generated serialization methods for ContentMap
+extension ContentMapSerialization on ContentMap {
+  static ContentMap fromJson(dynamic json) {
+    return _$ContentMapFromJson(json);
+  }
+
+  static ContentMap fromYaml(dynamic yaml) {
+    return _$ContentMapFromYaml(yaml);
   }
 }
 

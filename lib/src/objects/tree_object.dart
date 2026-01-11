@@ -1,7 +1,3 @@
-import 'value_objects.dart';
-import 'union_objects.dart';
-
-
 /// Base class for all user-defined domain objects.
 ///
 /// Users extend this class to create their domain model. The code generator
@@ -24,22 +20,22 @@ abstract class TreeObject {
   const TreeObject();
 
   /// Encodes this object to a JSON string.
-  /// 
+  ///
   /// All TreeObject subclasses must implement this method to provide
   /// JSON serialization with formatting metadata applied.
   String toJson();
 
   /// Encodes this object to a YAML string.
-  /// 
+  ///
   /// All TreeObject subclasses must implement this method to provide
   /// YAML serialization with formatting metadata applied.
   String toYaml();
 
   /// Decodes a JSON value to a TreeObject.
-  /// 
+  ///
   /// All TreeObject subclasses must provide a static factory method
   /// to decode from JSON (typically via code generation).
-  /// 
+  ///
   /// Note: This is declared here for documentation purposes.
   /// Dart doesn't support abstract static methods, so implementations
   /// should provide: `static T fromJson(dynamic json)`
@@ -64,10 +60,10 @@ abstract class TreeObject {
   // }
 
   /// Decodes a YAML value to a TreeObject.
-  /// 
+  ///
   /// All TreeObject subclasses must provide a static factory method
   /// to decode from YAML (typically via code generation).
-  /// 
+  ///
   /// Note: This is declared here for documentation purposes.
   /// Dart doesn't support abstract static methods, so implementations
   /// should provide: `static T fromYaml(dynamic yaml)`

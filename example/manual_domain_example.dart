@@ -102,6 +102,16 @@ class CommentsList extends ListObject<Comment> {
   static CommentsList fromYaml(dynamic yaml) => _$CommentsListFromYaml(yaml);
 }
 
+/// Map of content items (user-defined map collection)
+@treeObject
+class ContentMap extends MapObject<Content> {
+  ContentMap(super.entries, {super.jsonObjectStyle, super.yamlMappingStyle});
+
+  static ContentMap fromJson(dynamic json) => _$ContentMapFromJson(json);
+
+  static ContentMap fromYaml(dynamic yaml) => _$ContentMapFromYaml(yaml);
+}
+
 /// User's Tree class - non-abstract!
 /// The generator will create an extension with objectToNode
 @GenerateTree()
@@ -188,5 +198,17 @@ void main() {
   );
   print('String value: ${styledString.value}');
   print('JSON style: double-quoted = ${styledString.jsonStringStyle?.doubleQuoted}');
-  print('YAML style: quote style = ${styledString.yamlStringStyle?.quoteStyle}');
+  print('YAML style: quote style = ${styledString.yamlStringStyle?.quoteStyle}\n');
+
+  print('=== MapObject Example ===\n');
+  // Demonstrate MapObject usage
+  final contentMap = ContentMap({
+    'intro': const Content(body: StringValue('Introduction section'), wordCount: IntValue(50)),
+    'main': const Content(body: StringValue('Main content section'), wordCount: IntValue(200)),
+    'conclusion': const Content(body: StringValue('Conclusion section'), wordCount: IntValue(30)),
+  });
+  print('ContentMap has ${contentMap.length} entries');
+  print('Keys: ${contentMap.keys.join(", ")}');
+  print('Intro body: ${contentMap['intro']?.body.value}');
+  print('Main word count: ${contentMap['main']?.wordCount?.value}');
 }
