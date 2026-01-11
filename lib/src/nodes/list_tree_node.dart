@@ -13,7 +13,7 @@ import 'tree_node.dart';
 /// }
 /// ```
 abstract class ListTreeNode<CHILD_NODE extends TreeNode> extends TreeNode with ListMixin<CHILD_NODE> {
-  ListTreeNode({super.id, super.sourceRange, super.jsonFormatting, super.yamlFormatting});
+  ListTreeNode({super.id});
 
   /// Internal list accessor via tree's children.
   List<CHILD_NODE> get _list => $children?.values.cast<CHILD_NODE>().toList() ?? [];

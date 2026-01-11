@@ -27,9 +27,6 @@ abstract class ListObject<CHILD_OBJECT extends TreeObject> extends TreeObject wi
 
   ListObject(
     List<CHILD_OBJECT> elements, {
-    super.sourceRange,
-    super.jsonFormatting,
-    super.yamlFormatting,
     this.jsonArrayStyle,
     this.yamlSequenceStyle,
   }) : _elements = elements;

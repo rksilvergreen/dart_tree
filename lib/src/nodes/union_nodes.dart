@@ -1,55 +1,22 @@
 import 'tree_node.dart';
-import '../syntax/source_position.dart';
-import '../syntax/json_formatting.dart';
-import '../syntax/yaml_formatting.dart';
 
 /// Represents a node that can be one of two types.
-/// 
+///
 /// Union types allow expressing "either/or" relationships in the tree structure
 /// while maintaining type safety.
 class UnionNode2<T1 extends TreeNode, T2 extends TreeNode> extends TreeNode {
   final TreeNode _value;
 
-  UnionNode2._(
-    this._value, {
-    super.id,
-    super.sourceRange,
-    super.jsonFormatting,
-    super.yamlFormatting,
-  });
+  UnionNode2._(this._value, {super.id});
 
   /// Creates a union node with the first type.
-  factory UnionNode2.first(
-    T1 value, {
-    String? id,
-    SourceRange? sourceRange,
-    JsonFormattingInfo? jsonFormatting,
-    YamlFormattingInfo? yamlFormatting,
-  }) {
-    return UnionNode2._(
-      value,
-      id: id,
-      sourceRange: sourceRange,
-      jsonFormatting: jsonFormatting,
-      yamlFormatting: yamlFormatting,
-    );
+  factory UnionNode2.first(T1 value, {String? id}) {
+    return UnionNode2._(value, id: id);
   }
 
   /// Creates a union node with the second type.
-  factory UnionNode2.second(
-    T2 value, {
-    String? id,
-    SourceRange? sourceRange,
-    JsonFormattingInfo? jsonFormatting,
-    YamlFormattingInfo? yamlFormatting,
-  }) {
-    return UnionNode2._(
-      value,
-      id: id,
-      sourceRange: sourceRange,
-      jsonFormatting: jsonFormatting,
-      yamlFormatting: yamlFormatting,
-    );
+  factory UnionNode2.second(T2 value, {String? id}) {
+    return UnionNode2._(value, id: id);
   }
 
   /// Returns true if this union contains the first type.
@@ -68,10 +35,7 @@ class UnionNode2<T1 extends TreeNode, T2 extends TreeNode> extends TreeNode {
   TreeNode get value => _value;
 
   /// Pattern matching helper.
-  T when<T>({
-    required T Function(T1) first,
-    required T Function(T2) second,
-  }) {
+  T when<T>({required T Function(T1) first, required T Function(T2) second}) {
     if (isFirst) {
       return first(_value as T1);
     } else {
@@ -83,19 +47,9 @@ class UnionNode2<T1 extends TreeNode, T2 extends TreeNode> extends TreeNode {
   UnionNode2<T1, T2> clone() {
     final clonedValue = _value.clone();
     if (clonedValue is T1) {
-      return UnionNode2.first(
-        clonedValue,
-        sourceRange: sourceRange,
-        jsonFormatting: jsonFormatting,
-        yamlFormatting: yamlFormatting,
-      );
+      return UnionNode2.first(clonedValue);
     } else {
-      return UnionNode2.second(
-        clonedValue as T2,
-        sourceRange: sourceRange,
-        jsonFormatting: jsonFormatting,
-        yamlFormatting: yamlFormatting,
-      );
+      return UnionNode2.second(clonedValue as T2);
     }
   }
 
@@ -107,67 +61,24 @@ class UnionNode2<T1 extends TreeNode, T2 extends TreeNode> extends TreeNode {
 }
 
 /// Represents a node that can be one of three types.
-class UnionNode3<T1 extends TreeNode, T2 extends TreeNode,
-    T3 extends TreeNode> extends TreeNode {
+class UnionNode3<T1 extends TreeNode, T2 extends TreeNode, T3 extends TreeNode> extends TreeNode {
   final TreeNode _value;
 
-  UnionNode3._(
-    this._value, {
-    super.id,
-    super.sourceRange,
-    super.jsonFormatting,
-    super.yamlFormatting,
-  });
+  UnionNode3._(this._value, {super.id});
 
   /// Creates a union node with the first type.
-  factory UnionNode3.first(
-    T1 value, {
-    String? id,
-    SourceRange? sourceRange,
-    JsonFormattingInfo? jsonFormatting,
-    YamlFormattingInfo? yamlFormatting,
-  }) {
-    return UnionNode3._(
-      value,
-      id: id,
-      sourceRange: sourceRange,
-      jsonFormatting: jsonFormatting,
-      yamlFormatting: yamlFormatting,
-    );
+  factory UnionNode3.first(T1 value, {String? id}) {
+    return UnionNode3._(value, id: id);
   }
 
   /// Creates a union node with the second type.
-  factory UnionNode3.second(
-    T2 value, {
-    String? id,
-    SourceRange? sourceRange,
-    JsonFormattingInfo? jsonFormatting,
-    YamlFormattingInfo? yamlFormatting,
-  }) {
-    return UnionNode3._(
-      value,
-      id: id,
-      sourceRange: sourceRange,
-      jsonFormatting: jsonFormatting,
-      yamlFormatting: yamlFormatting,
-    );
+  factory UnionNode3.second(T2 value, {String? id}) {
+    return UnionNode3._(value, id: id);
   }
 
   /// Creates a union node with the third type.
-  factory UnionNode3.third(
-    T3 value, {
-    String? id,
-    SourceRange? sourceRange,
-    JsonFormattingInfo? jsonFormatting,
-    YamlFormattingInfo? yamlFormatting,
-  }) {
-    return UnionNode3._(
-      value,
-      id: id,
-      sourceRange: sourceRange,
-      jsonFormatting: jsonFormatting,
-      yamlFormatting: yamlFormatting,
-    );
+  factory UnionNode3.third(T3 value, {String? id}) {
+    return UnionNode3._(value, id: id);
   }
 
   /// Returns true if this union contains the first type.
@@ -192,11 +103,7 @@ class UnionNode3<T1 extends TreeNode, T2 extends TreeNode,
   TreeNode get value => _value;
 
   /// Pattern matching helper.
-  T when<T>({
-    required T Function(T1) first,
-    required T Function(T2) second,
-    required T Function(T3) third,
-  }) {
+  T when<T>({required T Function(T1) first, required T Function(T2) second, required T Function(T3) third}) {
     if (isFirst) {
       return first(_value as T1);
     } else if (isSecond) {
@@ -210,26 +117,11 @@ class UnionNode3<T1 extends TreeNode, T2 extends TreeNode,
   UnionNode3<T1, T2, T3> clone() {
     final clonedValue = _value.clone();
     if (clonedValue is T1) {
-      return UnionNode3.first(
-        clonedValue,
-        sourceRange: sourceRange,
-        jsonFormatting: jsonFormatting,
-        yamlFormatting: yamlFormatting,
-      );
+      return UnionNode3.first(clonedValue);
     } else if (clonedValue is T2) {
-      return UnionNode3.second(
-        clonedValue,
-        sourceRange: sourceRange,
-        jsonFormatting: jsonFormatting,
-        yamlFormatting: yamlFormatting,
-      );
+      return UnionNode3.second(clonedValue);
     } else {
-      return UnionNode3.third(
-        clonedValue as T3,
-        sourceRange: sourceRange,
-        jsonFormatting: jsonFormatting,
-        yamlFormatting: yamlFormatting,
-      );
+      return UnionNode3.third(clonedValue as T3);
     }
   }
 
@@ -241,84 +133,29 @@ class UnionNode3<T1 extends TreeNode, T2 extends TreeNode,
 }
 
 /// Represents a node that can be one of four types.
-class UnionNode4<T1 extends TreeNode, T2 extends TreeNode, T3 extends TreeNode,
-    T4 extends TreeNode> extends TreeNode {
+class UnionNode4<T1 extends TreeNode, T2 extends TreeNode, T3 extends TreeNode, T4 extends TreeNode> extends TreeNode {
   final TreeNode _value;
 
-  UnionNode4._(
-    this._value, {
-    super.id,
-    super.sourceRange,
-    super.jsonFormatting,
-    super.yamlFormatting,
-  });
+  UnionNode4._(this._value, {super.id});
 
   /// Creates a union node with the first type.
-  factory UnionNode4.first(
-    T1 value, {
-    String? id,
-    SourceRange? sourceRange,
-    JsonFormattingInfo? jsonFormatting,
-    YamlFormattingInfo? yamlFormatting,
-  }) {
-    return UnionNode4._(
-      value,
-      id: id,
-      sourceRange: sourceRange,
-      jsonFormatting: jsonFormatting,
-      yamlFormatting: yamlFormatting,
-    );
+  factory UnionNode4.first(T1 value, {String? id}) {
+    return UnionNode4._(value, id: id);
   }
 
   /// Creates a union node with the second type.
-  factory UnionNode4.second(
-    T2 value, {
-    String? id,
-    SourceRange? sourceRange,
-    JsonFormattingInfo? jsonFormatting,
-    YamlFormattingInfo? yamlFormatting,
-  }) {
-    return UnionNode4._(
-      value,
-      id: id,
-      sourceRange: sourceRange,
-      jsonFormatting: jsonFormatting,
-      yamlFormatting: yamlFormatting,
-    );
+  factory UnionNode4.second(T2 value, {String? id}) {
+    return UnionNode4._(value, id: id);
   }
 
   /// Creates a union node with the third type.
-  factory UnionNode4.third(
-    T3 value, {
-    String? id,
-    SourceRange? sourceRange,
-    JsonFormattingInfo? jsonFormatting,
-    YamlFormattingInfo? yamlFormatting,
-  }) {
-    return UnionNode4._(
-      value,
-      id: id,
-      sourceRange: sourceRange,
-      jsonFormatting: jsonFormatting,
-      yamlFormatting: yamlFormatting,
-    );
+  factory UnionNode4.third(T3 value, {String? id}) {
+    return UnionNode4._(value, id: id);
   }
 
   /// Creates a union node with the fourth type.
-  factory UnionNode4.fourth(
-    T4 value, {
-    String? id,
-    SourceRange? sourceRange,
-    JsonFormattingInfo? jsonFormatting,
-    YamlFormattingInfo? yamlFormatting,
-  }) {
-    return UnionNode4._(
-      value,
-      id: id,
-      sourceRange: sourceRange,
-      jsonFormatting: jsonFormatting,
-      yamlFormatting: yamlFormatting,
-    );
+  factory UnionNode4.fourth(T4 value, {String? id}) {
+    return UnionNode4._(value, id: id);
   }
 
   /// Returns true if this union contains the first type.
@@ -370,33 +207,13 @@ class UnionNode4<T1 extends TreeNode, T2 extends TreeNode, T3 extends TreeNode,
   UnionNode4<T1, T2, T3, T4> clone() {
     final clonedValue = _value.clone();
     if (clonedValue is T1) {
-      return UnionNode4.first(
-        clonedValue,
-        sourceRange: sourceRange,
-        jsonFormatting: jsonFormatting,
-        yamlFormatting: yamlFormatting,
-      );
+      return UnionNode4.first(clonedValue);
     } else if (clonedValue is T2) {
-      return UnionNode4.second(
-        clonedValue,
-        sourceRange: sourceRange,
-        jsonFormatting: jsonFormatting,
-        yamlFormatting: yamlFormatting,
-      );
+      return UnionNode4.second(clonedValue);
     } else if (clonedValue is T3) {
-      return UnionNode4.third(
-        clonedValue,
-        sourceRange: sourceRange,
-        jsonFormatting: jsonFormatting,
-        yamlFormatting: yamlFormatting,
-      );
+      return UnionNode4.third(clonedValue);
     } else {
-      return UnionNode4.fourth(
-        clonedValue as T4,
-        sourceRange: sourceRange,
-        jsonFormatting: jsonFormatting,
-        yamlFormatting: yamlFormatting,
-      );
+      return UnionNode4.fourth(clonedValue as T4);
     }
   }
 

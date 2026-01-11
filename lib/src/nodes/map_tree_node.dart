@@ -13,7 +13,7 @@ import 'tree_node.dart';
 /// }
 /// ```
 abstract class MapTreeNode<CHILD_NODE extends TreeNode> extends TreeNode with MapMixin<String, CHILD_NODE> {
-  MapTreeNode({super.id, super.sourceRange, super.jsonFormatting, super.yamlFormatting});
+  MapTreeNode({super.id});
 
   /// Internal map accessor via tree's children.
   Map<String, CHILD_NODE> get _map => $children?.cast<String, CHILD_NODE>() ?? {};

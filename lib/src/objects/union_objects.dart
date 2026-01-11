@@ -61,7 +61,7 @@ class UnionObject2<T1 extends TreeObject, T2 extends TreeObject> extends TreeObj
   String toYaml() => _value.toYaml();
 
   /// Attempts to decode from JSON by trying each type in order.
-  /// 
+  ///
   /// Input should be the raw JSON string for the value.
   static UnionObject2<T1, T2> fromJson<T1 extends TreeObject, T2 extends TreeObject>(
     String json,
@@ -80,7 +80,7 @@ class UnionObject2<T1 extends TreeObject, T2 extends TreeObject> extends TreeObj
   }
 
   /// Attempts to decode from YAML by trying each type in order.
-  /// 
+  ///
   /// Input should be the raw YAML string for the value.
   static UnionObject2<T1, T2> fromYaml<T1 extends TreeObject, T2 extends TreeObject>(
     String yaml,

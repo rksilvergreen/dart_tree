@@ -1,8 +1,5 @@
 import 'tree_node.dart';
 import '../objects/value_objects.dart';
-import '../syntax/source_position.dart';
-import '../syntax/json_formatting.dart';
-import '../syntax/yaml_formatting.dart';
 
 /// Base class for value nodes that correspond to ValueObject instances.
 ///
@@ -15,18 +12,7 @@ abstract class ValueNode<T, O extends ValueObject<T>> extends TreeNode {
   /// accessed through this reference.
   final O valueObject;
 
-  ValueNode(
-    this.valueObject, {
-    String? id,
-    SourceRange? sourceRange,
-    JsonFormattingInfo? jsonFormatting,
-    YamlFormattingInfo? yamlFormatting,
-  }) : super(
-          id: id,
-          sourceRange: sourceRange ?? valueObject.sourceRange,
-          jsonFormatting: jsonFormatting ?? valueObject.jsonFormatting,
-          yamlFormatting: yamlFormatting ?? valueObject.yamlFormatting,
-        );
+  ValueNode(this.valueObject, {String? id}) : super(id: id);
 
   /// The semantic value.
   T get value => valueObject.value;
@@ -40,15 +26,10 @@ abstract class ValueNode<T, O extends ValueObject<T>> extends TreeNode {
 /// Access JSON/YAML string styling via [valueObject.jsonStringStyle] and
 /// [valueObject.yamlStringStyle].
 class StringValueNode extends ValueNode<String, StringValue> {
-  StringValueNode(super.valueObject, {super.id, super.sourceRange, super.jsonFormatting, super.yamlFormatting});
+  StringValueNode(super.valueObject, {super.id});
 
   @override
-  StringValueNode clone() => StringValueNode(
-        valueObject,
-        sourceRange: sourceRange,
-        jsonFormatting: jsonFormatting,
-        yamlFormatting: yamlFormatting,
-      );
+  StringValueNode clone() => StringValueNode(valueObject);
 
   @override
   T accept<T>(TreeNodeVisitor<T> visitor) => visitor.visitNode(this);
@@ -62,15 +43,10 @@ class StringValueNode extends ValueNode<String, StringValue> {
 /// Access JSON/YAML number styling via [valueObject.jsonNumberStyle] and
 /// [valueObject.yamlNumberStyle].
 class IntValueNode extends ValueNode<int, IntValue> {
-  IntValueNode(super.valueObject, {super.id, super.sourceRange, super.jsonFormatting, super.yamlFormatting});
+  IntValueNode(super.valueObject, {super.id});
 
   @override
-  IntValueNode clone() => IntValueNode(
-        valueObject,
-        sourceRange: sourceRange,
-        jsonFormatting: jsonFormatting,
-        yamlFormatting: yamlFormatting,
-      );
+  IntValueNode clone() => IntValueNode(valueObject);
 
   @override
   T accept<T>(TreeNodeVisitor<T> visitor) => visitor.visitNode(this);
@@ -84,15 +60,10 @@ class IntValueNode extends ValueNode<int, IntValue> {
 /// Access JSON/YAML number styling via [valueObject.jsonNumberStyle] and
 /// [valueObject.yamlNumberStyle].
 class DoubleValueNode extends ValueNode<double, DoubleValue> {
-  DoubleValueNode(super.valueObject, {super.id, super.sourceRange, super.jsonFormatting, super.yamlFormatting});
+  DoubleValueNode(super.valueObject, {super.id});
 
   @override
-  DoubleValueNode clone() => DoubleValueNode(
-        valueObject,
-        sourceRange: sourceRange,
-        jsonFormatting: jsonFormatting,
-        yamlFormatting: yamlFormatting,
-      );
+  DoubleValueNode clone() => DoubleValueNode(valueObject);
 
   @override
   T accept<T>(TreeNodeVisitor<T> visitor) => visitor.visitNode(this);
@@ -106,15 +77,10 @@ class DoubleValueNode extends ValueNode<double, DoubleValue> {
 /// Access YAML bool styling via [valueObject.yamlBoolStyle].
 /// JSON booleans are always "true" or "false".
 class BoolValueNode extends ValueNode<bool, BoolValue> {
-  BoolValueNode(super.valueObject, {super.id, super.sourceRange, super.jsonFormatting, super.yamlFormatting});
+  BoolValueNode(super.valueObject, {super.id});
 
   @override
-  BoolValueNode clone() => BoolValueNode(
-        valueObject,
-        sourceRange: sourceRange,
-        jsonFormatting: jsonFormatting,
-        yamlFormatting: yamlFormatting,
-      );
+  BoolValueNode clone() => BoolValueNode(valueObject);
 
   @override
   T accept<T>(TreeNodeVisitor<T> visitor) => visitor.visitNode(this);
@@ -128,15 +94,10 @@ class BoolValueNode extends ValueNode<bool, BoolValue> {
 /// Access YAML null styling via [valueObject.yamlNullStyle].
 /// JSON null is always "null".
 class NullValueNode extends ValueNode<Null, NullValue> {
-  NullValueNode(super.valueObject, {super.id, super.sourceRange, super.jsonFormatting, super.yamlFormatting});
+  NullValueNode(super.valueObject, {super.id});
 
   @override
-  NullValueNode clone() => NullValueNode(
-        valueObject,
-        sourceRange: sourceRange,
-        jsonFormatting: jsonFormatting,
-        yamlFormatting: yamlFormatting,
-      );
+  NullValueNode clone() => NullValueNode(valueObject);
 
   @override
   T accept<T>(TreeNodeVisitor<T> visitor) => visitor.visitNode(this);
@@ -144,4 +105,3 @@ class NullValueNode extends ValueNode<Null, NullValue> {
   @override
   String toString() => 'NullValueNode(null)';
 }
-

@@ -17,7 +17,7 @@ part of 'manual_domain_example.dart';
 
 /// Generated node for BlogPost
 class BlogPostNode extends CollectionNode {
-  BlogPostNode({super.id, super.sourceRange, super.jsonFormatting, super.yamlFormatting});
+  BlogPostNode({super.id});
 
   StringValueNode get title => $children!['title']! as StringValueNode;
   StringValueNode? get author => $children?['author'] as StringValueNode?;
@@ -25,46 +25,38 @@ class BlogPostNode extends CollectionNode {
   CommentsListNode get comments => $children!['comments']! as CommentsListNode;
 
   @override
-  BlogPostNode clone() =>
-      BlogPostNode(id: id, sourceRange: sourceRange, jsonFormatting: jsonFormatting, yamlFormatting: yamlFormatting);
+  BlogPostNode clone() => BlogPostNode(id: id);
 }
 
 /// Generated node for Content
 class ContentNode extends CollectionNode {
-  ContentNode({super.id, super.sourceRange, super.jsonFormatting, super.yamlFormatting});
+  ContentNode({super.id});
 
   StringValueNode get body => $children!['body']! as StringValueNode;
   IntValueNode? get wordCount => $children?['wordCount'] as IntValueNode?;
 
   @override
-  ContentNode clone() =>
-      ContentNode(id: id, sourceRange: sourceRange, jsonFormatting: jsonFormatting, yamlFormatting: yamlFormatting);
+  ContentNode clone() => ContentNode(id: id);
 }
 
 /// Generated node for Comment
 class CommentNode extends CollectionNode {
-  CommentNode({super.id, super.sourceRange, super.jsonFormatting, super.yamlFormatting});
+  CommentNode({super.id});
 
   StringValueNode get author => $children!['author']! as StringValueNode;
   StringValueNode get text => $children!['text']! as StringValueNode;
   BoolValueNode get approved => $children!['approved']! as BoolValueNode;
 
   @override
-  CommentNode clone() =>
-      CommentNode(id: id, sourceRange: sourceRange, jsonFormatting: jsonFormatting, yamlFormatting: yamlFormatting);
+  CommentNode clone() => CommentNode(id: id);
 }
 
 /// Generated list node for CommentsList
 class CommentsListNode extends ListTreeNode<CommentNode> {
-  CommentsListNode({super.id, super.sourceRange, super.jsonFormatting, super.yamlFormatting});
+  CommentsListNode({super.id});
 
   @override
-  CommentsListNode clone() => CommentsListNode(
-    id: id,
-    sourceRange: sourceRange,
-    jsonFormatting: jsonFormatting,
-    yamlFormatting: yamlFormatting,
-  );
+  CommentsListNode clone() => CommentsListNode(id: id);
 }
 
 // =============================================================================
@@ -76,59 +68,19 @@ extension BlogTreeExtension on BlogTree {
   (TreeNode, List<(Edge, Object)>)? objectToNode(Object object) {
     // Value objects
     if (object is StringValue) {
-      return (
-        StringValueNode(
-          object,
-          sourceRange: object.sourceRange,
-          jsonFormatting: object.jsonFormatting,
-          yamlFormatting: object.yamlFormatting,
-        ),
-        [],
-      );
+      return (StringValueNode(object), []);
     }
     if (object is IntValue) {
-      return (
-        IntValueNode(
-          object,
-          sourceRange: object.sourceRange,
-          jsonFormatting: object.jsonFormatting,
-          yamlFormatting: object.yamlFormatting,
-        ),
-        [],
-      );
+      return (IntValueNode(object), []);
     }
     if (object is BoolValue) {
-      return (
-        BoolValueNode(
-          object,
-          sourceRange: object.sourceRange,
-          jsonFormatting: object.jsonFormatting,
-          yamlFormatting: object.yamlFormatting,
-        ),
-        [],
-      );
+      return (BoolValueNode(object), []);
     }
     if (object is DoubleValue) {
-      return (
-        DoubleValueNode(
-          object,
-          sourceRange: object.sourceRange,
-          jsonFormatting: object.jsonFormatting,
-          yamlFormatting: object.yamlFormatting,
-        ),
-        [],
-      );
+      return (DoubleValueNode(object), []);
     }
     if (object is NullValue) {
-      return (
-        NullValueNode(
-          object,
-          sourceRange: object.sourceRange,
-          jsonFormatting: object.jsonFormatting,
-          yamlFormatting: object.yamlFormatting,
-        ),
-        [],
-      );
+      return (NullValueNode(object), []);
     }
 
     // Domain objects
@@ -330,7 +282,7 @@ CommentsList _$CommentsListFromJson(dynamic json) {
   if (json is! List) {
     throw ArgumentError('Expected List, got ${json.runtimeType}');
   }
-  return CommentsList(json.map((e) => Comment.fromJson(e)).toList());
+  return CommentsList(json.map((e) => CommentSerialization.fromJson(e)).toList());
 }
 
 /// Deserializes [CommentsList] from YAML.
@@ -338,7 +290,7 @@ CommentsList _$CommentsListFromYaml(dynamic yaml) {
   if (yaml is! List && yaml is! Iterable) {
     throw ArgumentError('Expected List or Iterable, got ${yaml.runtimeType}');
   }
-  return CommentsList((yaml as Iterable).map((e) => Comment.fromYaml(e)).toList());
+  return CommentsList((yaml as Iterable).map((e) => CommentSerialization.fromYaml(e)).toList());
 }
 
 /// Generated serialization methods for CommentsList
@@ -412,8 +364,8 @@ BlogPost _$BlogPostFromJson(dynamic json) {
   return BlogPost(
     title: StringValue.fromJson(json['title']),
     author: json['author'] == null ? null : StringValue.fromJson(json['author']),
-    content: Content.fromJson(json['content']),
-    comments: CommentsList.fromJson(json['comments']),
+    content: ContentSerialization.fromJson(json['content']),
+    comments: CommentsListSerialization.fromJson(json['comments']),
   );
 }
 
@@ -425,8 +377,8 @@ BlogPost _$BlogPostFromYaml(dynamic yaml) {
   return BlogPost(
     title: StringValue.fromYaml(yaml['title']),
     author: yaml['author'] == null ? null : StringValue.fromYaml(yaml['author']),
-    content: Content.fromYaml(yaml['content']),
-    comments: CommentsList.fromYaml(yaml['comments']),
+    content: ContentSerialization.fromYaml(yaml['content']),
+    comments: CommentsListSerialization.fromYaml(yaml['comments']),
   );
 }
 
@@ -465,35 +417,5 @@ extension ContentSerialization on Content {
 
   static Content fromYaml(dynamic yaml) {
     return _$ContentFromYaml(yaml);
-  }
-}
-
-/// Generated serialization methods for Comment
-extension CommentSerialization on Comment {
-  String toJson() {
-    return _$CommentToJson(this);
-  }
-
-  String toYaml() {
-    return _$CommentToYaml(this);
-  }
-
-  static Comment fromJson(dynamic json) {
-    return _$CommentFromJson(json);
-  }
-
-  static Comment fromYaml(dynamic yaml) {
-    return _$CommentFromYaml(yaml);
-  }
-}
-
-/// Generated serialization methods for CommentsList
-extension CommentsListSerialization on CommentsList {
-  static CommentsList fromJson(dynamic json) {
-    return _$CommentsListFromJson(json);
-  }
-
-  static CommentsList fromYaml(dynamic yaml) {
-    return _$CommentsListFromYaml(yaml);
   }
 }

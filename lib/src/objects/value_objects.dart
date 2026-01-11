@@ -9,7 +9,7 @@ abstract class ValueObject<T> extends TreeObject {
   /// The semantic value.
   final T value;
 
-  const ValueObject(this.value, {super.sourceRange, super.jsonFormatting, super.yamlFormatting});
+  const ValueObject(this.value);
 
   @override
   String toString() => '${runtimeType}($value)';
@@ -34,14 +34,7 @@ class StringValue extends ValueObject<String> {
   /// YAML-specific string styling (quote style, block scalars, etc.).
   final YamlStringStyle? yamlStringStyle;
 
-  const StringValue(
-    super.value, {
-    super.sourceRange,
-    super.jsonFormatting,
-    super.yamlFormatting,
-    this.jsonStringStyle,
-    this.yamlStringStyle,
-  });
+  const StringValue(super.value, {this.jsonStringStyle, this.yamlStringStyle});
 
   @override
   String toJson() {
@@ -410,7 +403,8 @@ class StringValue extends ValueObject<String> {
         chomping = YamlBlockChomping.keep;
       } else if (char == '-') {
         chomping = YamlBlockChomping.strip;
-      } else if (char.codeUnitAt(0) >= 48 && char.codeUnitAt(0) <= 57) { // '0' to '9'
+      } else if (char.codeUnitAt(0) >= 48 && char.codeUnitAt(0) <= 57) {
+        // '0' to '9'
         blockIndent = int.parse(char);
       }
       pos++;
@@ -446,14 +440,7 @@ class IntValue extends ValueObject<int> {
   /// YAML-specific number styling (hex, octal, binary, etc.).
   final YamlNumberStyle? yamlNumberStyle;
 
-  const IntValue(
-    super.value, {
-    super.sourceRange,
-    super.jsonFormatting,
-    super.yamlFormatting,
-    this.jsonNumberStyle,
-    this.yamlNumberStyle,
-  });
+  const IntValue(super.value, {this.jsonNumberStyle, this.yamlNumberStyle});
 
   @override
   String toJson() {
@@ -577,14 +564,7 @@ class DoubleValue extends ValueObject<double> {
   /// YAML-specific number styling (special floats like .inf, .nan, etc.).
   final YamlNumberStyle? yamlNumberStyle;
 
-  const DoubleValue(
-    super.value, {
-    super.sourceRange,
-    super.jsonFormatting,
-    super.yamlFormatting,
-    this.jsonNumberStyle,
-    this.yamlNumberStyle,
-  });
+  const DoubleValue(super.value, {this.jsonNumberStyle, this.yamlNumberStyle});
 
   @override
   String toJson() {
@@ -725,7 +705,7 @@ class BoolValue extends ValueObject<bool> {
   /// JSON booleans are always "true" or "false", so no JSON style needed.
   final YamlBoolStyle? yamlBoolStyle;
 
-  const BoolValue(super.value, {super.sourceRange, super.jsonFormatting, super.yamlFormatting, this.yamlBoolStyle});
+  const BoolValue(super.value, {this.yamlBoolStyle});
 
   @override
   String toJson() => value ? 'true' : 'false';
@@ -774,7 +754,7 @@ class NullValue extends ValueObject<Null> {
   /// JSON null is always "null", so no JSON style needed.
   final YamlNullStyle? yamlNullStyle;
 
-  const NullValue({super.sourceRange, super.jsonFormatting, super.yamlFormatting, this.yamlNullStyle}) : super(null);
+  const NullValue({this.yamlNullStyle}) : super(null);
 
   @override
   String toJson() => 'null';

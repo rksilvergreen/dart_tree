@@ -1,7 +1,4 @@
 import 'package:uuid/uuid.dart';
-import '../syntax/source_position.dart';
-import '../syntax/json_formatting.dart';
-import '../syntax/yaml_formatting.dart';
 import '../tree.dart';
 
 const _uuid = Uuid();
@@ -14,19 +11,6 @@ abstract class TreeNode {
   /// Unique identifier for this node.
   final String id;
 
-  /// The source range in the original file (if parsed).
-  SourceRange? sourceRange;
-
-  /// JSON-specific formatting information.
-  ///
-  /// Populated when parsing from JSON or when explicitly set for JSON serialization.
-  JsonFormattingInfo? jsonFormatting;
-
-  /// YAML-specific formatting information.
-  ///
-  /// Populated when parsing from YAML or when explicitly set for YAML serialization.
-  YamlFormattingInfo? yamlFormatting;
-
   /// Reference to the tree this node belongs to.
   /// This is managed internally by the Tree class.
   Tree? _tree;
@@ -37,7 +21,7 @@ abstract class TreeNode {
   /// Internal setter for tree reference (used by Tree class).
   set tree(Tree? value) => _tree = value;
 
-  TreeNode({String? id, this.sourceRange, this.jsonFormatting, this.yamlFormatting}) : id = id ?? _uuid.v4();
+  TreeNode({String? id}) : id = id ?? _uuid.v4();
 
   // Public accessors for generated code
 
@@ -91,12 +75,12 @@ abstract class TreeNode {
 abstract class ValueNode<T> extends TreeNode {
   T get value;
 
-  ValueNode({super.id, super.sourceRange, super.jsonFormatting, super.yamlFormatting});
+  ValueNode({super.id});
 }
 
 /// Abstract base class for collection nodes (nodes with children).
 abstract class CollectionNode extends TreeNode {
-  CollectionNode({super.id, super.sourceRange, super.jsonFormatting, super.yamlFormatting});
+  CollectionNode({super.id});
 }
 
 /// Visitor interface for traversing tree nodes.

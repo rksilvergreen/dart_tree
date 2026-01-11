@@ -1,6 +1,6 @@
-import '../syntax/source_position.dart';
-import '../syntax/json_formatting.dart';
-import '../syntax/yaml_formatting.dart';
+import 'value_objects.dart';
+import 'union_objects.dart';
+
 
 /// Base class for all user-defined domain objects.
 ///
@@ -17,23 +17,11 @@ import '../syntax/yaml_formatting.dart';
 ///   Operation({
 ///     this.operationId,
 ///     required this.requestBody,
-///     super.sourceRange,
-///     super.jsonFormatting,
-///     super.yamlFormatting,
 ///   });
 /// }
 /// ```
 abstract class TreeObject {
-  /// The source range in the original file (if parsed).
-  final SourceRange? sourceRange;
-
-  /// JSON-specific formatting information.
-  final JsonFormattingInfo? jsonFormatting;
-
-  /// YAML-specific formatting information.
-  final YamlFormattingInfo? yamlFormatting;
-
-  const TreeObject({this.sourceRange, this.jsonFormatting, this.yamlFormatting});
+  const TreeObject();
 
   /// Encodes this object to a JSON string.
   /// 
@@ -58,6 +46,22 @@ abstract class TreeObject {
   static Never fromJson(dynamic json) {
     throw UnsupportedError('fromJson must be implemented as a static method in subclasses');
   }
+
+  // static T fromJson<T extends TreeObject>(dynamic json) {
+  //   late final T object;
+  //   if (T == StringValue) {
+  //     object = StringValue.fromJson(json) as T;
+  //   } else if (T == IntValue) {
+  //     object = IntValue.fromJson(json) as T;
+  //   } else if (T == DoubleValue) {
+  //     object = DoubleValue.fromJson(json) as T;
+  //   } else if (T == BoolValue) {
+  //     object = BoolValue.fromJson(json) as T;
+  //   } else if (T == NullValue) {
+  //     object = NullValue.fromJson(json) as T;
+  //   }
+  //   return object;
+  // }
 
   /// Decodes a YAML value to a TreeObject.
   /// 

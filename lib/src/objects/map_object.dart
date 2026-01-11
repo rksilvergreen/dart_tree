@@ -25,14 +25,7 @@ abstract class MapObject<CHILD_OBJECT extends TreeObject> extends TreeObject wit
   /// YAML-specific mapping styling.
   final YamlMappingStyle? yamlMappingStyle;
 
-  MapObject(
-    Map<String, CHILD_OBJECT> entries, {
-    super.sourceRange,
-    super.jsonFormatting,
-    super.yamlFormatting,
-    this.jsonObjectStyle,
-    this.yamlMappingStyle,
-  }) : _entries = entries;
+  MapObject(Map<String, CHILD_OBJECT> entries, {this.jsonObjectStyle, this.yamlMappingStyle}) : _entries = entries;
 
   @override
   CHILD_OBJECT? operator [](Object? key) => _entries[key];
