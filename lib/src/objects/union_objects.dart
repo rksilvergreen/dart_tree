@@ -61,10 +61,12 @@ class UnionObject2<T1 extends TreeObject, T2 extends TreeObject> extends TreeObj
   String toYaml() => _value.toYaml();
 
   /// Attempts to decode from JSON by trying each type in order.
+  /// 
+  /// Input should be the raw JSON string for the value.
   static UnionObject2<T1, T2> fromJson<T1 extends TreeObject, T2 extends TreeObject>(
-    dynamic json,
-    T1 Function(dynamic) fromJsonT1,
-    T2 Function(dynamic) fromJsonT2,
+    String json,
+    T1 Function(String) fromJsonT1,
+    T2 Function(String) fromJsonT2,
   ) {
     try {
       return UnionObject2.first(fromJsonT1(json));
@@ -72,16 +74,18 @@ class UnionObject2<T1 extends TreeObject, T2 extends TreeObject> extends TreeObj
       try {
         return UnionObject2.second(fromJsonT2(json));
       } catch (e) {
-        throw ArgumentError('Could not decode UnionObject2 from JSON: $e');
+        throw FormatException('Could not decode UnionObject2 from JSON: $e');
       }
     }
   }
 
   /// Attempts to decode from YAML by trying each type in order.
+  /// 
+  /// Input should be the raw YAML string for the value.
   static UnionObject2<T1, T2> fromYaml<T1 extends TreeObject, T2 extends TreeObject>(
-    dynamic yaml,
-    T1 Function(dynamic) fromYamlT1,
-    T2 Function(dynamic) fromYamlT2,
+    String yaml,
+    T1 Function(String) fromYamlT1,
+    T2 Function(String) fromYamlT2,
   ) {
     try {
       return UnionObject2.first(fromYamlT1(yaml));
@@ -89,7 +93,7 @@ class UnionObject2<T1 extends TreeObject, T2 extends TreeObject> extends TreeObj
       try {
         return UnionObject2.second(fromYamlT2(yaml));
       } catch (e) {
-        throw ArgumentError('Could not decode UnionObject2 from YAML: $e');
+        throw FormatException('Could not decode UnionObject2 from YAML: $e');
       }
     }
   }

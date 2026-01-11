@@ -170,10 +170,14 @@ class YamlNumberStyle {
   /// The original representation (e.g., "0xFF", "1_000").
   final String? originalRepresentation;
 
+  /// Number of decimal places for floats (e.g., 2 for "1.00").
+  final int? decimalPlaces;
+
   const YamlNumberStyle({
     required this.format,
     this.hasUnderscores,
     this.originalRepresentation,
+    this.decimalPlaces,
   });
 
   @override
@@ -182,13 +186,15 @@ class YamlNumberStyle {
       other is YamlNumberStyle &&
           format == other.format &&
           hasUnderscores == other.hasUnderscores &&
-          originalRepresentation == other.originalRepresentation;
+          originalRepresentation == other.originalRepresentation &&
+          decimalPlaces == other.decimalPlaces;
 
   @override
   int get hashCode => Object.hash(
         format,
         hasUnderscores,
         originalRepresentation,
+        decimalPlaces,
       );
 }
 

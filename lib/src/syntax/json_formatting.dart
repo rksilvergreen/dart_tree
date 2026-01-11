@@ -122,11 +122,15 @@ class JsonNumberStyle {
   /// The original representation (e.g., "1.0" vs "1.00").
   final String? originalRepresentation;
 
+  /// Whether exponential notation was used (e.g., "1e10").
+  final bool? isExponential;
+
   const JsonNumberStyle({
     this.format = JsonNumberFormat.decimal,
     this.decimalPlaces,
     this.negativeZero,
     this.originalRepresentation,
+    this.isExponential,
   });
 
   @override
@@ -136,10 +140,11 @@ class JsonNumberStyle {
           format == other.format &&
           decimalPlaces == other.decimalPlaces &&
           negativeZero == other.negativeZero &&
-          originalRepresentation == other.originalRepresentation;
+          originalRepresentation == other.originalRepresentation &&
+          isExponential == other.isExponential;
 
   @override
-  int get hashCode => Object.hash(format, decimalPlaces, negativeZero, originalRepresentation);
+  int get hashCode => Object.hash(format, decimalPlaces, negativeZero, originalRepresentation, isExponential);
 }
 
 /// Style metadata for JSON arrays.

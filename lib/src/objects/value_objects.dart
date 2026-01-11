@@ -1,7 +1,6 @@
 import 'tree_object.dart';
 import '../syntax/json_formatting.dart';
 import '../syntax/yaml_formatting.dart';
-import '../syntax/source_position.dart';
 
 /// Base class for value objects that hold primitive data.
 ///
@@ -196,7 +195,6 @@ class StringValue extends ValueObject<String> {
         }
 
         final nextChar = jsonString[pos + 1];
-        final escapeStart = pos;
 
         switch (nextChar) {
           case '"':
@@ -412,7 +410,7 @@ class StringValue extends ValueObject<String> {
         chomping = YamlBlockChomping.keep;
       } else if (char == '-') {
         chomping = YamlBlockChomping.strip;
-      } else if (char >= '0' && char <= '9') {
+      } else if (char.codeUnitAt(0) >= 48 && char.codeUnitAt(0) <= 57) { // '0' to '9'
         blockIndent = int.parse(char);
       }
       pos++;

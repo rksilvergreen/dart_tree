@@ -60,6 +60,7 @@ export 'src/operations/query.dart';
 // I/O
 export 'src/io/tree_object_json_decoder.dart';
 export 'src/io/tree_object_yaml_decoder.dart';
+export 'src/io/parsing_utils.dart';
 
 // Utilities
 export 'src/utils/pointer.dart';
