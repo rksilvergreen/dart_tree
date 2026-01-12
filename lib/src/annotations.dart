@@ -94,9 +94,14 @@ const generateTree = GenerateTree();
 ///   },
 /// );
 /// ```
+/// @deprecated Use @schema from schema.dart instead. This annotation is obsolete
+/// in the schema-first architecture.
+@Deprecated('Use @schema from package:dart_tree/dart_tree.dart instead')
 class JsonSchema {
   const JsonSchema();
 }
 
-/// Short alias for @JsonSchema().
+/// @deprecated Use @schema from schema.dart instead. This annotation is obsolete
+/// in the schema-first architecture.
+@Deprecated('Use @schema from package:dart_tree/dart_tree.dart instead')
 const jsonSchema = JsonSchema();
