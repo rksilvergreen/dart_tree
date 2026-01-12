@@ -1,9 +1,9 @@
 import 'package:dart_tree/dart_tree.dart';
 
-part 'blog_post.g.dart';
+part 'blog_post_schema.g.dart';
 
 @jsonSchema
-final blogPost = $Object(
+const blogPost = $Object(
   title: 'BlogPost',
   required: ['title', 'content'],
   properties: {
@@ -16,21 +16,21 @@ final blogPost = $Object(
 );
 
 @jsonSchema
-final comment = $Object(
+const comment = $Object(
   title: 'Comment',
   required: ['content'],
   properties: {'content': $String(minLength: 1, maxLength: 1000)},
 );
 
 @jsonSchema
-final user = $Object(
+const user = $Object(
   title: 'User',
   required: ['name', 'email'],
   properties: {'name': $String(minLength: 1, maxLength: 100), 'email': $String(minLength: 1, maxLength: 100)},
 );
 
 @jsonSchema
-final admin = $Object(
+const admin = $Object(
   title: 'Admin',
   required: ['age', 'address'],
   properties: {'age': $Integer(minimum: 18), 'address': $String(minLength: 1, maxLength: 100)},

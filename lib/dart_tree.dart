@@ -29,10 +29,13 @@ export 'src/objects/tree_object.dart';
 export 'src/objects/value_objects.dart';
 export 'src/objects/list_object.dart';
 export 'src/objects/map_object.dart';
-export 'src/objects/union_object.dart';
+export 'src/objects/union_objects.dart';
 
 // Annotations
 export 'src/annotations.dart' hide TreeObject;
+
+// Schema definitions
+export 'src/schema/schema.dart';
 
 // Core node types
 export 'src/nodes/tree_node.dart' hide ValueNode;

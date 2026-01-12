@@ -1,10 +1,10 @@
 // enum ????
 
-class _ {
-  const _();
+class _Schema {
+  const _Schema();
 }
 
-const jsonSchema = const _();
+const schema = const _Schema();
 
 abstract class $Schema {
   final String? title;
@@ -34,14 +34,14 @@ class $Integer extends $Schema {
   });
 }
 
-class $Number extends $Schema {
+class $Double extends $Schema {
   final double? minimum;
   final double? exclusiveMinimum;
   final double? maximum;
   final double? exclusiveMaximum;
   final double? multipleOf;
 
-  const $Number({
+  const $Double({
     super.title,
     this.minimum,
     this.exclusiveMinimum,
