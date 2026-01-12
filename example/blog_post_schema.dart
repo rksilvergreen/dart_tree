@@ -1,7 +1,5 @@
 import 'package:dart_tree/dart_tree.dart';
 
-part 'blog_post_schema.g.dart';
-
 @schema
 const blogPost = $Object(
   title: 'BlogPost',
