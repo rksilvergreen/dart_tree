@@ -34,26 +34,12 @@ class CommentObject extends TreeObject {
 
   @override
   String toJson() {
-    final buffer = StringBuffer();
-    buffer.write('{');
-    int index = 0;
-    if (index > 0) buffer.write(', ');
-    buffer.write('"${'content'}": ');
-    buffer.write(content.toJson());
-    index++;
-    buffer.write('}');
-    return buffer.toString();
+    return '{"${'content'}": ' + content.toJson() + '}';
   }
 
   @override
   String toYaml() {
-    final buffer = StringBuffer();
-    int index = 0;
-    if (index > 0) buffer.writeln();
-    buffer.write('content: ');
-    buffer.write(content.toYaml());
-    index++;
-    return buffer.toString();
+    return 'content: ' + content.toYaml();
   }
 
   static CommentObject fromJson(String json) {
@@ -89,15 +75,11 @@ class UserObject extends TreeObject {
   String toJson() {
     final buffer = StringBuffer();
     buffer.write('{');
-    int index = 0;
-    if (index > 0) buffer.write(', ');
     buffer.write('"${'name'}": ');
     buffer.write(name.toJson());
-    index++;
-    if (index > 0) buffer.write(', ');
+    buffer.write(', ');
     buffer.write('"${'email'}": ');
     buffer.write(email.toJson());
-    index++;
     buffer.write('}');
     return buffer.toString();
   }
@@ -105,26 +87,28 @@ class UserObject extends TreeObject {
   @override
   String toYaml() {
     final buffer = StringBuffer();
-    int index = 0;
-    if (index > 0) buffer.writeln();
     buffer.write('name: ');
     buffer.write(name.toYaml());
-    index++;
-    if (index > 0) buffer.writeln();
+    buffer.writeln();
     buffer.write('email: ');
     buffer.write(email.toYaml());
-    index++;
     return buffer.toString();
   }
 
   static UserObject fromJson(String json) {
     final map = extractJsonObjectFields(json);
-    return UserObject(name: StringValue.fromJson(map['name']!), email: StringValue.fromJson(map['email']!));
+    return UserObject(
+      name: StringValue.fromJson(map['name']!),
+      email: StringValue.fromJson(map['email']!),
+    );
   }
 
   static UserObject fromYaml(String yaml) {
     final map = extractYamlMappingFields(yaml);
-    return UserObject(name: StringValue.fromYaml(map['name']!), email: StringValue.fromYaml(map['email']!));
+    return UserObject(
+      name: StringValue.fromYaml(map['name']!),
+      email: StringValue.fromYaml(map['email']!),
+    );
   }
 }
 
@@ -136,7 +120,13 @@ class BlogPostObject extends TreeObject {
   final CommentsListObject? comments;
   final UserObject? user;
 
-  BlogPostObject({required this.title, this.author, required this.content, this.comments, this.user}) {
+  BlogPostObject({
+    required this.title,
+    this.author,
+    required this.content,
+    this.comments,
+    this.user,
+  }) {
     {
       if (title.value.length < 1 || title.value.length > 100) {
         throw ArgumentError('title must be 1-100 characters');
@@ -161,32 +151,25 @@ class BlogPostObject extends TreeObject {
   String toJson() {
     final buffer = StringBuffer();
     buffer.write('{');
-    int index = 0;
-    if (index > 0) buffer.write(', ');
     buffer.write('"${'title'}": ');
     buffer.write(title.toJson());
-    index++;
     if (author != null) {
-      if (index > 0) buffer.write(', ');
+      buffer.write(', ');
       buffer.write('"${'author'}": ');
       buffer.write(author!.toJson());
-      index++;
     }
-    if (index > 0) buffer.write(', ');
+    buffer.write(', ');
     buffer.write('"${'content'}": ');
     buffer.write(content.toJson());
-    index++;
     if (comments != null) {
-      if (index > 0) buffer.write(', ');
+      buffer.write(', ');
       buffer.write('"${'comments'}": ');
       buffer.write(comments!.toJson());
-      index++;
     }
     if (user != null) {
-      if (index > 0) buffer.write(', ');
+      buffer.write(', ');
       buffer.write('"${'user'}": ');
       buffer.write(user!.toJson());
-      index++;
     }
     buffer.write('}');
     return buffer.toString();
@@ -195,32 +178,25 @@ class BlogPostObject extends TreeObject {
   @override
   String toYaml() {
     final buffer = StringBuffer();
-    int index = 0;
-    if (index > 0) buffer.writeln();
     buffer.write('title: ');
     buffer.write(title.toYaml());
-    index++;
     if (author != null) {
-      if (index > 0) buffer.writeln();
+      buffer.writeln();
       buffer.write('author: ');
       buffer.write(author!.toYaml());
-      index++;
     }
-    if (index > 0) buffer.writeln();
+    buffer.writeln();
     buffer.write('content: ');
     buffer.write(content.toYaml());
-    index++;
     if (comments != null) {
-      if (index > 0) buffer.writeln();
+      buffer.writeln();
       buffer.write('comments: ');
       buffer.write(comments!.toYaml());
-      index++;
     }
     if (user != null) {
-      if (index > 0) buffer.writeln();
+      buffer.writeln();
       buffer.write('user: ');
       buffer.write(user!.toYaml());
-      index++;
     }
     return buffer.toString();
   }
@@ -229,11 +205,15 @@ class BlogPostObject extends TreeObject {
     final map = extractJsonObjectFields(json);
     return BlogPostObject(
       title: StringValue.fromJson(map['title']!),
-      author: map.containsKey('author') ? StringValue.fromJson(map['author']!) : null,
+      author: map.containsKey('author')
+          ? StringValue.fromJson(map['author']!)
+          : null,
       content: StringValue.fromJson(map['content']!),
       comments: map.containsKey('comments')
           ? CommentsListObject(
-              extractJsonArrayElements(map['comments']!).map((item) => CommentObject.fromJson(item)).toList(),
+              extractJsonArrayElements(
+                map['comments']!,
+              ).map((item) => CommentObject.fromJson(item)).toList(),
             )
           : null,
       user: map.containsKey('user') ? UserObject.fromJson(map['user']!) : null,
@@ -244,11 +224,15 @@ class BlogPostObject extends TreeObject {
     final map = extractYamlMappingFields(yaml);
     return BlogPostObject(
       title: StringValue.fromYaml(map['title']!),
-      author: map.containsKey('author') ? StringValue.fromYaml(map['author']!) : null,
+      author: map.containsKey('author')
+          ? StringValue.fromYaml(map['author']!)
+          : null,
       content: StringValue.fromYaml(map['content']!),
       comments: map.containsKey('comments')
           ? CommentsListObject(
-              extractYamlSequenceElements(map['comments']!).map((item) => CommentObject.fromYaml(item)).toList(),
+              extractYamlSequenceElements(
+                map['comments']!,
+              ).map((item) => CommentObject.fromYaml(item)).toList(),
             )
           : null,
       user: map.containsKey('user') ? UserObject.fromYaml(map['user']!) : null,
@@ -278,15 +262,11 @@ class AdminObject extends TreeObject {
   String toJson() {
     final buffer = StringBuffer();
     buffer.write('{');
-    int index = 0;
-    if (index > 0) buffer.write(', ');
     buffer.write('"${'age'}": ');
     buffer.write(age.toJson());
-    index++;
-    if (index > 0) buffer.write(', ');
+    buffer.write(', ');
     buffer.write('"${'address'}": ');
     buffer.write(address.toJson());
-    index++;
     buffer.write('}');
     return buffer.toString();
   }
@@ -294,26 +274,28 @@ class AdminObject extends TreeObject {
   @override
   String toYaml() {
     final buffer = StringBuffer();
-    int index = 0;
-    if (index > 0) buffer.writeln();
     buffer.write('age: ');
     buffer.write(age.toYaml());
-    index++;
-    if (index > 0) buffer.writeln();
+    buffer.writeln();
     buffer.write('address: ');
     buffer.write(address.toYaml());
-    index++;
     return buffer.toString();
   }
 
   static AdminObject fromJson(String json) {
     final map = extractJsonObjectFields(json);
-    return AdminObject(age: IntValue.fromJson(map['age']!), address: StringValue.fromJson(map['address']!));
+    return AdminObject(
+      age: IntValue.fromJson(map['age']!),
+      address: StringValue.fromJson(map['address']!),
+    );
   }
 
   static AdminObject fromYaml(String yaml) {
     final map = extractYamlMappingFields(yaml);
-    return AdminObject(age: IntValue.fromYaml(map['age']!), address: StringValue.fromYaml(map['address']!));
+    return AdminObject(
+      age: IntValue.fromYaml(map['age']!),
+      address: StringValue.fromYaml(map['address']!),
+    );
   }
 }
 
@@ -331,7 +313,13 @@ class CommentNode extends CollectionNode {
     if (value.length < 1 || value.length > 1000) {
       throw ArgumentError('content must be 1-1000 characters');
     }
-    $children!['content'] = StringValueNode(StringValue(value));
+    final tree = $tree;
+    if (tree != null) {
+      final oldNode = content;
+      final newNode = StringValueNode(StringValue(value));
+      final newSubtree = Tree(root: newNode);
+      tree.replaceSubtree(node: oldNode, newSubtree: newSubtree);
+    }
   }
 
   @override
@@ -349,14 +337,26 @@ class UserNode extends CollectionNode {
     if (value.length < 1 || value.length > 100) {
       throw ArgumentError('name must be 1-100 characters');
     }
-    $children!['name'] = StringValueNode(StringValue(value));
+    final tree = $tree;
+    if (tree != null) {
+      final oldNode = name;
+      final newNode = StringValueNode(StringValue(value));
+      final newSubtree = Tree(root: newNode);
+      tree.replaceSubtree(node: oldNode, newSubtree: newSubtree);
+    }
   }
 
   set email(String value) {
     if (value.length < 1 || value.length > 100) {
       throw ArgumentError('email must be 1-100 characters');
     }
-    $children!['email'] = StringValueNode(StringValue(value));
+    final tree = $tree;
+    if (tree != null) {
+      final oldNode = email;
+      final newNode = StringValueNode(StringValue(value));
+      final newSubtree = Tree(root: newNode);
+      tree.replaceSubtree(node: oldNode, newSubtree: newSubtree);
+    }
   }
 
   @override
@@ -377,25 +377,57 @@ class BlogPostNode extends CollectionNode {
     if (value.length < 1 || value.length > 100) {
       throw ArgumentError('title must be 1-100 characters');
     }
-    $children!['title'] = StringValueNode(StringValue(value));
+    final tree = $tree;
+    if (tree != null) {
+      final oldNode = title;
+      final newNode = StringValueNode(StringValue(value));
+      final newSubtree = Tree(root: newNode);
+      tree.replaceSubtree(node: oldNode, newSubtree: newSubtree);
+    }
   }
 
   set author(String? value) {
     if (value == null) {
-      $children?.remove('author');
+      // Remove node from tree
+      final tree = $tree;
+      if (tree != null) {
+        final oldNode = author;
+        if (oldNode != null) {
+          tree.removeSubtree(oldNode);
+        }
+      }
       return;
     }
     if (value.length < 1 || value.length > 100) {
       throw ArgumentError('author must be 1-100 characters');
     }
-    $children!['author'] = StringValueNode(StringValue(value));
+    final tree = $tree;
+    if (tree != null) {
+      final oldNode = author;
+      final newNode = StringValueNode(StringValue(value));
+      if (oldNode != null) {
+        // Replace existing node
+        final newSubtree = Tree(root: newNode);
+        tree.replaceSubtree(node: oldNode, newSubtree: newSubtree);
+      } else {
+        // Add new node (property was null before)
+        final newSubtree = Tree(root: newNode);
+        tree.addSubtree(parent: this, key: 'author', subtree: newSubtree);
+      }
+    }
   }
 
   set content(String value) {
     if (value.length < 1 || value.length > 1000) {
       throw ArgumentError('content must be 1-1000 characters');
     }
-    $children!['content'] = StringValueNode(StringValue(value));
+    final tree = $tree;
+    if (tree != null) {
+      final oldNode = content;
+      final newNode = StringValueNode(StringValue(value));
+      final newSubtree = Tree(root: newNode);
+      tree.replaceSubtree(node: oldNode, newSubtree: newSubtree);
+    }
   }
 
   @override
@@ -413,14 +445,26 @@ class AdminNode extends CollectionNode {
     if (value < 18.0) {
       throw ArgumentError('age must be >= 18.0');
     }
-    $children!['age'] = IntValueNode(IntValue(value));
+    final tree = $tree;
+    if (tree != null) {
+      final oldNode = age;
+      final newNode = IntValueNode(IntValue(value));
+      final newSubtree = Tree(root: newNode);
+      tree.replaceSubtree(node: oldNode, newSubtree: newSubtree);
+    }
   }
 
   set address(String value) {
     if (value.length < 1 || value.length > 100) {
       throw ArgumentError('address must be 1-100 characters');
     }
-    $children!['address'] = StringValueNode(StringValue(value));
+    final tree = $tree;
+    if (tree != null) {
+      final oldNode = address;
+      final newNode = StringValueNode(StringValue(value));
+      final newSubtree = Tree(root: newNode);
+      tree.replaceSubtree(node: oldNode, newSubtree: newSubtree);
+    }
   }
 
   @override
