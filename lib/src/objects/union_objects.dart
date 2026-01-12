@@ -173,6 +173,50 @@ class UnionObject3<T1 extends TreeObject, T2 extends TreeObject, T3 extends Tree
   @override
   String toYaml() => _value.toYaml();
 
+  /// Attempts to decode from JSON by trying each type in order.
+  static UnionObject3<T1, T2, T3> fromJson<T1 extends TreeObject, T2 extends TreeObject, T3 extends TreeObject>(
+    String json,
+    T1 Function(String) fromJsonT1,
+    T2 Function(String) fromJsonT2,
+    T3 Function(String) fromJsonT3,
+  ) {
+    try {
+      return UnionObject3.first(fromJsonT1(json));
+    } catch (_) {
+      try {
+        return UnionObject3.second(fromJsonT2(json));
+      } catch (_) {
+        try {
+          return UnionObject3.third(fromJsonT3(json));
+        } catch (e) {
+          throw FormatException('Could not decode UnionObject3 from JSON: $e');
+        }
+      }
+    }
+  }
+
+  /// Attempts to decode from YAML by trying each type in order.
+  static UnionObject3<T1, T2, T3> fromYaml<T1 extends TreeObject, T2 extends TreeObject, T3 extends TreeObject>(
+    String yaml,
+    T1 Function(String) fromYamlT1,
+    T2 Function(String) fromYamlT2,
+    T3 Function(String) fromYamlT3,
+  ) {
+    try {
+      return UnionObject3.first(fromYamlT1(yaml));
+    } catch (_) {
+      try {
+        return UnionObject3.second(fromYamlT2(yaml));
+      } catch (_) {
+        try {
+          return UnionObject3.third(fromYamlT3(yaml));
+        } catch (e) {
+          throw FormatException('Could not decode UnionObject3 from YAML: $e');
+        }
+      }
+    }
+  }
+
   @override
   String toString() => 'UnionObject3<$T1,$T2,$T3>($_value)';
 
@@ -239,6 +283,62 @@ class UnionObject4<T1 extends TreeObject, T2 extends TreeObject, T3 extends Tree
 
   @override
   String toYaml() => _value.toYaml();
+
+  /// Attempts to decode from JSON by trying each type in order.
+  static UnionObject4<T1, T2, T3, T4>
+  fromJson<T1 extends TreeObject, T2 extends TreeObject, T3 extends TreeObject, T4 extends TreeObject>(
+    String json,
+    T1 Function(String) fromJsonT1,
+    T2 Function(String) fromJsonT2,
+    T3 Function(String) fromJsonT3,
+    T4 Function(String) fromJsonT4,
+  ) {
+    try {
+      return UnionObject4.first(fromJsonT1(json));
+    } catch (_) {
+      try {
+        return UnionObject4.second(fromJsonT2(json));
+      } catch (_) {
+        try {
+          return UnionObject4.third(fromJsonT3(json));
+        } catch (_) {
+          try {
+            return UnionObject4.fourth(fromJsonT4(json));
+          } catch (e) {
+            throw FormatException('Could not decode UnionObject4 from JSON: $e');
+          }
+        }
+      }
+    }
+  }
+
+  /// Attempts to decode from YAML by trying each type in order.
+  static UnionObject4<T1, T2, T3, T4>
+  fromYaml<T1 extends TreeObject, T2 extends TreeObject, T3 extends TreeObject, T4 extends TreeObject>(
+    String yaml,
+    T1 Function(String) fromYamlT1,
+    T2 Function(String) fromYamlT2,
+    T3 Function(String) fromYamlT3,
+    T4 Function(String) fromYamlT4,
+  ) {
+    try {
+      return UnionObject4.first(fromYamlT1(yaml));
+    } catch (_) {
+      try {
+        return UnionObject4.second(fromYamlT2(yaml));
+      } catch (_) {
+        try {
+          return UnionObject4.third(fromYamlT3(yaml));
+        } catch (_) {
+          try {
+            return UnionObject4.fourth(fromYamlT4(yaml));
+          } catch (e) {
+            throw FormatException('Could not decode UnionObject4 from YAML: $e');
+          }
+        }
+      }
+    }
+  }
 
   @override
   String toString() => 'UnionObject4<$T1,$T2,$T3,$T4>($_value)';

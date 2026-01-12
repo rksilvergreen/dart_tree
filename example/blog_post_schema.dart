@@ -35,6 +35,5 @@ const admin = $Object(
   properties: {'age': $Integer(minimum: 18), 'address': $String(minLength: 1, maxLength: 100)},
 );
 
-// Note: $Union support is not yet implemented
-// @schema
-// final person = $Union(title: 'Person', types: {user, admin});
+@schema
+const person = $Union(title: 'Person', types: {user, admin});

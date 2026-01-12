@@ -6,10 +6,12 @@ import '../objects/comment_object.dart';
 import '../objects/user_object.dart';
 import '../objects/blog_post_object.dart';
 import '../objects/admin_object.dart';
+import '../objects/person_object.dart';
 import '../nodes/comment_node.dart';
 import '../nodes/user_node.dart';
 import '../nodes/blog_post_node.dart';
 import '../nodes/admin_node.dart';
+import '../nodes/person_node.dart';
 
 /// Generated Tree class for blog_post_schema schemas.
 class BlogPostSchemaTree extends Tree {
