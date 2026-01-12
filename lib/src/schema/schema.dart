@@ -77,17 +77,19 @@ class $Object extends $Schema {
   final int? minProperties;
   final int? maxProperties;
   final List<String>? required;
+  final List<String>? allowed;
+  final List<String>? nullable;
   final Map<String, $Schema>? properties;
   final Map<String, $Schema>? patternProperties;
-  final bool? additionalProperties;
 
   const $Object({
     super.title,
     this.minProperties,
     this.maxProperties,
     this.required,
+    this.allowed,
+    this.nullable,
     this.properties,
     this.patternProperties,
-    this.additionalProperties,
   });
 }

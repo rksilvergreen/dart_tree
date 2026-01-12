@@ -76,19 +76,28 @@ extension BlogTreeExtension on BlogTree {
   (TreeNode, List<(Edge, Object)>)? objectToNode(Object object) {
     // Value objects
     if (object is StringValue) {
-      return (StringValueNode(object), []);
+      return (
+        StringValueNode(object.value, jsonStringStyle: object.jsonStringStyle, yamlStringStyle: object.yamlStringStyle),
+        [],
+      );
     }
     if (object is IntValue) {
-      return (IntValueNode(object), []);
+      return (
+        IntValueNode(object.value, jsonNumberStyle: object.jsonNumberStyle, yamlNumberStyle: object.yamlNumberStyle),
+        [],
+      );
     }
     if (object is BoolValue) {
-      return (BoolValueNode(object), []);
+      return (BoolValueNode(object.value, yamlBoolStyle: object.yamlBoolStyle), []);
     }
     if (object is DoubleValue) {
-      return (DoubleValueNode(object), []);
+      return (
+        DoubleValueNode(object.value, jsonNumberStyle: object.jsonNumberStyle, yamlNumberStyle: object.yamlNumberStyle),
+        [],
+      );
     }
     if (object is NullValue) {
-      return (NullValueNode(object), []);
+      return (NullValueNode(yamlNullStyle: object.yamlNullStyle), []);
     }
 
     // Domain objects

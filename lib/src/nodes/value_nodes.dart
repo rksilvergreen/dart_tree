@@ -1,35 +1,24 @@
 import 'tree_node.dart';
-import '../objects/value_objects.dart';
+import '../syntax/json_formatting.dart';
+import '../syntax/yaml_formatting.dart';
 
-/// Base class for value nodes that correspond to ValueObject instances.
+/// String value node.
 ///
-/// ValueNodes hold a reference to their original ValueObject, so all formatting
-/// and style information can be accessed through [valueObject].
-abstract class ValueNode<T, O extends ValueObject<T>> extends TreeNode {
-  /// Reference to the original value object.
-  ///
-  /// All type-specific styling (e.g., JsonStringStyle, YamlNumberStyle) is
-  /// accessed through this reference.
-  final O valueObject;
-
-  ValueNode(this.valueObject, {String? id}) : super(id: id);
-
+/// Holds the same properties as StringValue for lossless round-tripping.
+class StringValueNode extends TreeNode {
   /// The semantic value.
-  T get value => valueObject.value;
+  final String value;
+
+  /// JSON-specific string styling (quote style, escape sequences, etc.).
+  final JsonStringStyle? jsonStringStyle;
+
+  /// YAML-specific string styling (quote style, block scalars, etc.).
+  final YamlStringStyle? yamlStringStyle;
+
+  StringValueNode(this.value, {this.jsonStringStyle, this.yamlStringStyle, super.id});
 
   @override
-  ValueNode<T, O> clone();
-}
-
-/// String value node corresponding to StringValue.
-///
-/// Access JSON/YAML string styling via [valueObject.jsonStringStyle] and
-/// [valueObject.yamlStringStyle].
-class StringValueNode extends ValueNode<String, StringValue> {
-  StringValueNode(super.valueObject, {super.id});
-
-  @override
-  StringValueNode clone() => StringValueNode(valueObject);
+  StringValueNode clone() => StringValueNode(value, jsonStringStyle: jsonStringStyle, yamlStringStyle: yamlStringStyle);
 
   @override
   T accept<T>(TreeNodeVisitor<T> visitor) => visitor.visitNode(this);
@@ -38,15 +27,23 @@ class StringValueNode extends ValueNode<String, StringValue> {
   String toString() => 'StringValueNode("$value")';
 }
 
-/// Integer value node corresponding to IntValue.
+/// Integer value node.
 ///
-/// Access JSON/YAML number styling via [valueObject.jsonNumberStyle] and
-/// [valueObject.yamlNumberStyle].
-class IntValueNode extends ValueNode<int, IntValue> {
-  IntValueNode(super.valueObject, {super.id});
+/// Holds the same properties as IntValue for lossless round-tripping.
+class IntValueNode extends TreeNode {
+  /// The semantic value.
+  final int value;
+
+  /// JSON-specific number styling (decimal vs scientific notation, etc.).
+  final JsonNumberStyle? jsonNumberStyle;
+
+  /// YAML-specific number styling (hex, octal, binary, etc.).
+  final YamlNumberStyle? yamlNumberStyle;
+
+  IntValueNode(this.value, {this.jsonNumberStyle, this.yamlNumberStyle, super.id});
 
   @override
-  IntValueNode clone() => IntValueNode(valueObject);
+  IntValueNode clone() => IntValueNode(value, jsonNumberStyle: jsonNumberStyle, yamlNumberStyle: yamlNumberStyle);
 
   @override
   T accept<T>(TreeNodeVisitor<T> visitor) => visitor.visitNode(this);
@@ -55,15 +52,23 @@ class IntValueNode extends ValueNode<int, IntValue> {
   String toString() => 'IntValueNode($value)';
 }
 
-/// Double value node corresponding to DoubleValue.
+/// Double value node.
 ///
-/// Access JSON/YAML number styling via [valueObject.jsonNumberStyle] and
-/// [valueObject.yamlNumberStyle].
-class DoubleValueNode extends ValueNode<double, DoubleValue> {
-  DoubleValueNode(super.valueObject, {super.id});
+/// Holds the same properties as DoubleValue for lossless round-tripping.
+class DoubleValueNode extends TreeNode {
+  /// The semantic value.
+  final double value;
+
+  /// JSON-specific number styling (decimal places, scientific notation, etc.).
+  final JsonNumberStyle? jsonNumberStyle;
+
+  /// YAML-specific number styling (special floats like .inf, .nan, etc.).
+  final YamlNumberStyle? yamlNumberStyle;
+
+  DoubleValueNode(this.value, {this.jsonNumberStyle, this.yamlNumberStyle, super.id});
 
   @override
-  DoubleValueNode clone() => DoubleValueNode(valueObject);
+  DoubleValueNode clone() => DoubleValueNode(value, jsonNumberStyle: jsonNumberStyle, yamlNumberStyle: yamlNumberStyle);
 
   @override
   T accept<T>(TreeNodeVisitor<T> visitor) => visitor.visitNode(this);
@@ -72,15 +77,20 @@ class DoubleValueNode extends ValueNode<double, DoubleValue> {
   String toString() => 'DoubleValueNode($value)';
 }
 
-/// Boolean value node corresponding to BoolValue.
+/// Boolean value node.
 ///
-/// Access YAML bool styling via [valueObject.yamlBoolStyle].
-/// JSON booleans are always "true" or "false".
-class BoolValueNode extends ValueNode<bool, BoolValue> {
-  BoolValueNode(super.valueObject, {super.id});
+/// Holds the same properties as BoolValue for lossless round-tripping.
+class BoolValueNode extends TreeNode {
+  /// The semantic value.
+  final bool value;
+
+  /// YAML-specific bool styling (true/yes/on, false/no/off variations).
+  final YamlBoolStyle? yamlBoolStyle;
+
+  BoolValueNode(this.value, {this.yamlBoolStyle, super.id});
 
   @override
-  BoolValueNode clone() => BoolValueNode(valueObject);
+  BoolValueNode clone() => BoolValueNode(value, yamlBoolStyle: yamlBoolStyle);
 
   @override
   T accept<T>(TreeNodeVisitor<T> visitor) => visitor.visitNode(this);
@@ -89,15 +99,17 @@ class BoolValueNode extends ValueNode<bool, BoolValue> {
   String toString() => 'BoolValueNode($value)';
 }
 
-/// Null value node corresponding to NullValue.
+/// Null value node.
 ///
-/// Access YAML null styling via [valueObject.yamlNullStyle].
-/// JSON null is always "null".
-class NullValueNode extends ValueNode<Null, NullValue> {
-  NullValueNode(super.valueObject, {super.id});
+/// Holds the same properties as NullValue for lossless round-tripping.
+class NullValueNode extends TreeNode {
+  /// YAML-specific null styling (null/~/empty variations).
+  final YamlNullStyle? yamlNullStyle;
+
+  NullValueNode({this.yamlNullStyle, super.id});
 
   @override
-  NullValueNode clone() => NullValueNode(valueObject);
+  NullValueNode clone() => NullValueNode(yamlNullStyle: yamlNullStyle);
 
   @override
   T accept<T>(TreeNodeVisitor<T> visitor) => visitor.visitNode(this);

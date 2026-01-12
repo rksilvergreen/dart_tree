@@ -316,7 +316,7 @@ class CommentNode extends CollectionNode {
     final tree = $tree;
     if (tree != null) {
       final oldNode = content;
-      final newNode = StringValueNode(StringValue(value));
+      final newNode = StringValueNode(value);
       final newSubtree = Tree(root: newNode);
       tree.replaceSubtree(node: oldNode, newSubtree: newSubtree);
     }
@@ -340,7 +340,7 @@ class UserNode extends CollectionNode {
     final tree = $tree;
     if (tree != null) {
       final oldNode = name;
-      final newNode = StringValueNode(StringValue(value));
+      final newNode = StringValueNode(value);
       final newSubtree = Tree(root: newNode);
       tree.replaceSubtree(node: oldNode, newSubtree: newSubtree);
     }
@@ -353,7 +353,7 @@ class UserNode extends CollectionNode {
     final tree = $tree;
     if (tree != null) {
       final oldNode = email;
-      final newNode = StringValueNode(StringValue(value));
+      final newNode = StringValueNode(value);
       final newSubtree = Tree(root: newNode);
       tree.replaceSubtree(node: oldNode, newSubtree: newSubtree);
     }
@@ -380,7 +380,7 @@ class BlogPostNode extends CollectionNode {
     final tree = $tree;
     if (tree != null) {
       final oldNode = title;
-      final newNode = StringValueNode(StringValue(value));
+      final newNode = StringValueNode(value);
       final newSubtree = Tree(root: newNode);
       tree.replaceSubtree(node: oldNode, newSubtree: newSubtree);
     }
@@ -404,7 +404,7 @@ class BlogPostNode extends CollectionNode {
     final tree = $tree;
     if (tree != null) {
       final oldNode = author;
-      final newNode = StringValueNode(StringValue(value));
+      final newNode = StringValueNode(value);
       if (oldNode != null) {
         // Replace existing node
         final newSubtree = Tree(root: newNode);
@@ -424,7 +424,7 @@ class BlogPostNode extends CollectionNode {
     final tree = $tree;
     if (tree != null) {
       final oldNode = content;
-      final newNode = StringValueNode(StringValue(value));
+      final newNode = StringValueNode(value);
       final newSubtree = Tree(root: newNode);
       tree.replaceSubtree(node: oldNode, newSubtree: newSubtree);
     }
@@ -448,7 +448,7 @@ class AdminNode extends CollectionNode {
     final tree = $tree;
     if (tree != null) {
       final oldNode = age;
-      final newNode = IntValueNode(IntValue(value));
+      final newNode = IntValueNode(value);
       final newSubtree = Tree(root: newNode);
       tree.replaceSubtree(node: oldNode, newSubtree: newSubtree);
     }
@@ -461,7 +461,7 @@ class AdminNode extends CollectionNode {
     final tree = $tree;
     if (tree != null) {
       final oldNode = address;
-      final newNode = StringValueNode(StringValue(value));
+      final newNode = StringValueNode(value);
       final newSubtree = Tree(root: newNode);
       tree.replaceSubtree(node: oldNode, newSubtree: newSubtree);
     }
@@ -482,11 +482,40 @@ class GeneratedTree extends Tree {
   @override
   (TreeNode, List<(Edge, Object)>)? objectToNode(Object object) {
     // Handle value objects
-    if (object is StringValue) return (StringValueNode(object), []);
-    if (object is IntValue) return (IntValueNode(object), []);
-    if (object is DoubleValue) return (DoubleValueNode(object), []);
-    if (object is BoolValue) return (BoolValueNode(object), []);
-    if (object is NullValue) return (NullValueNode(object), []);
+    if (object is StringValue)
+      return (
+        StringValueNode(
+          object.value,
+          jsonStringStyle: object.jsonStringStyle,
+          yamlStringStyle: object.yamlStringStyle,
+        ),
+        [],
+      );
+    if (object is IntValue)
+      return (
+        IntValueNode(
+          object.value,
+          jsonNumberStyle: object.jsonNumberStyle,
+          yamlNumberStyle: object.yamlNumberStyle,
+        ),
+        [],
+      );
+    if (object is DoubleValue)
+      return (
+        DoubleValueNode(
+          object.value,
+          jsonNumberStyle: object.jsonNumberStyle,
+          yamlNumberStyle: object.yamlNumberStyle,
+        ),
+        [],
+      );
+    if (object is BoolValue)
+      return (
+        BoolValueNode(object.value, yamlBoolStyle: object.yamlBoolStyle),
+        [],
+      );
+    if (object is NullValue)
+      return (NullValueNode(yamlNullStyle: object.yamlNullStyle), []);
 
     // Handle generated objects
     if (object is CommentObject) {
