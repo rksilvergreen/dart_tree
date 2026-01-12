@@ -64,8 +64,8 @@ class ConfigObject extends TreeObject {
         );
         final val = ConfigObject(
           name: $checkedConvert('name', (v) => StringValue.fromJson(v as String)),
-          port: $checkedConvert('port', (v) => UnionObject2.fromJson(v as String, (s) => StringValue.fromJson(s), (s) => IntValue.fromJson(s))),
-          value: $checkedConvert('value', (v) => v == null ? null : UnionObject3.fromJson(v as String, (s) => StringValue.fromJson(s), (s) => IntValue.fromJson(s), (s) => BoolValue.fromJson(s))),
+          port: $checkedConvert('port', (v) => StringOrIntObject.fromJson(v as String, (s) => StringValue.fromJson(s), (s) => IntValue.fromJson(s))),
+          value: $checkedConvert('value', (v) => v == null ? null : MixedValueObject.fromJson(v as String, (s) => StringValue.fromJson(s), (s) => IntValue.fromJson(s), (s) => BoolValue.fromJson(s))),
         );
         return val;
       },
@@ -84,8 +84,8 @@ class ConfigObject extends TreeObject {
         );
         final val = ConfigObject(
           name: $checkedConvert('name', (v) => StringValue.fromYaml(v as String)),
-          port: $checkedConvert('port', (v) => UnionObject2.fromYaml(v as String, (s) => StringValue.fromYaml(s), (s) => IntValue.fromYaml(s))),
-          value: $checkedConvert('value', (v) => v == null ? null : UnionObject3.fromYaml(v as String, (s) => StringValue.fromYaml(s), (s) => IntValue.fromYaml(s), (s) => BoolValue.fromYaml(s))),
+          port: $checkedConvert('port', (v) => StringOrIntObject.fromYaml(v as String, (s) => StringValue.fromYaml(s), (s) => IntValue.fromYaml(s))),
+          value: $checkedConvert('value', (v) => v == null ? null : MixedValueObject.fromYaml(v as String, (s) => StringValue.fromYaml(s), (s) => IntValue.fromYaml(s), (s) => BoolValue.fromYaml(s))),
         );
         return val;
       },

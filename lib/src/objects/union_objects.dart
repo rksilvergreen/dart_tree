@@ -19,6 +19,9 @@ import 'tree_object.dart';
 /// final config1 = Config(port: UnionObject2.first(StringValue('8080')));
 /// final config2 = Config(port: UnionObject2.second(IntValue(8080)));
 /// ```
+@Deprecated(
+  'Use generated union classes instead. Union types now generate concrete classes with semantic constructor names.',
+)
 class UnionObject2<T1 extends TreeObject, T2 extends TreeObject> extends TreeObject {
   final TreeObject _value;
 
@@ -121,6 +124,9 @@ class UnionObject2<T1 extends TreeObject, T2 extends TreeObject> extends TreeObj
 ///   Response({required this.value});
 /// }
 /// ```
+@Deprecated(
+  'Use generated union classes instead. Union types now generate concrete classes with semantic constructor names.',
+)
 class UnionObject3<T1 extends TreeObject, T2 extends TreeObject, T3 extends TreeObject> extends TreeObject {
   final TreeObject _value;
 
@@ -238,6 +244,9 @@ class UnionObject3<T1 extends TreeObject, T2 extends TreeObject, T3 extends Tree
 ///   final UnionObject4<StringValue, IntValue, ArraySchema, ObjectSchema> schema;
 /// }
 /// ```
+@Deprecated(
+  'Use generated union classes instead. Union types now generate concrete classes with semantic constructor names.',
+)
 class UnionObject4<T1 extends TreeObject, T2 extends TreeObject, T3 extends TreeObject, T4 extends TreeObject>
     extends TreeObject {
   final TreeObject _value;

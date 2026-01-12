@@ -3,8 +3,8 @@
 
 import 'package:dart_tree/dart_tree.dart';
 import 'comment_object.dart';
-import 'comments_list_object.dart';
 import 'user_object.dart';
+import 'comments_list_object.dart';
 
 /// Generated TreeObject class for BlogPost
 class BlogPostObject extends TreeObject {

@@ -4,6 +4,7 @@ import 'tree_node.dart';
 ///
 /// Union types allow expressing "either/or" relationships in the tree structure
 /// while maintaining type safety.
+@Deprecated('Use generated union node classes instead. Union types now generate concrete classes with semantic constructor names.')
 class UnionNode2<T1 extends TreeNode, T2 extends TreeNode> extends TreeNode {
   final TreeNode _value;
 
@@ -61,6 +62,7 @@ class UnionNode2<T1 extends TreeNode, T2 extends TreeNode> extends TreeNode {
 }
 
 /// Represents a node that can be one of three types.
+@Deprecated('Use generated union node classes instead. Union types now generate concrete classes with semantic constructor names.')
 class UnionNode3<T1 extends TreeNode, T2 extends TreeNode, T3 extends TreeNode> extends TreeNode {
   final TreeNode _value;
 
@@ -133,6 +135,7 @@ class UnionNode3<T1 extends TreeNode, T2 extends TreeNode, T3 extends TreeNode> 
 }
 
 /// Represents a node that can be one of four types.
+@Deprecated('Use generated union node classes instead. Union types now generate concrete classes with semantic constructor names.')
 class UnionNode4<T1 extends TreeNode, T2 extends TreeNode, T3 extends TreeNode, T4 extends TreeNode> extends TreeNode {
   final TreeNode _value;
 
