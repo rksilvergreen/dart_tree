@@ -33,25 +33,25 @@ class BlogPostObject extends TreeObject {
   String toJson() {
     final buffer = StringBuffer();
     buffer.write('{');
-    buffer.write('"${'title'}": ');
-    buffer.write(title.toJson());
-    if (author != null) {
+    buffer.write('"title": ');
+    buffer.write(this.title.toJson());
+    if (this.author != null) {
       buffer.write(', ');
-      buffer.write('"${'author'}": ');
-      buffer.write(author!.toJson());
+      buffer.write('"author": ');
+      buffer.write(this.author!.toJson());
     }
     buffer.write(', ');
-    buffer.write('"${'content'}": ');
-    buffer.write(content.toJson());
-    if (comments != null) {
+    buffer.write('"content": ');
+    buffer.write(this.content.toJson());
+    if (this.comments != null) {
       buffer.write(', ');
-      buffer.write('"${'comments'}": ');
-      buffer.write(comments!.toJson());
+      buffer.write('"comments": ');
+      buffer.write(this.comments!.toJson());
     }
-    if (user != null) {
+    if (this.user != null) {
       buffer.write(', ');
-      buffer.write('"${'user'}": ');
-      buffer.write(user!.toJson());
+      buffer.write('"user": ');
+      buffer.write(this.user!.toJson());
     }
     buffer.write('}');
     return buffer.toString();
@@ -61,24 +61,24 @@ class BlogPostObject extends TreeObject {
   String toYaml() {
     final buffer = StringBuffer();
     buffer.write('title: ');
-    buffer.write(title.toYaml());
-    if (author != null) {
+    buffer.write(this.title.toYaml());
+    if (this.author != null) {
       buffer.writeln();
       buffer.write('author: ');
-      buffer.write(author!.toYaml());
+      buffer.write(this.author!.toYaml());
     }
     buffer.writeln();
     buffer.write('content: ');
-    buffer.write(content.toYaml());
-    if (comments != null) {
+    buffer.write(this.content.toYaml());
+    if (this.comments != null) {
       buffer.writeln();
       buffer.write('comments: ');
-      buffer.write(comments!.toYaml());
+      buffer.write(this.comments!.toYaml());
     }
-    if (user != null) {
+    if (this.user != null) {
       buffer.writeln();
       buffer.write('user: ');
-      buffer.write(user!.toYaml());
+      buffer.write(this.user!.toYaml());
     }
     return buffer.toString();
   }

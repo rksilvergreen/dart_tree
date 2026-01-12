@@ -18,7 +18,10 @@ const blogPost = $Object(
 const comment = $Object(
   title: 'Comment',
   required: ['content'],
-  properties: {'content': $String(minLength: 1, maxLength: 1000)},
+  properties: {'content': $String(minLength: 1, maxLength: 1000), 
+  'index': $Integer(),
+  'buffer': $String(),
+  },
 );
 
 @schema
@@ -36,4 +39,10 @@ const admin = $Object(
 );
 
 @schema
-const person = $Union(title: 'Person', types: {user, admin});
+const person = $Union(title: 'Person', types: {user, admin}, typeParameters: {'T': 'value', 'U': 'ref'});
+
+@schema
+const reference = $Object(title: 'Reference', properties: {r'$ref': $String()});
+
+@schema
+const ref = $Union(title: 'Ref', types: {reference}, typeParameters: {'T': 'value'});

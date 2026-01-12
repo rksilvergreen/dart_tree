@@ -8,17 +8,17 @@ import 'user_node.dart';
 class BlogPostNode extends CollectionNode {
   BlogPostNode({super.id});
 
-  StringValueNode get title => $children!['title'] as StringValueNode;
-  StringValueNode? get author => $children?['author'] as StringValueNode?;
-  StringValueNode get content => $children!['content'] as StringValueNode;
-  ListTreeNode? get comments => $children?['comments'] as ListTreeNode?;
-  UserNode? get user => $children?['user'] as UserNode?;
+  StringValueNode get title => this.$children!['title'] as StringValueNode;
+  StringValueNode? get author => this.$children?['author'] as StringValueNode?;
+  StringValueNode get content => this.$children!['content'] as StringValueNode;
+  ListTreeNode? get comments => this.$children?['comments'] as ListTreeNode?;
+  UserNode? get user => this.$children?['user'] as UserNode?;
 
   set title(String value) {
     if (value.length < 1 || value.length > 100) {throw ArgumentError('title must be 1-100 characters');}
-    final tree = $tree;
+    final tree = this.$tree;
     if (tree != null) {
-      final oldNode = title;
+      final oldNode = this.title;
       final newNode = StringValueNode(value);
       final newSubtree = Tree(root: newNode);
       tree.replaceSubtree(node: oldNode, newSubtree: newSubtree);
@@ -28,9 +28,9 @@ class BlogPostNode extends CollectionNode {
   set author(String? value) {
     if (value == null) {
       // Remove node from tree
-      final tree = $tree;
+      final tree = this.$tree;
       if (tree != null) {
-        final oldNode = author;
+        final oldNode = this.author;
         if (oldNode != null) {
           tree.removeSubtree(oldNode);
         }
@@ -38,9 +38,9 @@ class BlogPostNode extends CollectionNode {
       return;
     }
     if (value.length < 1 || value.length > 100) {throw ArgumentError('author must be 1-100 characters');}
-    final tree = $tree;
+    final tree = this.$tree;
     if (tree != null) {
-      final oldNode = author;
+      final oldNode = this.author;
       final newNode = StringValueNode(value);
       if (oldNode != null) {
         // Replace existing node
@@ -56,9 +56,9 @@ class BlogPostNode extends CollectionNode {
 
   set content(String value) {
     if (value.length < 1 || value.length > 1000) {throw ArgumentError('content must be 1-1000 characters');}
-    final tree = $tree;
+    final tree = this.$tree;
     if (tree != null) {
-      final oldNode = content;
+      final oldNode = this.content;
       final newNode = StringValueNode(value);
       final newSubtree = Tree(root: newNode);
       tree.replaceSubtree(node: oldNode, newSubtree: newSubtree);

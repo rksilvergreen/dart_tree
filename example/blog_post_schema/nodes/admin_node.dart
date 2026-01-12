@@ -7,14 +7,14 @@ import 'package:dart_tree/dart_tree.dart';
 class AdminNode extends CollectionNode {
   AdminNode({super.id});
 
-  IntValueNode get age => $children!['age'] as IntValueNode;
-  StringValueNode get address => $children!['address'] as StringValueNode;
+  IntValueNode get age => this.$children!['age'] as IntValueNode;
+  StringValueNode get address => this.$children!['address'] as StringValueNode;
 
   set age(int value) {
     if (value < 18.0) {throw ArgumentError('age must be >= 18.0');}
-    final tree = $tree;
+    final tree = this.$tree;
     if (tree != null) {
-      final oldNode = age;
+      final oldNode = this.age;
       final newNode = IntValueNode(value);
       final newSubtree = Tree(root: newNode);
       tree.replaceSubtree(node: oldNode, newSubtree: newSubtree);
@@ -23,9 +23,9 @@ class AdminNode extends CollectionNode {
 
   set address(String value) {
     if (value.length < 1 || value.length > 100) {throw ArgumentError('address must be 1-100 characters');}
-    final tree = $tree;
+    final tree = this.$tree;
     if (tree != null) {
-      final oldNode = address;
+      final oldNode = this.address;
       final newNode = StringValueNode(value);
       final newSubtree = Tree(root: newNode);
       tree.replaceSubtree(node: oldNode, newSubtree: newSubtree);

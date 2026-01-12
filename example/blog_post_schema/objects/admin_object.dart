@@ -20,11 +20,11 @@ class AdminObject extends TreeObject {
   String toJson() {
     final buffer = StringBuffer();
     buffer.write('{');
-    buffer.write('"${'age'}": ');
-    buffer.write(age.toJson());
+    buffer.write('"age": ');
+    buffer.write(this.age.toJson());
     buffer.write(', ');
-    buffer.write('"${'address'}": ');
-    buffer.write(address.toJson());
+    buffer.write('"address": ');
+    buffer.write(this.address.toJson());
     buffer.write('}');
     return buffer.toString();
   }
@@ -33,10 +33,10 @@ class AdminObject extends TreeObject {
   String toYaml() {
     final buffer = StringBuffer();
     buffer.write('age: ');
-    buffer.write(age.toYaml());
+    buffer.write(this.age.toYaml());
     buffer.writeln();
     buffer.write('address: ');
-    buffer.write(address.toYaml());
+    buffer.write(this.address.toYaml());
     return buffer.toString();
   }
 

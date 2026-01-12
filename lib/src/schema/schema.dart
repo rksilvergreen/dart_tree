@@ -13,8 +13,9 @@ abstract class $Schema {
 }
 
 class $Union extends $Schema {
-  final Set<$Schema> types;
-  const $Union({required super.title, required this.types});
+  final Set<$Schema>? types;
+  final Map<String, String> typeParameters;
+  const $Union({required super.title, this.types, this.typeParameters = const {}});
 }
 
 class $Integer extends $Schema {

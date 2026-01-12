@@ -7,11 +7,15 @@ import '../objects/user_object.dart';
 import '../objects/blog_post_object.dart';
 import '../objects/admin_object.dart';
 import '../objects/person_object.dart';
+import '../objects/reference_object.dart';
+import '../objects/ref_object.dart';
 import '../nodes/comment_node.dart';
 import '../nodes/user_node.dart';
 import '../nodes/blog_post_node.dart';
 import '../nodes/admin_node.dart';
 import '../nodes/person_node.dart';
+import '../nodes/reference_node.dart';
+import '../nodes/ref_node.dart';
 
 /// Generated Tree class for blog_post_schema schemas.
 class BlogPostSchemaTree extends Tree {
@@ -30,6 +34,12 @@ class BlogPostSchemaTree extends Tree {
     if (object is CommentObject) {
       final edges = <(Edge, Object)>[];
       edges.add((Edge(StringValueNode, 'content'), object.content));
+      if (object.index != null) {
+        edges.add((Edge(IntValueNode, 'index'), object.index!));
+      }
+      if (object.buffer != null) {
+        edges.add((Edge(StringValueNode, 'buffer'), object.buffer!));
+      }
       return (CommentNode(), edges);
     }
 
@@ -61,6 +71,14 @@ class BlogPostSchemaTree extends Tree {
       edges.add((Edge(IntValueNode, 'age'), object.age));
       edges.add((Edge(StringValueNode, 'address'), object.address));
       return (AdminNode(), edges);
+    }
+
+    if (object is ReferenceObject) {
+      final edges = <(Edge, Object)>[];
+      if (object.$ref != null) {
+        edges.add((Edge(StringValueNode, '\$ref'), object.$ref!));
+      }
+      return (ReferenceNode(), edges);
     }
 
     return null;

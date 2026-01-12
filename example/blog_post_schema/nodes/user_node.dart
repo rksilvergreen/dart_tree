@@ -7,14 +7,14 @@ import 'package:dart_tree/dart_tree.dart';
 class UserNode extends CollectionNode {
   UserNode({super.id});
 
-  StringValueNode get name => $children!['name'] as StringValueNode;
-  StringValueNode get email => $children!['email'] as StringValueNode;
+  StringValueNode get name => this.$children!['name'] as StringValueNode;
+  StringValueNode get email => this.$children!['email'] as StringValueNode;
 
   set name(String value) {
     if (value.length < 1 || value.length > 100) {throw ArgumentError('name must be 1-100 characters');}
-    final tree = $tree;
+    final tree = this.$tree;
     if (tree != null) {
-      final oldNode = name;
+      final oldNode = this.name;
       final newNode = StringValueNode(value);
       final newSubtree = Tree(root: newNode);
       tree.replaceSubtree(node: oldNode, newSubtree: newSubtree);
@@ -23,9 +23,9 @@ class UserNode extends CollectionNode {
 
   set email(String value) {
     if (value.length < 1 || value.length > 100) {throw ArgumentError('email must be 1-100 characters');}
-    final tree = $tree;
+    final tree = this.$tree;
     if (tree != null) {
-      final oldNode = email;
+      final oldNode = this.email;
       final newNode = StringValueNode(value);
       final newSubtree = Tree(root: newNode);
       tree.replaceSubtree(node: oldNode, newSubtree: newSubtree);

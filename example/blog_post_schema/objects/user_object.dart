@@ -20,11 +20,11 @@ class UserObject extends TreeObject {
   String toJson() {
     final buffer = StringBuffer();
     buffer.write('{');
-    buffer.write('"${'name'}": ');
-    buffer.write(name.toJson());
+    buffer.write('"name": ');
+    buffer.write(this.name.toJson());
     buffer.write(', ');
-    buffer.write('"${'email'}": ');
-    buffer.write(email.toJson());
+    buffer.write('"email": ');
+    buffer.write(this.email.toJson());
     buffer.write('}');
     return buffer.toString();
   }
@@ -33,10 +33,10 @@ class UserObject extends TreeObject {
   String toYaml() {
     final buffer = StringBuffer();
     buffer.write('name: ');
-    buffer.write(name.toYaml());
+    buffer.write(this.name.toYaml());
     buffer.writeln();
     buffer.write('email: ');
-    buffer.write(email.toYaml());
+    buffer.write(this.email.toYaml());
     return buffer.toString();
   }
 
