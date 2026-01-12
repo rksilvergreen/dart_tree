@@ -63,5 +63,8 @@ export 'src/operations/query.dart';
 // I/O
 export 'src/io/parsing_utils.dart';
 
+// Validation
+export 'src/validation/deserialization_helpers.dart';
+
 // Utilities
 export 'src/utils/pointer.dart';

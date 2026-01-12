@@ -6,6 +6,7 @@ part 'blog_post_schema.g.dart';
 const blogPost = $Object(
   title: 'BlogPost',
   required: ['title', 'content'],
+  allowed: ['title', 'author', 'content', 'comments', 'user'],
   properties: {
     'title': $String(minLength: 1, maxLength: 100),
     'author': $String(minLength: 1, maxLength: 100),

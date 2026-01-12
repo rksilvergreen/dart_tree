@@ -44,12 +44,30 @@ class CommentObject extends TreeObject {
 
   static CommentObject fromJson(String json) {
     final map = extractJsonObjectFields(json);
-    return CommentObject(content: StringValue.fromJson(map['content']!));
+    return $checkedCreate('CommentObject', map, ($checkedConvert) {
+      $checkKeys(map, requiredKeys: const ['content']);
+      final val = CommentObject(
+        content: $checkedConvert(
+          'content',
+          (v) => StringValue.fromJson(v as String),
+        ),
+      );
+      return val;
+    });
   }
 
   static CommentObject fromYaml(String yaml) {
     final map = extractYamlMappingFields(yaml);
-    return CommentObject(content: StringValue.fromYaml(map['content']!));
+    return $checkedCreate('CommentObject', map, ($checkedConvert) {
+      $checkKeys(map, requiredKeys: const ['content']);
+      final val = CommentObject(
+        content: $checkedConvert(
+          'content',
+          (v) => StringValue.fromYaml(v as String),
+        ),
+      );
+      return val;
+    });
   }
 }
 
@@ -97,18 +115,32 @@ class UserObject extends TreeObject {
 
   static UserObject fromJson(String json) {
     final map = extractJsonObjectFields(json);
-    return UserObject(
-      name: StringValue.fromJson(map['name']!),
-      email: StringValue.fromJson(map['email']!),
-    );
+    return $checkedCreate('UserObject', map, ($checkedConvert) {
+      $checkKeys(map, requiredKeys: const ['name', 'email']);
+      final val = UserObject(
+        name: $checkedConvert('name', (v) => StringValue.fromJson(v as String)),
+        email: $checkedConvert(
+          'email',
+          (v) => StringValue.fromJson(v as String),
+        ),
+      );
+      return val;
+    });
   }
 
   static UserObject fromYaml(String yaml) {
     final map = extractYamlMappingFields(yaml);
-    return UserObject(
-      name: StringValue.fromYaml(map['name']!),
-      email: StringValue.fromYaml(map['email']!),
-    );
+    return $checkedCreate('UserObject', map, ($checkedConvert) {
+      $checkKeys(map, requiredKeys: const ['name', 'email']);
+      final val = UserObject(
+        name: $checkedConvert('name', (v) => StringValue.fromYaml(v as String)),
+        email: $checkedConvert(
+          'email',
+          (v) => StringValue.fromYaml(v as String),
+        ),
+      );
+      return val;
+    });
   }
 }
 
@@ -203,40 +235,82 @@ class BlogPostObject extends TreeObject {
 
   static BlogPostObject fromJson(String json) {
     final map = extractJsonObjectFields(json);
-    return BlogPostObject(
-      title: StringValue.fromJson(map['title']!),
-      author: map.containsKey('author')
-          ? StringValue.fromJson(map['author']!)
-          : null,
-      content: StringValue.fromJson(map['content']!),
-      comments: map.containsKey('comments')
-          ? CommentsListObject(
-              extractJsonArrayElements(
-                map['comments']!,
-              ).map((item) => CommentObject.fromJson(item)).toList(),
-            )
-          : null,
-      user: map.containsKey('user') ? UserObject.fromJson(map['user']!) : null,
-    );
+    return $checkedCreate('BlogPostObject', map, ($checkedConvert) {
+      $checkKeys(
+        map,
+        allowedKeys: const ['title', 'author', 'content', 'comments', 'user'],
+        requiredKeys: const ['title', 'content'],
+      );
+      final val = BlogPostObject(
+        title: $checkedConvert(
+          'title',
+          (v) => StringValue.fromJson(v as String),
+        ),
+        author: $checkedConvert(
+          'author',
+          (v) => v == null ? null : StringValue.fromJson(v as String),
+        ),
+        content: $checkedConvert(
+          'content',
+          (v) => StringValue.fromJson(v as String),
+        ),
+        comments: $checkedConvert(
+          'comments',
+          (v) => v == null
+              ? null
+              : CommentsListObject(
+                  extractJsonArrayElements(
+                    v as String,
+                  ).map((item) => CommentObject.fromJson(item)).toList(),
+                ),
+        ),
+        user: $checkedConvert(
+          'user',
+          (v) => v == null ? null : UserObject.fromJson(v as String),
+        ),
+      );
+      return val;
+    });
   }
 
   static BlogPostObject fromYaml(String yaml) {
     final map = extractYamlMappingFields(yaml);
-    return BlogPostObject(
-      title: StringValue.fromYaml(map['title']!),
-      author: map.containsKey('author')
-          ? StringValue.fromYaml(map['author']!)
-          : null,
-      content: StringValue.fromYaml(map['content']!),
-      comments: map.containsKey('comments')
-          ? CommentsListObject(
-              extractYamlSequenceElements(
-                map['comments']!,
-              ).map((item) => CommentObject.fromYaml(item)).toList(),
-            )
-          : null,
-      user: map.containsKey('user') ? UserObject.fromYaml(map['user']!) : null,
-    );
+    return $checkedCreate('BlogPostObject', map, ($checkedConvert) {
+      $checkKeys(
+        map,
+        allowedKeys: const ['title', 'author', 'content', 'comments', 'user'],
+        requiredKeys: const ['title', 'content'],
+      );
+      final val = BlogPostObject(
+        title: $checkedConvert(
+          'title',
+          (v) => StringValue.fromYaml(v as String),
+        ),
+        author: $checkedConvert(
+          'author',
+          (v) => v == null ? null : StringValue.fromYaml(v as String),
+        ),
+        content: $checkedConvert(
+          'content',
+          (v) => StringValue.fromYaml(v as String),
+        ),
+        comments: $checkedConvert(
+          'comments',
+          (v) => v == null
+              ? null
+              : CommentsListObject(
+                  extractYamlSequenceElements(
+                    v as String,
+                  ).map((item) => CommentObject.fromYaml(item)).toList(),
+                ),
+        ),
+        user: $checkedConvert(
+          'user',
+          (v) => v == null ? null : UserObject.fromYaml(v as String),
+        ),
+      );
+      return val;
+    });
   }
 }
 
@@ -284,18 +358,32 @@ class AdminObject extends TreeObject {
 
   static AdminObject fromJson(String json) {
     final map = extractJsonObjectFields(json);
-    return AdminObject(
-      age: IntValue.fromJson(map['age']!),
-      address: StringValue.fromJson(map['address']!),
-    );
+    return $checkedCreate('AdminObject', map, ($checkedConvert) {
+      $checkKeys(map, requiredKeys: const ['age', 'address']);
+      final val = AdminObject(
+        age: $checkedConvert('age', (v) => IntValue.fromJson(v as String)),
+        address: $checkedConvert(
+          'address',
+          (v) => StringValue.fromJson(v as String),
+        ),
+      );
+      return val;
+    });
   }
 
   static AdminObject fromYaml(String yaml) {
     final map = extractYamlMappingFields(yaml);
-    return AdminObject(
-      age: IntValue.fromYaml(map['age']!),
-      address: StringValue.fromYaml(map['address']!),
-    );
+    return $checkedCreate('AdminObject', map, ($checkedConvert) {
+      $checkKeys(map, requiredKeys: const ['age', 'address']);
+      final val = AdminObject(
+        age: $checkedConvert('age', (v) => IntValue.fromYaml(v as String)),
+        address: $checkedConvert(
+          'address',
+          (v) => StringValue.fromYaml(v as String),
+        ),
+      );
+      return val;
+    });
   }
 }
 
