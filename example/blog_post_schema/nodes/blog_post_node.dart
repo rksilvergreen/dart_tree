@@ -13,7 +13,7 @@ class BlogPostNode extends CollectionNode {
   StringValueNode get title => this.$children!['title'] as StringValueNode;
   StringValueNode? get author => this.$children?['author'] as StringValueNode?;
   StringValueNode get content => this.$children!['content'] as StringValueNode;
-  ListTreeNode? get comments => this.$children?['comments'] as ListTreeNode?;
+  CommentsListNode? get comments => this.$children?['comments'] as CommentsListNode?;
   UserNode? get user => this.$children?['user'] as UserNode?;
 
   set title(String value) {
@@ -80,7 +80,7 @@ class BlogPostNode extends CollectionNode {
     StringValueNode.fromObject(tree, node, 'title', object.title);
     StringValueNode.fromObject(tree, node, 'author', object.author);
     StringValueNode.fromObject(tree, node, 'content', object.content);
-    ListTreeNode.fromObject(tree, node, 'comments', object.comments);
+    CommentsListNode.fromObject(tree, node, 'comments', object.comments);
     UserNode.fromObject(tree, node, 'user', object.user);
   }
 

@@ -49,4 +49,15 @@ class RefNode<T extends TreeNode> extends TreeNode {
 
   @override
   String toString() => 'RefNode($_reference, $_value)';
+
+  static void fromObject(Tree tree, TreeNode? parent, String key, RefObject? object) {
+    if (object == null) return;
+
+    if (object.isReference) {
+      ReferenceNode.fromObject(tree, parent, key, object.asReference);
+    } else if (object.isValue) {
+      // Type parameter deserialization not supported
+      throw UnsupportedError('Cannot deserialize union with type parameter T');
+    }
+  }
 }

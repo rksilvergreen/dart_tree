@@ -51,4 +51,14 @@ class PersonNode extends TreeNode {
 
   @override
   String toString() => 'PersonNode($_user, $_admin)';
+
+  static void fromObject(Tree tree, TreeNode? parent, String key, PersonObject? object) {
+    if (object == null) return;
+
+    if (object.isUser) {
+      UserNode.fromObject(tree, parent, key, object.asUser);
+    } else if (object.isAdmin) {
+      AdminNode.fromObject(tree, parent, key, object.asAdmin);
+    }
+  }
 }

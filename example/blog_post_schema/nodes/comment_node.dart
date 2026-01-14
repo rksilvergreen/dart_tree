@@ -27,7 +27,9 @@ class CommentNode extends CollectionNode {
   }
 
   set content(String value) {
-    if (value.length < 1 || value.length > 1000) {throw ArgumentError('content must be 1-1000 characters');}
+    if (value.length < 1 || value.length > 1000) {
+      throw ArgumentError('content must be 1-1000 characters');
+    }
     final tree = this.$tree;
     if (tree != null) {
       final oldNode = this.content;
@@ -93,6 +95,12 @@ class CommentNode extends CollectionNode {
     }
   }
 
+  CommentObject toObject() => CommentObject(
+    content: content.toObject(),
+    index: index?.toObject(),
+    buffer: buffer?.toObject(),
+    person: person?.toObject(),
+  );
 
   static void fromObject(Tree tree, TreeNode? parent, String key, CommentObject? object) {
     if (object == null) return;
@@ -116,6 +124,20 @@ class CommentNode extends CollectionNode {
 /// Generated ListNode for comments
 class CommentsListNode extends ListTreeNode<CommentNode> {
   CommentsListNode({super.id});
+
+  static void fromObject(Tree tree, TreeNode? parent, String key, CommentsListObject? object) {
+    if (object == null) return;
+
+    final parentRecord = tree.nodes[parent?.id];
+    final pointer = Pointer.build(parentRecord?.pointer, key);
+    final node = CommentsListNode();
+    tree.$nodes[node.id] = TreeNodeRecord(node: node, pointer: pointer, parent: parent?.id);
+    parentRecord?.children[Edge(CommentsListNode, key)] = node.id;
+
+    for (int i = 0; i < object.length; i++) {
+      CommentNode.fromObject(tree, node, '$i', object[i]);
+    }
+  }
 
   @override
   CommentsListNode clone() => CommentsListNode(id: id);
