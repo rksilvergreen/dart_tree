@@ -3,6 +3,8 @@
 
 import 'package:dart_tree/dart_tree.dart';
 import 'user_node.dart';
+import '../objects/blog_post_object.dart';
+import '../objects/user_object.dart';
 
 /// Generated TreeNode class for BlogPost
 class BlogPostNode extends CollectionNode {
@@ -66,7 +68,9 @@ class BlogPostNode extends CollectionNode {
   }
 
 
-  static void fromObject(Tree tree, TreeNode? parent, String key, BlogPostObject object) {
+  static void fromObject(Tree tree, TreeNode? parent, String key, BlogPostObject? object) {
+    if (object == null) return;
+
     final parentRecord = tree.nodes[parent?.id];
     final pointer = Pointer.build(parentRecord?.pointer, key);
     final node = BlogPostNode();

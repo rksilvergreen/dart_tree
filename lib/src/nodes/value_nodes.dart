@@ -22,7 +22,9 @@ class StringValueNode extends TreeNode {
 
   StringValueNode(this.value, {this.jsonStringStyle, this.yamlStringStyle, super.id});
 
-  static void fromObject(Tree tree, TreeNode? parent, String key, StringValue object) {
+  static void fromObject(Tree tree, TreeNode? parent, String key, StringValue? object) {
+    if (object == null) return;
+
     final parentRecord = tree.nodes[parent?.id];
     final pointer = Pointer.build(parentRecord?.pointer, key);
     final node = StringValueNode(
@@ -59,7 +61,9 @@ class IntValueNode extends TreeNode {
 
   IntValueNode(this.value, {this.jsonNumberStyle, this.yamlNumberStyle, super.id});
 
-  static void fromObject(Tree tree, TreeNode? parent, String key, IntValue object) {
+  static void fromObject(Tree tree, TreeNode? parent, String key, IntValue? object) {
+    if (object == null) return;
+
     final parentRecord = tree.nodes[parent?.id];
     final pointer = Pointer.build(parentRecord?.pointer, key);
     final node = IntValueNode(
@@ -96,7 +100,9 @@ class DoubleValueNode extends TreeNode {
 
   DoubleValueNode(this.value, {this.jsonNumberStyle, this.yamlNumberStyle, super.id});
 
-  static void fromObject(Tree tree, TreeNode? parent, String key, DoubleValue object) {
+  static void fromObject(Tree tree, TreeNode? parent, String key, DoubleValue? object) {
+    if (object == null) return;
+
     final parentRecord = tree.nodes[parent?.id];
     final pointer = Pointer.build(parentRecord?.pointer, key);
     final node = DoubleValueNode(
@@ -130,7 +136,9 @@ class BoolValueNode extends TreeNode {
 
   BoolValueNode(this.value, {this.yamlBoolStyle, super.id});
 
-  static void fromObject(Tree tree, TreeNode? parent, String key, BoolValue object) {
+  static void fromObject(Tree tree, TreeNode? parent, String key, BoolValue? object) {
+    if (object == null) return;
+
     final parentRecord = tree.nodes[parent?.id];
     final pointer = Pointer.build(parentRecord?.pointer, key);
     final node = BoolValueNode(object.value, yamlBoolStyle: object.yamlBoolStyle);
@@ -157,7 +165,9 @@ class NullValueNode extends TreeNode {
 
   NullValueNode({this.yamlNullStyle, super.id});
 
-  static void fromObject(Tree tree, TreeNode? parent, String key, NullValue object) {
+  static void fromObject(Tree tree, TreeNode? parent, String key, NullValue? object) {
+    if (object == null) return;
+
     final parentRecord = tree.nodes[parent?.id];
     final pointer = Pointer.build(parentRecord?.pointer, key);
     final node = NullValueNode(yamlNullStyle: object.yamlNullStyle);

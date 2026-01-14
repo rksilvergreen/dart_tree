@@ -4,6 +4,9 @@
 import 'package:dart_tree/dart_tree.dart';
 import 'user_node.dart';
 import 'admin_node.dart';
+import '../objects/person_object.dart';
+import '../objects/user_object.dart';
+import '../objects/admin_object.dart';
 
 /// Generated union node class for Person
 class PersonNode extends TreeNode {

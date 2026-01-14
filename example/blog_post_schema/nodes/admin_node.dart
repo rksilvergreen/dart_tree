@@ -2,6 +2,7 @@
 // Generated from blog_post_schema.dart
 
 import 'package:dart_tree/dart_tree.dart';
+import '../objects/admin_object.dart';
 
 /// Generated TreeNode class for Admin
 class AdminNode extends CollectionNode {

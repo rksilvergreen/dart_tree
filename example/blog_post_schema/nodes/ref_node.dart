@@ -3,6 +3,8 @@
 
 import 'package:dart_tree/dart_tree.dart';
 import 'reference_node.dart';
+import '../objects/ref_object.dart';
+import '../objects/reference_object.dart';
 
 /// Generated union node class for Ref
 class RefNode<T extends TreeNode> extends TreeNode {

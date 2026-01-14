@@ -5,6 +5,10 @@ import 'package:dart_tree/dart_tree.dart';
 import 'person_node.dart';
 import 'user_node.dart';
 import 'admin_node.dart';
+import '../objects/comment_object.dart';
+import '../objects/person_object.dart';
+import '../objects/user_object.dart';
+import '../objects/admin_object.dart';
 
 /// Generated TreeNode class for Comment
 class CommentNode extends CollectionNode {
