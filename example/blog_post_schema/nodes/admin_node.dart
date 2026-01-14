@@ -33,6 +33,17 @@ class AdminNode extends CollectionNode {
   }
 
 
+  static void fromObject(Tree tree, TreeNode? parent, String key, AdminObject object) {
+    final parentRecord = tree.nodes[parent?.id];
+    final pointer = Pointer.build(parentRecord?.pointer, key);
+    final node = AdminNode();
+    tree.$nodes[node.id] = TreeNodeRecord(node: node, pointer: pointer, parent: parent?.id);
+    parentRecord?.children[Edge(AdminNode, key)] = node.id;
+
+    IntValueNode.fromObject(tree, node, 'age', object.age);
+    StringValueNode.fromObject(tree, node, 'address', object.address);
+  }
+
   @override
   AdminNode clone() => AdminNode(id: id);
 }

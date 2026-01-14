@@ -38,6 +38,16 @@ class ReferenceNode extends CollectionNode {
   }
 
 
+  static void fromObject(Tree tree, TreeNode? parent, String key, ReferenceObject object) {
+    final parentRecord = tree.nodes[parent?.id];
+    final pointer = Pointer.build(parentRecord?.pointer, key);
+    final node = ReferenceNode();
+    tree.$nodes[node.id] = TreeNodeRecord(node: node, pointer: pointer, parent: parent?.id);
+    parentRecord?.children[Edge(ReferenceNode, key)] = node.id;
+
+    StringValueNode.fromObject(tree, node, '\$ref', object.$ref);
+  }
+
   @override
   ReferenceNode clone() => ReferenceNode(id: id);
 }

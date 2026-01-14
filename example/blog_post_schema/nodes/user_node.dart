@@ -33,6 +33,17 @@ class UserNode extends CollectionNode {
   }
 
 
+  static void fromObject(Tree tree, TreeNode? parent, String key, UserObject object) {
+    final parentRecord = tree.nodes[parent?.id];
+    final pointer = Pointer.build(parentRecord?.pointer, key);
+    final node = UserNode();
+    tree.$nodes[node.id] = TreeNodeRecord(node: node, pointer: pointer, parent: parent?.id);
+    parentRecord?.children[Edge(UserNode, key)] = node.id;
+
+    StringValueNode.fromObject(tree, node, 'name', object.name);
+    StringValueNode.fromObject(tree, node, 'email', object.email);
+  }
+
   @override
   UserNode clone() => UserNode(id: id);
 }

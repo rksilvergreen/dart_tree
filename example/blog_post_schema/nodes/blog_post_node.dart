@@ -2,7 +2,6 @@
 // Generated from blog_post_schema.dart
 
 import 'package:dart_tree/dart_tree.dart';
-import '../objects/blog_post_object.dart';
 import 'user_node.dart';
 
 /// Generated TreeNode class for BlogPost
@@ -16,9 +15,7 @@ class BlogPostNode extends CollectionNode {
   UserNode? get user => this.$children?['user'] as UserNode?;
 
   set title(String value) {
-    if (value.length < 1 || value.length > 100) {
-      throw ArgumentError('title must be 1-100 characters');
-    }
+    if (value.length < 1 || value.length > 100) {throw ArgumentError('title must be 1-100 characters');}
     final tree = this.$tree;
     if (tree != null) {
       final oldNode = this.title;
@@ -40,9 +37,7 @@ class BlogPostNode extends CollectionNode {
       }
       return;
     }
-    if (value.length < 1 || value.length > 100) {
-      throw ArgumentError('author must be 1-100 characters');
-    }
+    if (value.length < 1 || value.length > 100) {throw ArgumentError('author must be 1-100 characters');}
     final tree = this.$tree;
     if (tree != null) {
       final oldNode = this.author;
@@ -60,9 +55,7 @@ class BlogPostNode extends CollectionNode {
   }
 
   set content(String value) {
-    if (value.length < 1 || value.length > 1000) {
-      throw ArgumentError('content must be 1-1000 characters');
-    }
+    if (value.length < 1 || value.length > 1000) {throw ArgumentError('content must be 1-1000 characters');}
     final tree = this.$tree;
     if (tree != null) {
       final oldNode = this.content;
@@ -71,6 +64,7 @@ class BlogPostNode extends CollectionNode {
       tree.replaceSubtree(node: oldNode, newSubtree: newSubtree);
     }
   }
+
 
   static void fromObject(Tree tree, TreeNode? parent, String key, BlogPostObject object) {
     final parentRecord = tree.nodes[parent?.id];

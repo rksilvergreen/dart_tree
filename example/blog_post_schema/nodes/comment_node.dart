@@ -90,6 +90,19 @@ class CommentNode extends CollectionNode {
   }
 
 
+  static void fromObject(Tree tree, TreeNode? parent, String key, CommentObject object) {
+    final parentRecord = tree.nodes[parent?.id];
+    final pointer = Pointer.build(parentRecord?.pointer, key);
+    final node = CommentNode();
+    tree.$nodes[node.id] = TreeNodeRecord(node: node, pointer: pointer, parent: parent?.id);
+    parentRecord?.children[Edge(CommentNode, key)] = node.id;
+
+    StringValueNode.fromObject(tree, node, 'content', object.content);
+    IntValueNode.fromObject(tree, node, 'index', object.index);
+    StringValueNode.fromObject(tree, node, 'buffer', object.buffer);
+    PersonNode.fromObject(tree, node, 'person', object.person);
+  }
+
   @override
   CommentNode clone() => CommentNode(id: id);
 }

@@ -1,6 +1,11 @@
 import 'tree_node.dart';
 import '../syntax/json_formatting.dart';
 import '../syntax/yaml_formatting.dart';
+import '../tree.dart';
+import '../tree_node_record.dart';
+import '../edge.dart';
+import '../utils/pointer.dart';
+import '../objects/value_objects.dart';
 
 /// String value node.
 ///
@@ -17,7 +22,17 @@ class StringValueNode extends TreeNode {
 
   StringValueNode(this.value, {this.jsonStringStyle, this.yamlStringStyle, super.id});
 
-  
+  static void fromObject(Tree tree, TreeNode? parent, String key, StringValue object) {
+    final parentRecord = tree.nodes[parent?.id];
+    final pointer = Pointer.build(parentRecord?.pointer, key);
+    final node = StringValueNode(
+      object.value,
+      jsonStringStyle: object.jsonStringStyle,
+      yamlStringStyle: object.yamlStringStyle,
+    );
+    tree.$nodes[node.id] = TreeNodeRecord(node: node, pointer: pointer, parent: parent?.id);
+    parentRecord?.children[Edge(StringValueNode, key)] = node.id;
+  }
 
   @override
   StringValueNode clone() => StringValueNode(value, jsonStringStyle: jsonStringStyle, yamlStringStyle: yamlStringStyle);
@@ -44,6 +59,18 @@ class IntValueNode extends TreeNode {
 
   IntValueNode(this.value, {this.jsonNumberStyle, this.yamlNumberStyle, super.id});
 
+  static void fromObject(Tree tree, TreeNode? parent, String key, IntValue object) {
+    final parentRecord = tree.nodes[parent?.id];
+    final pointer = Pointer.build(parentRecord?.pointer, key);
+    final node = IntValueNode(
+      object.value,
+      jsonNumberStyle: object.jsonNumberStyle,
+      yamlNumberStyle: object.yamlNumberStyle,
+    );
+    tree.$nodes[node.id] = TreeNodeRecord(node: node, pointer: pointer, parent: parent?.id);
+    parentRecord?.children[Edge(IntValueNode, key)] = node.id;
+  }
+
   @override
   IntValueNode clone() => IntValueNode(value, jsonNumberStyle: jsonNumberStyle, yamlNumberStyle: yamlNumberStyle);
 
@@ -69,6 +96,18 @@ class DoubleValueNode extends TreeNode {
 
   DoubleValueNode(this.value, {this.jsonNumberStyle, this.yamlNumberStyle, super.id});
 
+  static void fromObject(Tree tree, TreeNode? parent, String key, DoubleValue object) {
+    final parentRecord = tree.nodes[parent?.id];
+    final pointer = Pointer.build(parentRecord?.pointer, key);
+    final node = DoubleValueNode(
+      object.value,
+      jsonNumberStyle: object.jsonNumberStyle,
+      yamlNumberStyle: object.yamlNumberStyle,
+    );
+    tree.$nodes[node.id] = TreeNodeRecord(node: node, pointer: pointer, parent: parent?.id);
+    parentRecord?.children[Edge(DoubleValueNode, key)] = node.id;
+  }
+
   @override
   DoubleValueNode clone() => DoubleValueNode(value, jsonNumberStyle: jsonNumberStyle, yamlNumberStyle: yamlNumberStyle);
 
@@ -91,6 +130,14 @@ class BoolValueNode extends TreeNode {
 
   BoolValueNode(this.value, {this.yamlBoolStyle, super.id});
 
+  static void fromObject(Tree tree, TreeNode? parent, String key, BoolValue object) {
+    final parentRecord = tree.nodes[parent?.id];
+    final pointer = Pointer.build(parentRecord?.pointer, key);
+    final node = BoolValueNode(object.value, yamlBoolStyle: object.yamlBoolStyle);
+    tree.$nodes[node.id] = TreeNodeRecord(node: node, pointer: pointer, parent: parent?.id);
+    parentRecord?.children[Edge(BoolValueNode, key)] = node.id;
+  }
+
   @override
   BoolValueNode clone() => BoolValueNode(value, yamlBoolStyle: yamlBoolStyle);
 
@@ -109,6 +156,14 @@ class NullValueNode extends TreeNode {
   final YamlNullStyle? yamlNullStyle;
 
   NullValueNode({this.yamlNullStyle, super.id});
+
+  static void fromObject(Tree tree, TreeNode? parent, String key, NullValue object) {
+    final parentRecord = tree.nodes[parent?.id];
+    final pointer = Pointer.build(parentRecord?.pointer, key);
+    final node = NullValueNode(yamlNullStyle: object.yamlNullStyle);
+    tree.$nodes[node.id] = TreeNodeRecord(node: node, pointer: pointer, parent: parent?.id);
+    parentRecord?.children[Edge(NullValueNode, key)] = node.id;
+  }
 
   @override
   NullValueNode clone() => NullValueNode(yamlNullStyle: yamlNullStyle);
