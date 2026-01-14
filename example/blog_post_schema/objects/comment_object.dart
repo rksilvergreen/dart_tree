@@ -2,17 +2,20 @@
 // Generated from blog_post_schema.dart
 
 import 'package:dart_tree/dart_tree.dart';
+import 'person_object.dart';
 
 /// Generated TreeObject class for Comment
 class CommentObject extends TreeObject {
   final StringValue content;
   final IntValue? index;
   final StringValue? buffer;
+  final PersonObject? person;
 
   CommentObject({
     required this.content,
     this.index,
     this.buffer,
+    this.person,
   }) {
     {if (content.value.length < 1 || content.value.length > 1000) {throw ArgumentError('content must be 1-1000 characters');}}
   }
@@ -33,6 +36,11 @@ class CommentObject extends TreeObject {
       buffer.write('"buffer": ');
       buffer.write(this.buffer!.toJson());
     }
+    if (this.person != null) {
+      buffer.write(', ');
+      buffer.write('"person": ');
+      buffer.write(this.person!.toJson());
+    }
     buffer.write('}');
     return buffer.toString();
   }
@@ -52,6 +60,11 @@ class CommentObject extends TreeObject {
       buffer.write('buffer: ');
       buffer.write(this.buffer!.toYaml());
     }
+    if (this.person != null) {
+      buffer.writeln();
+      buffer.write('person: ');
+      buffer.write(this.person!.toYaml());
+    }
     return buffer.toString();
   }
 
@@ -69,6 +82,7 @@ class CommentObject extends TreeObject {
           content: $checkedConvert('content', (v) => StringValue.fromJson(v as String)),
           index: $checkedConvert('index', (v) => v == null ? null : IntValue.fromJson(v as String)),
           buffer: $checkedConvert('buffer', (v) => v == null ? null : StringValue.fromJson(v as String)),
+          person: $checkedConvert('person', (v) => v == null ? null : PersonObject.fromJson(v as String, (s) => UserObject.fromJson(s), (s) => AdminObject.fromJson(s))),
         );
         return val;
       },
@@ -89,6 +103,7 @@ class CommentObject extends TreeObject {
           content: $checkedConvert('content', (v) => StringValue.fromYaml(v as String)),
           index: $checkedConvert('index', (v) => v == null ? null : IntValue.fromYaml(v as String)),
           buffer: $checkedConvert('buffer', (v) => v == null ? null : StringValue.fromYaml(v as String)),
+          person: $checkedConvert('person', (v) => v == null ? null : PersonObject.fromYaml(v as String, (s) => UserObject.fromYaml(s), (s) => AdminObject.fromYaml(s))),
         );
         return val;
       },

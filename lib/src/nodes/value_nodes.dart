@@ -17,6 +17,8 @@ class StringValueNode extends TreeNode {
 
   StringValueNode(this.value, {this.jsonStringStyle, this.yamlStringStyle, super.id});
 
+  
+
   @override
   StringValueNode clone() => StringValueNode(value, jsonStringStyle: jsonStringStyle, yamlStringStyle: yamlStringStyle);
 

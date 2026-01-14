@@ -15,11 +15,8 @@ abstract class TreeNode {
   /// This is managed internally by the Tree class.
   Tree? _tree;
 
-  /// Internal getter for tree reference (used by Tree class).
-  Tree? get tree => _tree;
-
   /// Internal setter for tree reference (used by Tree class).
-  set tree(Tree? value) => _tree = value;
+  set $tree(Tree? value) => _tree = value;
 
   TreeNode({String? id}) : id = id ?? _uuid.v4();
 

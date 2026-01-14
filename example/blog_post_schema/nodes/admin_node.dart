@@ -15,8 +15,8 @@ class AdminNode extends CollectionNode {
     final tree = this.$tree;
     if (tree != null) {
       final oldNode = this.age;
-      final newNode = IntValueNode(value);
-      final newSubtree = Tree(root: newNode);
+      final object = IntValue(value);
+      final newSubtree = Tree(root: object);
       tree.replaceSubtree(node: oldNode, newSubtree: newSubtree);
     }
   }
@@ -26,8 +26,8 @@ class AdminNode extends CollectionNode {
     final tree = this.$tree;
     if (tree != null) {
       final oldNode = this.address;
-      final newNode = StringValueNode(value);
-      final newSubtree = Tree(root: newNode);
+      final object = StringValue(value);
+      final newSubtree = Tree(root: object);
       tree.replaceSubtree(node: oldNode, newSubtree: newSubtree);
     }
   }

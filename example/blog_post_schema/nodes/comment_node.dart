@@ -2,6 +2,9 @@
 // Generated from blog_post_schema.dart
 
 import 'package:dart_tree/dart_tree.dart';
+import 'person_node.dart';
+import 'user_node.dart';
+import 'admin_node.dart';
 
 /// Generated TreeNode class for Comment
 class CommentNode extends CollectionNode {
@@ -10,14 +13,22 @@ class CommentNode extends CollectionNode {
   StringValueNode get content => this.$children!['content'] as StringValueNode;
   IntValueNode? get index => this.$children?['index'] as IntValueNode?;
   StringValueNode? get buffer => this.$children?['buffer'] as StringValueNode?;
+  PersonNode? get person {
+    final child = this.$children?['person'];
+    return switch (child.runtimeType) {
+      UserNode => PersonNode.user(child as UserNode),
+      AdminNode => PersonNode.admin(child as AdminNode),
+      _ => null,
+    };
+  }
 
   set content(String value) {
     if (value.length < 1 || value.length > 1000) {throw ArgumentError('content must be 1-1000 characters');}
     final tree = this.$tree;
     if (tree != null) {
       final oldNode = this.content;
-      final newNode = StringValueNode(value);
-      final newSubtree = Tree(root: newNode);
+      final object = StringValue(value);
+      final newSubtree = Tree(root: object);
       tree.replaceSubtree(node: oldNode, newSubtree: newSubtree);
     }
   }
@@ -37,14 +48,14 @@ class CommentNode extends CollectionNode {
     final tree = this.$tree;
     if (tree != null) {
       final oldNode = this.index;
-      final newNode = IntValueNode(value);
+      final object = IntValue(value);
       if (oldNode != null) {
         // Replace existing node
-        final newSubtree = Tree(root: newNode);
+        final newSubtree = Tree(root: object);
         tree.replaceSubtree(node: oldNode, newSubtree: newSubtree);
       } else {
         // Add new node (property was null before)
-        final newSubtree = Tree(root: newNode);
+        final newSubtree = Tree(root: object);
         tree.addSubtree(parent: this, key: 'index', subtree: newSubtree);
       }
     }
@@ -65,14 +76,14 @@ class CommentNode extends CollectionNode {
     final tree = this.$tree;
     if (tree != null) {
       final oldNode = this.buffer;
-      final newNode = StringValueNode(value);
+      final object = StringValue(value);
       if (oldNode != null) {
         // Replace existing node
-        final newSubtree = Tree(root: newNode);
+        final newSubtree = Tree(root: object);
         tree.replaceSubtree(node: oldNode, newSubtree: newSubtree);
       } else {
         // Add new node (property was null before)
-        final newSubtree = Tree(root: newNode);
+        final newSubtree = Tree(root: object);
         tree.addSubtree(parent: this, key: 'buffer', subtree: newSubtree);
       }
     }

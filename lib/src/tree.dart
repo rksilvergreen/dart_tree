@@ -5,6 +5,8 @@ import 'edge.dart';
 import 'tree_node_record.dart';
 import 'utils/pointer.dart';
 import 'syntax/comment.dart';
+import 'package:meta/meta.dart';
+import 'objects/tree_object.dart';
 
 const _uuid = Uuid();
 
@@ -58,15 +60,16 @@ class Tree {
   /// The root can be either a TreeObject (which will be converted to a TreeNode)
   /// or a TreeNode directly. The tree will recursively process the root and all
   /// its children, assigning paths and establishing parent-child relationships.
-  Tree({String? id, required Object root}) : id = id ?? _uuid.v4() {
-    _createNode(pointer: '/', object: root);
+  Tree({String? id, required TreeObject root}) : id = id ?? _uuid.v4() {
+    // _createNode(pointer: '/', object: root);
+    fromObject(root);
   }
 
   /// Creates a tree from an existing node registry (internal use).
   Tree._internal({required this.id, required Map<String, TreeNodeRecord> nodes}) {
     _nodes.addAll(nodes);
     for (final record in _nodes.values) {
-      record.node.tree = this;
+      record.node.$tree = this;
     }
   }
 
@@ -156,6 +159,7 @@ class Tree {
   /// Register an anchor for a node (YAML-specific).
   ///
   /// Anchors allow nodes to be referenced by name for later reuse via aliases.
+  @protected
   void registerAnchor(String anchorName, String nodeId) {
     _anchors[anchorName] = nodeId;
   }
@@ -184,52 +188,56 @@ class Tree {
   /// Get all aliases defined in the tree.
   Map<String, String> get aliases => Map.unmodifiable(_aliases);
 
-  /// Converts a TreeObject to a TreeNode with its child edges.
-  ///
-  /// This method must be overridden by extensions (via code generation)
-  /// to handle conversion of domain-specific objects to tree nodes.
-  ///
-  /// Returns a tuple of:
-  /// - The created TreeNode
-  /// - A list of (Edge, Object) tuples representing children to be processed
-  ///
-  /// Returns null if the object type is not recognized.
-  ///
-  /// Default implementation returns null. The generated extension will override this.
-  (TreeNode, List<(Edge, Object)>)? objectToNode(Object object) => null;
+  // /// Converts a TreeObject to a TreeNode with its child edges.
+  // ///
+  // /// This method must be overridden by extensions (via code generation)
+  // /// to handle conversion of domain-specific objects to tree nodes.
+  // ///
+  // /// Returns a tuple of:
+  // /// - The created TreeNode
+  // /// - A list of (Edge, Object) tuples representing children to be processed
+  // ///
+  // /// Returns null if the object type is not recognized.
+  // ///
+  // /// Default implementation returns null. The generated extension will override this.
+  // (TreeNode, List<(Edge, Object)>)? objectToNode(Object object) => null;
 
-  /// Creates a node from an object and attaches it to the tree.
-  TreeNodeRecord _createNode({required String pointer, required Object object}) {
-    final Map<Edge, TreeNodeRecord> children = {};
+  void fromObject<T extends TreeObject>(TreeObject object) => null;
 
-    // Convert object to node
-    final conversion = objectToNode(object);
-    if (conversion == null) {
-      throw StateError(
-        'Unable to convert object of type ${object.runtimeType} to TreeNode. '
-        'Ensure objectToNode() handles this type.',
-      );
-    }
+  // /// Creates a node from an object and attaches it to the tree.
+  // TreeNodeRecord _createNode({required String pointer, required Object object}) {
+  //   final Map<Edge, TreeNodeRecord> children = {};
 
-    final (node, edges) = conversion;
+  //   // Convert object to node
+  //   final conversion = objectToNode(object);
+  //   if (conversion == null) {
+  //     throw StateError(
+  //       'Unable to convert object of type ${object.runtimeType} to TreeNode. '
+  //       'Ensure objectToNode() handles this type.',
+  //     );
+  //   }
 
-    // Recursively create children
-    for (final (edge, childObject) in edges) {
-      children[edge] = _createNode(pointer: Pointer.build([pointer, edge.key]), object: childObject);
-    }
+  //   final (node, edges) = conversion;
 
-    // Set tree reference and register node
-    node.tree = this;
-    _nodes[node.id] = TreeNodeRecord(node: node, pointer: pointer);
+  //   // Recursively create children
+  //   for (final (edge, childObject) in edges) {
+  //     children[edge] = _createNode(pointer: Pointer.build(pointer, edge.key), object: childObject);
+  //   }
 
-    // Link children
-    for (final child in children.entries) {
-      _nodes[node.id]!.children[child.key] = child.value.node.id;
-      child.value.parent = node.id;
-    }
+  //   // Set tree reference and register node
+  //   node.$tree = this;
+  //   _nodes[node.id] = TreeNodeRecord(node: node, pointer: pointer);
 
-    return _nodes[node.id]!;
-  }
+  //   // Link children
+  //   for (final child in children.entries) {
+  //     _nodes[node.id]!.children[child.key] = child.value.node.id;
+  //     child.value.parent = node.id;
+  //   }
+
+  //   return _nodes[node.id]!;
+  // }
+
+  Map<String, TreeNodeRecord> get $nodes => _nodes;
 
   /// Removes a subtree starting at the given node.
   ///
@@ -277,7 +285,7 @@ class Tree {
       final childNode = _nodes[childId]?.node;
       if (childNode != null) {
         final childKey = entry.key.key;
-        final childPointer = Pointer.build([newRoot, childKey]);
+        final childPointer = Pointer.build(newRoot, childKey);
         final childSubtree = _collectSubtree(childNode, childPointer);
         result.addAll(childSubtree);
 
@@ -310,7 +318,7 @@ class Tree {
     // Transfer all nodes from newTree to this tree
     final transferredNodes = newTree._collectSubtree(newRoot, '/');
     for (final record in transferredNodes.values) {
-      record.node.tree = this;
+      record.node.$tree = this;
       _nodes[record.node.id] = record;
     }
 
@@ -349,12 +357,12 @@ class Tree {
     }
 
     // Calculate the new pointer for the subtree root
-    final newPointer = Pointer.build([parentRecord.pointer, key]);
+    final newPointer = Pointer.build(parentRecord.pointer, key);
 
     // Transfer subtree nodes
     final transferredNodes = subtree._collectSubtree(subtreeRoot, newPointer);
     for (final record in transferredNodes.values) {
-      record.node.tree = this;
+      record.node.$tree = this;
       _nodes[record.node.id] = record;
     }
 

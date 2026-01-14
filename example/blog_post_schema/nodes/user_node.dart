@@ -15,8 +15,8 @@ class UserNode extends CollectionNode {
     final tree = this.$tree;
     if (tree != null) {
       final oldNode = this.name;
-      final newNode = StringValueNode(value);
-      final newSubtree = Tree(root: newNode);
+      final object = StringValue(value);
+      final newSubtree = Tree(root: object);
       tree.replaceSubtree(node: oldNode, newSubtree: newSubtree);
     }
   }
@@ -26,8 +26,8 @@ class UserNode extends CollectionNode {
     final tree = this.$tree;
     if (tree != null) {
       final oldNode = this.email;
-      final newNode = StringValueNode(value);
-      final newSubtree = Tree(root: newNode);
+      final object = StringValue(value);
+      final newSubtree = Tree(root: object);
       tree.replaceSubtree(node: oldNode, newSubtree: newSubtree);
     }
   }

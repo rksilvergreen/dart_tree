@@ -24,14 +24,14 @@ class ReferenceNode extends CollectionNode {
     final tree = this.$tree;
     if (tree != null) {
       final oldNode = this.$ref;
-      final newNode = StringValueNode(value);
+      final object = StringValue(value);
       if (oldNode != null) {
         // Replace existing node
-        final newSubtree = Tree(root: newNode);
+        final newSubtree = Tree(root: object);
         tree.replaceSubtree(node: oldNode, newSubtree: newSubtree);
       } else {
         // Add new node (property was null before)
-        final newSubtree = Tree(root: newNode);
+        final newSubtree = Tree(root: object);
         tree.addSubtree(parent: this, key: '\$ref', subtree: newSubtree);
       }
     }

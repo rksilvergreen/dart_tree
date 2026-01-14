@@ -1,34 +1,27 @@
 /// Utilities for working with JSON Pointer (RFC 6901) paths.
 class Pointer {
-  /// Builds a JSON Pointer from a list of path segments.
-  /// 
+  /// Builds a JSON Pointer from two nullable string values.
+  ///
   /// Examples:
-  /// - `[]` → `/`
-  /// - `['users', '0', 'name']` → `/users/0/name`
-  static String build(List<String> segments) {
-    if (segments.isEmpty) {
+  /// - `build(null, null)` → `/`
+  /// - `build('/users', null)` → `/users`
+  /// - `build(null, 'name')` → `name`
+  /// - `build('/users', 'name')` → `/users/name`
+  static String build(String? first, String? second) {
+    if (first == null && second == null) {
       return '/';
     }
-
-    // Filter out empty segments but keep '/'
-    final filtered = segments.where((s) => s.isNotEmpty || s == '/').toList();
-    if (filtered.isEmpty) {
-      return '/';
+    if (first == null) {
+      return second!;
     }
-
-    // If first segment is empty or '/', start with '/'
-    if (filtered.first.isEmpty || filtered.first == '/') {
-      if (filtered.length == 1) {
-        return '/';
-      }
-      return '/${filtered.skip(1).map(_escapeSegment).join('/')}';
+    if (second == null) {
+      return first;
     }
-
-    return '/${filtered.map(_escapeSegment).join('/')}';
+    return '$first/$second';
   }
 
   /// Parses a JSON Pointer into its segments.
-  /// 
+  ///
   /// Examples:
   /// - `/` → `[]`
   /// - `/users/0/name` → `['users', '0', 'name']`
@@ -49,7 +42,7 @@ class Pointer {
   }
 
   /// Escapes a segment for use in a JSON Pointer.
-  /// 
+  ///
   /// Per RFC 6901:
   /// - `~` becomes `~0`
   /// - `/` becomes `~1`
@@ -77,7 +70,7 @@ class Pointer {
   }
 
   /// Gets the parent pointer of the given pointer.
-  /// 
+  ///
   /// Examples:
   /// - `/users/0/name` → `/users/0`
   /// - `/users` → `/`
@@ -96,7 +89,7 @@ class Pointer {
   }
 
   /// Gets the last segment of the pointer (the key or index).
-  /// 
+  ///
   /// Examples:
   /// - `/users/0/name` → `name`
   /// - `/users` → `users`
@@ -110,4 +103,3 @@ class Pointer {
     return segments.isEmpty ? null : segments.last;
   }
 }
-
