@@ -112,3 +112,11 @@ class CommentNode extends CollectionNode {
   @override
   CommentNode clone() => CommentNode(id: id);
 }
+
+/// Generated ListNode for comments
+class CommentsListNode extends ListTreeNode<CommentNode> {
+  CommentsListNode({super.id});
+
+  @override
+  CommentsListNode clone() => CommentsListNode(id: id);
+}

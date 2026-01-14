@@ -12,9 +12,6 @@ export 'blog_post_schema/objects/blog_post_object.dart';
 export 'blog_post_schema/objects/reference_object.dart';
 export 'blog_post_schema/objects/ref_object.dart';
 
-// Custom ListObject exports
-export 'blog_post_schema/objects/comments_list_object.dart';
-
 // TreeNode exports
 export 'blog_post_schema/nodes/user_node.dart';
 export 'blog_post_schema/nodes/admin_node.dart';

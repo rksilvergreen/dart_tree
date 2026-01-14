@@ -11,13 +11,12 @@ class CommentObject extends TreeObject {
   final StringValue? buffer;
   final PersonObject? person;
 
-  CommentObject({
-    required this.content,
-    this.index,
-    this.buffer,
-    this.person,
-  }) {
-    {if (content.value.length < 1 || content.value.length > 1000) {throw ArgumentError('content must be 1-1000 characters');}}
+  CommentObject({required this.content, this.index, this.buffer, this.person}) {
+    {
+      if (content.value.length < 1 || content.value.length > 1000) {
+        throw ArgumentError('content must be 1-1000 characters');
+      }
+    }
   }
 
   @override
@@ -70,43 +69,44 @@ class CommentObject extends TreeObject {
 
   static CommentObject fromJson(String json) {
     final map = extractJsonObjectFields(json);
-    return $checkedCreate(
-      'CommentObject',
-      map,
-      ($checkedConvert) {
-        $checkKeys(
-          map,
-          requiredKeys: const ['content'],
-        );
-        final val = CommentObject(
-          content: $checkedConvert('content', (v) => StringValue.fromJson(v as String)),
-          index: $checkedConvert('index', (v) => v == null ? null : IntValue.fromJson(v as String)),
-          buffer: $checkedConvert('buffer', (v) => v == null ? null : StringValue.fromJson(v as String)),
-          person: $checkedConvert('person', (v) => v == null ? null : PersonObject.fromJson(v as String, (s) => UserObject.fromJson(s), (s) => AdminObject.fromJson(s))),
-        );
-        return val;
-      },
-    );
+    return $checkedCreate('CommentObject', map, ($checkedConvert) {
+      $checkKeys(map, requiredKeys: const ['content']);
+      final val = CommentObject(
+        content: $checkedConvert('content', (v) => StringValue.fromJson(v as String)),
+        index: $checkedConvert('index', (v) => v == null ? null : IntValue.fromJson(v as String)),
+        buffer: $checkedConvert('buffer', (v) => v == null ? null : StringValue.fromJson(v as String)),
+        person: $checkedConvert(
+          'person',
+          (v) => v == null
+              ? null
+              : PersonObject.fromJson(v as String, (s) => UserObject.fromJson(s), (s) => AdminObject.fromJson(s)),
+        ),
+      );
+      return val;
+    });
   }
 
   static CommentObject fromYaml(String yaml) {
     final map = extractYamlMappingFields(yaml);
-    return $checkedCreate(
-      'CommentObject',
-      map,
-      ($checkedConvert) {
-        $checkKeys(
-          map,
-          requiredKeys: const ['content'],
-        );
-        final val = CommentObject(
-          content: $checkedConvert('content', (v) => StringValue.fromYaml(v as String)),
-          index: $checkedConvert('index', (v) => v == null ? null : IntValue.fromYaml(v as String)),
-          buffer: $checkedConvert('buffer', (v) => v == null ? null : StringValue.fromYaml(v as String)),
-          person: $checkedConvert('person', (v) => v == null ? null : PersonObject.fromYaml(v as String, (s) => UserObject.fromYaml(s), (s) => AdminObject.fromYaml(s))),
-        );
-        return val;
-      },
-    );
+    return $checkedCreate('CommentObject', map, ($checkedConvert) {
+      $checkKeys(map, requiredKeys: const ['content']);
+      final val = CommentObject(
+        content: $checkedConvert('content', (v) => StringValue.fromYaml(v as String)),
+        index: $checkedConvert('index', (v) => v == null ? null : IntValue.fromYaml(v as String)),
+        buffer: $checkedConvert('buffer', (v) => v == null ? null : StringValue.fromYaml(v as String)),
+        person: $checkedConvert(
+          'person',
+          (v) => v == null
+              ? null
+              : PersonObject.fromYaml(v as String, (s) => UserObject.fromYaml(s), (s) => AdminObject.fromYaml(s)),
+        ),
+      );
+      return val;
+    });
   }
+}
+
+/// Generated ListObject for comments
+class CommentsListObject extends ListObject<CommentObject> {
+  CommentsListObject(super.elements);
 }
