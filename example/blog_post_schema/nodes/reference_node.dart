@@ -39,7 +39,9 @@ class ReferenceNode extends CollectionNode {
   }
 
 
-  static void fromObject(Tree tree, TreeNode? parent, String key, ReferenceObject object) {
+  static void fromObject(Tree tree, TreeNode? parent, String key, ReferenceObject? object) {
+    if (object == null) return;
+
     final parentRecord = tree.nodes[parent?.id];
     final pointer = Pointer.build(parentRecord?.pointer, key);
     final node = ReferenceNode();

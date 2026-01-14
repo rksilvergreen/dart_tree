@@ -34,7 +34,9 @@ class AdminNode extends CollectionNode {
   }
 
 
-  static void fromObject(Tree tree, TreeNode? parent, String key, AdminObject object) {
+  static void fromObject(Tree tree, TreeNode? parent, String key, AdminObject? object) {
+    if (object == null) return;
+
     final parentRecord = tree.nodes[parent?.id];
     final pointer = Pointer.build(parentRecord?.pointer, key);
     final node = AdminNode();

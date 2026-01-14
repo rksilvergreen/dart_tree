@@ -94,7 +94,9 @@ class CommentNode extends CollectionNode {
   }
 
 
-  static void fromObject(Tree tree, TreeNode? parent, String key, CommentObject object) {
+  static void fromObject(Tree tree, TreeNode? parent, String key, CommentObject? object) {
+    if (object == null) return;
+
     final parentRecord = tree.nodes[parent?.id];
     final pointer = Pointer.build(parentRecord?.pointer, key);
     final node = CommentNode();
