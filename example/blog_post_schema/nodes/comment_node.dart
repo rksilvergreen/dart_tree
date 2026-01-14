@@ -6,9 +6,6 @@ import 'person_node.dart';
 import 'user_node.dart';
 import 'admin_node.dart';
 import '../objects/comment_object.dart';
-import '../objects/person_object.dart';
-import '../objects/user_object.dart';
-import '../objects/admin_object.dart';
 
 /// Generated TreeNode class for Comment
 class CommentNode extends CollectionNode {
@@ -27,9 +24,7 @@ class CommentNode extends CollectionNode {
   }
 
   set content(String value) {
-    if (value.length < 1 || value.length > 1000) {
-      throw ArgumentError('content must be 1-1000 characters');
-    }
+    if (value.length < 1 || value.length > 1000) {throw ArgumentError('content must be 1-1000 characters');}
     final tree = this.$tree;
     if (tree != null) {
       final oldNode = this.content;
@@ -95,11 +90,12 @@ class CommentNode extends CollectionNode {
     }
   }
 
+
   CommentObject toObject() => CommentObject(
-    content: content.toObject(),
-    index: index?.toObject(),
-    buffer: buffer?.toObject(),
-    person: person?.toObject(),
+    content: this.content.toObject(),
+    index: this.index?.toObject(),
+    buffer: this.buffer?.toObject(),
+    person: this.person?.toObject(),
   );
 
   static void fromObject(Tree tree, TreeNode? parent, String key, CommentObject? object) {
@@ -125,6 +121,8 @@ class CommentNode extends CollectionNode {
 class CommentsListNode extends ListTreeNode<CommentNode> {
   CommentsListNode({super.id});
 
+  CommentsListObject toObject() => CommentsListObject(this.map((node) => node.toObject()).toList());
+
   static void fromObject(Tree tree, TreeNode? parent, String key, CommentsListObject? object) {
     if (object == null) return;
 
@@ -135,7 +133,7 @@ class CommentsListNode extends ListTreeNode<CommentNode> {
     parentRecord?.children[Edge(CommentsListNode, key)] = node.id;
 
     for (int i = 0; i < object.length; i++) {
-      CommentNode.fromObject(tree, node, '$i', object[i]);
+      CommentNode.fromObject(tree, node, i.toString(), object[i]);
     }
   }
 

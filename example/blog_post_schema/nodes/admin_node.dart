@@ -34,6 +34,11 @@ class AdminNode extends CollectionNode {
   }
 
 
+  AdminObject toObject() => AdminObject(
+    age: this.age.toObject(),
+    address: this.address.toObject(),
+  );
+
   static void fromObject(Tree tree, TreeNode? parent, String key, AdminObject? object) {
     if (object == null) return;
 

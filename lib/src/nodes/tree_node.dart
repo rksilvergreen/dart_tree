@@ -1,5 +1,6 @@
 import 'package:uuid/uuid.dart';
 import '../tree.dart';
+import '../objects/tree_object.dart';
 
 const _uuid = Uuid();
 
@@ -60,6 +61,8 @@ abstract class TreeNode {
     // This will be implemented by Tree class
     throw UnimplementedError('Path retrieval requires Tree implementation');
   }
+
+  TreeObject toObject();
 
   /// Creates a deep copy of this node with a new ID.
   TreeNode clone();

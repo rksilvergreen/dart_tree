@@ -4,7 +4,6 @@
 import 'package:dart_tree/dart_tree.dart';
 import 'reference_node.dart';
 import '../objects/ref_object.dart';
-import '../objects/reference_object.dart';
 
 /// Generated union node class for Ref
 class RefNode<T extends TreeNode> extends TreeNode {
@@ -50,14 +49,23 @@ class RefNode<T extends TreeNode> extends TreeNode {
   @override
   String toString() => 'RefNode($_reference, $_value)';
 
+  RefObject toObject() {
+    if (_reference != null) {
+      return RefObject.reference(_reference.toObject());
+    } else if (_value != null) {
+      return RefObject.value(_value.toObject());
+    } else {
+      throw StateError('Union has no value set');
+    }
+  }
+
   static void fromObject(Tree tree, TreeNode? parent, String key, RefObject? object) {
     if (object == null) return;
 
     if (object.isReference) {
       ReferenceNode.fromObject(tree, parent, key, object.asReference);
     } else if (object.isValue) {
-      // Type parameter deserialization not supported
-      throw UnsupportedError('Cannot deserialize union with type parameter T');
+      tree.fromObject(object.asValue!);
     }
   }
 }

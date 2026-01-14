@@ -36,6 +36,8 @@ class StringValueNode extends TreeNode {
     parentRecord?.children[Edge(StringValueNode, key)] = node.id;
   }
 
+  StringValue toObject() => StringValue(value, jsonStringStyle: jsonStringStyle, yamlStringStyle: yamlStringStyle);
+
   @override
   StringValueNode clone() => StringValueNode(value, jsonStringStyle: jsonStringStyle, yamlStringStyle: yamlStringStyle);
 
@@ -74,6 +76,8 @@ class IntValueNode extends TreeNode {
     tree.$nodes[node.id] = TreeNodeRecord(node: node, pointer: pointer, parent: parent?.id);
     parentRecord?.children[Edge(IntValueNode, key)] = node.id;
   }
+
+  IntValue toObject() => IntValue(value, jsonNumberStyle: jsonNumberStyle, yamlNumberStyle: yamlNumberStyle);
 
   @override
   IntValueNode clone() => IntValueNode(value, jsonNumberStyle: jsonNumberStyle, yamlNumberStyle: yamlNumberStyle);
@@ -114,6 +118,8 @@ class DoubleValueNode extends TreeNode {
     parentRecord?.children[Edge(DoubleValueNode, key)] = node.id;
   }
 
+  DoubleValue toObject() => DoubleValue(value, jsonNumberStyle: jsonNumberStyle, yamlNumberStyle: yamlNumberStyle);
+
   @override
   DoubleValueNode clone() => DoubleValueNode(value, jsonNumberStyle: jsonNumberStyle, yamlNumberStyle: yamlNumberStyle);
 
@@ -146,6 +152,8 @@ class BoolValueNode extends TreeNode {
     parentRecord?.children[Edge(BoolValueNode, key)] = node.id;
   }
 
+  BoolValue toObject() => BoolValue(value, yamlBoolStyle: yamlBoolStyle);
+
   @override
   BoolValueNode clone() => BoolValueNode(value, yamlBoolStyle: yamlBoolStyle);
 
@@ -174,6 +182,8 @@ class NullValueNode extends TreeNode {
     tree.$nodes[node.id] = TreeNodeRecord(node: node, pointer: pointer, parent: parent?.id);
     parentRecord?.children[Edge(NullValueNode, key)] = node.id;
   }
+
+  NullValue toObject() => NullValue(yamlNullStyle: yamlNullStyle);
 
   @override
   NullValueNode clone() => NullValueNode(yamlNullStyle: yamlNullStyle);

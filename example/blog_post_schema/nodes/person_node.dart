@@ -5,8 +5,6 @@ import 'package:dart_tree/dart_tree.dart';
 import 'user_node.dart';
 import 'admin_node.dart';
 import '../objects/person_object.dart';
-import '../objects/user_object.dart';
-import '../objects/admin_object.dart';
 
 /// Generated union node class for Person
 class PersonNode extends TreeNode {
@@ -51,6 +49,16 @@ class PersonNode extends TreeNode {
 
   @override
   String toString() => 'PersonNode($_user, $_admin)';
+
+  PersonObject toObject() {
+    if (_user != null) {
+      return PersonObject.user(_user.toObject());
+    } else if (_admin != null) {
+      return PersonObject.admin(_admin.toObject());
+    } else {
+      throw StateError('Union has no value set');
+    }
+  }
 
   static void fromObject(Tree tree, TreeNode? parent, String key, PersonObject? object) {
     if (object == null) return;

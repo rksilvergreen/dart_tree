@@ -2,9 +2,9 @@
 // Generated from blog_post_schema.dart
 
 import 'package:dart_tree/dart_tree.dart';
+import 'comment_node.dart';
 import 'user_node.dart';
 import '../objects/blog_post_object.dart';
-import '../objects/user_object.dart';
 
 /// Generated TreeNode class for BlogPost
 class BlogPostNode extends CollectionNode {
@@ -67,6 +67,14 @@ class BlogPostNode extends CollectionNode {
     }
   }
 
+
+  BlogPostObject toObject() => BlogPostObject(
+    title: this.title.toObject(),
+    author: this.author?.toObject(),
+    content: this.content.toObject(),
+    comments: this.comments?.toObject(),
+    user: this.user?.toObject(),
+  );
 
   static void fromObject(Tree tree, TreeNode? parent, String key, BlogPostObject? object) {
     if (object == null) return;

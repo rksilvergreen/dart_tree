@@ -39,6 +39,10 @@ class ReferenceNode extends CollectionNode {
   }
 
 
+  ReferenceObject toObject() => ReferenceObject(
+    $ref: this.$ref?.toObject(),
+  );
+
   static void fromObject(Tree tree, TreeNode? parent, String key, ReferenceObject? object) {
     if (object == null) return;
 

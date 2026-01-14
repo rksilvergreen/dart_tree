@@ -34,6 +34,11 @@ class UserNode extends CollectionNode {
   }
 
 
+  UserObject toObject() => UserObject(
+    name: this.name.toObject(),
+    email: this.email.toObject(),
+  );
+
   static void fromObject(Tree tree, TreeNode? parent, String key, UserObject? object) {
     if (object == null) return;
 
