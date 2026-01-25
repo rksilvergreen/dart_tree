@@ -11,26 +11,28 @@ class UserNode extends CollectionNode {
   StringValueNode get name => this.$children!['name'] as StringValueNode;
   StringValueNode get email => this.$children!['email'] as StringValueNode;
 
-  set name(String value) {
-    if (value.length < 1 || value.length > 100) {throw ArgumentError('name must be 1-100 characters');}
+  Tree? setName(StringValue value) {
+    Tree? removedSubtree;
+    if (value.value.length < 1 || value.value.length > 100) {throw ArgumentError('name must be 1-100 characters');}
     final tree = this.$tree;
     if (tree != null) {
       final oldNode = this.name;
-      final object = StringValue(value);
-      final newSubtree = Tree(root: object);
-      tree.replaceSubtree(node: oldNode, newSubtree: newSubtree);
+      final newSubtree = Tree(root: value);
+      removedSubtree = tree.replaceSubtree(node: oldNode, newSubtree: newSubtree);
     }
+    return removedSubtree;
   }
 
-  set email(String value) {
-    if (value.length < 1 || value.length > 100) {throw ArgumentError('email must be 1-100 characters');}
+  Tree? setEmail(StringValue value) {
+    Tree? removedSubtree;
+    if (value.value.length < 1 || value.value.length > 100) {throw ArgumentError('email must be 1-100 characters');}
     final tree = this.$tree;
     if (tree != null) {
       final oldNode = this.email;
-      final object = StringValue(value);
-      final newSubtree = Tree(root: object);
-      tree.replaceSubtree(node: oldNode, newSubtree: newSubtree);
+      final newSubtree = Tree(root: value);
+      removedSubtree = tree.replaceSubtree(node: oldNode, newSubtree: newSubtree);
     }
+    return removedSubtree;
   }
 
 

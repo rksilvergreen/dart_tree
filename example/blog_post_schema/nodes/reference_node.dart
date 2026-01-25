@@ -10,32 +10,33 @@ class ReferenceNode extends CollectionNode {
 
   StringValueNode? get $ref => this.$children?['\$ref'] as StringValueNode?;
 
-  set $ref(String? value) {
+  Tree? set$ref(StringValue? value) {
+    Tree? removedSubtree;
     if (value == null) {
       // Remove node from tree
       final tree = this.$tree;
       if (tree != null) {
         final oldNode = this.$ref;
         if (oldNode != null) {
-          tree.removeSubtree(oldNode);
+          removedSubtree = tree.removeSubtree(oldNode);
         }
       }
-      return;
+      return removedSubtree;
     }
     final tree = this.$tree;
     if (tree != null) {
       final oldNode = this.$ref;
-      final object = StringValue(value);
       if (oldNode != null) {
         // Replace existing node
-        final newSubtree = Tree(root: object);
-        tree.replaceSubtree(node: oldNode, newSubtree: newSubtree);
+        final newSubtree = Tree(root: value);
+        removedSubtree = tree.replaceSubtree(node: oldNode, newSubtree: newSubtree);
       } else {
         // Add new node (property was null before)
-        final newSubtree = Tree(root: object);
+        final newSubtree = Tree(root: value);
         tree.addSubtree(parent: this, key: '\$ref', subtree: newSubtree);
       }
     }
+    return removedSubtree;
   }
 
 

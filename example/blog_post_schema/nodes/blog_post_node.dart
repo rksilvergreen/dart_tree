@@ -18,69 +18,73 @@ class BlogPostNode extends CollectionNode {
   CommentsListNode? get comments => this.$children?['comments'] as CommentsListNode?;
   UserNode? get user => this.$children?['user'] as UserNode?;
 
-  set title(String value) {
-    if (value.length < 1 || value.length > 100) {throw ArgumentError('title must be 1-100 characters');}
+  Tree? setTitle(StringValue value) {
+    Tree? removedSubtree;
+    if (value.value.length < 1 || value.value.length > 100) {throw ArgumentError('title must be 1-100 characters');}
     final tree = this.$tree;
     if (tree != null) {
       final oldNode = this.title;
-      final object = StringValue(value);
-      final newSubtree = Tree(root: object);
-      tree.replaceSubtree(node: oldNode, newSubtree: newSubtree);
+      final newSubtree = Tree(root: value);
+      removedSubtree = tree.replaceSubtree(node: oldNode, newSubtree: newSubtree);
     }
+    return removedSubtree;
   }
 
-  set author(String? value) {
+  Tree? setAuthor(StringValue? value) {
+    Tree? removedSubtree;
     if (value == null) {
       // Remove node from tree
       final tree = this.$tree;
       if (tree != null) {
         final oldNode = this.author;
         if (oldNode != null) {
-          tree.removeSubtree(oldNode);
+          removedSubtree = tree.removeSubtree(oldNode);
         }
       }
-      return;
+      return removedSubtree;
     }
-    if (value.length < 1 || value.length > 100) {throw ArgumentError('author must be 1-100 characters');}
+    if (value.value.length < 1 || value.value.length > 100) {throw ArgumentError('author must be 1-100 characters');}
     final tree = this.$tree;
     if (tree != null) {
       final oldNode = this.author;
-      final object = StringValue(value);
       if (oldNode != null) {
         // Replace existing node
-        final newSubtree = Tree(root: object);
-        tree.replaceSubtree(node: oldNode, newSubtree: newSubtree);
+        final newSubtree = Tree(root: value);
+        removedSubtree = tree.replaceSubtree(node: oldNode, newSubtree: newSubtree);
       } else {
         // Add new node (property was null before)
-        final newSubtree = Tree(root: object);
+        final newSubtree = Tree(root: value);
         tree.addSubtree(parent: this, key: 'author', subtree: newSubtree);
       }
     }
+    return removedSubtree;
   }
 
-  set content(String value) {
-    if (value.length < 1 || value.length > 1000) {throw ArgumentError('content must be 1-1000 characters');}
+  Tree? setContent(StringValue value) {
+    Tree? removedSubtree;
+    if (value.value.length < 1 || value.value.length > 1000) {throw ArgumentError('content must be 1-1000 characters');}
     final tree = this.$tree;
     if (tree != null) {
       final oldNode = this.content;
-      final object = StringValue(value);
-      final newSubtree = Tree(root: object);
-      tree.replaceSubtree(node: oldNode, newSubtree: newSubtree);
+      final newSubtree = Tree(root: value);
+      removedSubtree = tree.replaceSubtree(node: oldNode, newSubtree: newSubtree);
     }
+    return removedSubtree;
   }
 
 
-  set comments(CommentsListObject? value) {
+  Tree? setComments(CommentsListObject? value) {
+    Tree? removedSubtree;
     if (value == null) {
       // Remove node from tree
       final tree = this.$tree;
       if (tree != null) {
         final oldNode = this.comments;
         if (oldNode != null) {
-          tree.removeSubtree(oldNode);
+          removedSubtree = tree.removeSubtree(oldNode);
         }
       }
-      return;
+      return removedSubtree;
     }
     final tree = this.$tree;
     if (tree != null) {
@@ -91,26 +95,28 @@ class BlogPostNode extends CollectionNode {
         final subtree = tempTree.removeSubtree(rootNode);
         if (oldNode != null) {
           // Replace existing node
-          tree.replaceSubtree(node: oldNode, newSubtree: subtree);
+          removedSubtree = tree.replaceSubtree(node: oldNode, newSubtree: subtree);
         } else {
           // Add new node (property was null before)
           tree.addSubtree(parent: this, key: 'comments', subtree: subtree);
         }
       }
     }
+    return removedSubtree;
   }
 
-  set user(UserObject? value) {
+  Tree? setUser(UserObject? value) {
+    Tree? removedSubtree;
     if (value == null) {
       // Remove node from tree
       final tree = this.$tree;
       if (tree != null) {
         final oldNode = this.user;
         if (oldNode != null) {
-          tree.removeSubtree(oldNode);
+          removedSubtree = tree.removeSubtree(oldNode);
         }
       }
-      return;
+      return removedSubtree;
     }
     final tree = this.$tree;
     if (tree != null) {
@@ -121,13 +127,14 @@ class BlogPostNode extends CollectionNode {
         final subtree = tempTree.removeSubtree(rootNode);
         if (oldNode != null) {
           // Replace existing node
-          tree.replaceSubtree(node: oldNode, newSubtree: subtree);
+          removedSubtree = tree.replaceSubtree(node: oldNode, newSubtree: subtree);
         } else {
           // Add new node (property was null before)
           tree.addSubtree(parent: this, key: 'user', subtree: subtree);
         }
       }
     }
+    return removedSubtree;
   }
 
 

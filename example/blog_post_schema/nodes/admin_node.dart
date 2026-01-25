@@ -11,26 +11,28 @@ class AdminNode extends CollectionNode {
   IntValueNode get age => this.$children!['age'] as IntValueNode;
   StringValueNode get address => this.$children!['address'] as StringValueNode;
 
-  set age(int value) {
-    if (value < 18.0) {throw ArgumentError('age must be >= 18.0');}
+  Tree? setAge(IntValue value) {
+    Tree? removedSubtree;
+    if (value.value < 18.0) {throw ArgumentError('age must be >= 18.0');}
     final tree = this.$tree;
     if (tree != null) {
       final oldNode = this.age;
-      final object = IntValue(value);
-      final newSubtree = Tree(root: object);
-      tree.replaceSubtree(node: oldNode, newSubtree: newSubtree);
+      final newSubtree = Tree(root: value);
+      removedSubtree = tree.replaceSubtree(node: oldNode, newSubtree: newSubtree);
     }
+    return removedSubtree;
   }
 
-  set address(String value) {
-    if (value.length < 1 || value.length > 100) {throw ArgumentError('address must be 1-100 characters');}
+  Tree? setAddress(StringValue value) {
+    Tree? removedSubtree;
+    if (value.value.length < 1 || value.value.length > 100) {throw ArgumentError('address must be 1-100 characters');}
     final tree = this.$tree;
     if (tree != null) {
       final oldNode = this.address;
-      final object = StringValue(value);
-      final newSubtree = Tree(root: object);
-      tree.replaceSubtree(node: oldNode, newSubtree: newSubtree);
+      final newSubtree = Tree(root: value);
+      removedSubtree = tree.replaceSubtree(node: oldNode, newSubtree: newSubtree);
     }
+    return removedSubtree;
   }
 
 

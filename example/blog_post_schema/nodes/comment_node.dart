@@ -24,85 +24,89 @@ class CommentNode extends CollectionNode {
     };
   }
 
-  set content(String value) {
-    if (value.length < 1 || value.length > 1000) {throw ArgumentError('content must be 1-1000 characters');}
+  Tree? setContent(StringValue value) {
+    Tree? removedSubtree;
+    if (value.value.length < 1 || value.value.length > 1000) {throw ArgumentError('content must be 1-1000 characters');}
     final tree = this.$tree;
     if (tree != null) {
       final oldNode = this.content;
-      final object = StringValue(value);
-      final newSubtree = Tree(root: object);
-      tree.replaceSubtree(node: oldNode, newSubtree: newSubtree);
+      final newSubtree = Tree(root: value);
+      removedSubtree = tree.replaceSubtree(node: oldNode, newSubtree: newSubtree);
     }
+    return removedSubtree;
   }
 
-  set index(int? value) {
+  Tree? setIndex(IntValue? value) {
+    Tree? removedSubtree;
     if (value == null) {
       // Remove node from tree
       final tree = this.$tree;
       if (tree != null) {
         final oldNode = this.index;
         if (oldNode != null) {
-          tree.removeSubtree(oldNode);
+          removedSubtree = tree.removeSubtree(oldNode);
         }
       }
-      return;
+      return removedSubtree;
     }
     final tree = this.$tree;
     if (tree != null) {
       final oldNode = this.index;
-      final object = IntValue(value);
       if (oldNode != null) {
         // Replace existing node
-        final newSubtree = Tree(root: object);
-        tree.replaceSubtree(node: oldNode, newSubtree: newSubtree);
+        final newSubtree = Tree(root: value);
+        removedSubtree = tree.replaceSubtree(node: oldNode, newSubtree: newSubtree);
       } else {
         // Add new node (property was null before)
-        final newSubtree = Tree(root: object);
+        final newSubtree = Tree(root: value);
         tree.addSubtree(parent: this, key: 'index', subtree: newSubtree);
       }
     }
+    return removedSubtree;
   }
 
-  set buffer(String? value) {
+  Tree? setBuffer(StringValue? value) {
+    Tree? removedSubtree;
     if (value == null) {
       // Remove node from tree
       final tree = this.$tree;
       if (tree != null) {
         final oldNode = this.buffer;
         if (oldNode != null) {
-          tree.removeSubtree(oldNode);
+          removedSubtree = tree.removeSubtree(oldNode);
         }
       }
-      return;
+      return removedSubtree;
     }
     final tree = this.$tree;
     if (tree != null) {
       final oldNode = this.buffer;
-      final object = StringValue(value);
       if (oldNode != null) {
         // Replace existing node
-        final newSubtree = Tree(root: object);
-        tree.replaceSubtree(node: oldNode, newSubtree: newSubtree);
+        final newSubtree = Tree(root: value);
+        removedSubtree = tree.replaceSubtree(node: oldNode, newSubtree: newSubtree);
       } else {
         // Add new node (property was null before)
-        final newSubtree = Tree(root: object);
+        final newSubtree = Tree(root: value);
         tree.addSubtree(parent: this, key: 'buffer', subtree: newSubtree);
       }
     }
+    return removedSubtree;
   }
 
 
-  set person(PersonObject? value) {
+  Tree? setPerson(PersonObject? value) {
+    Tree? removedSubtree;
     if (value == null) {
       // Remove node from tree
       final tree = this.$tree;
       if (tree != null) {
         final oldNode = this.$children?['person'] as TreeNode?;
         if (oldNode != null) {
-          tree.removeSubtree(oldNode);
+          removedSubtree = tree.removeSubtree(oldNode);
         }
       }
-      return;
+      return removedSubtree;
     }
     final tree = this.$tree;
     if (tree != null) {
@@ -113,13 +117,14 @@ class CommentNode extends CollectionNode {
         final subtree = tempTree.removeSubtree(rootNode);
         if (oldNode != null) {
           // Replace existing node
-          tree.replaceSubtree(node: oldNode, newSubtree: subtree);
+          removedSubtree = tree.replaceSubtree(node: oldNode, newSubtree: subtree);
         } else {
           // Add new node (property was null before)
           tree.addSubtree(parent: this, key: 'person', subtree: subtree);
         }
       }
     }
+    return removedSubtree;
   }
 
 
