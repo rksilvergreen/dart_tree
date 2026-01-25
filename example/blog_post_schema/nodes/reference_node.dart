@@ -39,6 +39,7 @@ class ReferenceNode extends CollectionNode {
   }
 
 
+
   ReferenceObject toObject() => ReferenceObject(
     $ref: this.$ref?.toObject(),
   );

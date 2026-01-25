@@ -6,6 +6,7 @@ import 'person_node.dart';
 import 'user_node.dart';
 import 'admin_node.dart';
 import '../objects/comment_object.dart';
+import '../objects/person_object.dart';
 
 /// Generated TreeNode class for Comment
 class CommentNode extends CollectionNode {
@@ -86,6 +87,37 @@ class CommentNode extends CollectionNode {
         // Add new node (property was null before)
         final newSubtree = Tree(root: object);
         tree.addSubtree(parent: this, key: 'buffer', subtree: newSubtree);
+      }
+    }
+  }
+
+
+  set person(PersonObject? value) {
+    if (value == null) {
+      // Remove node from tree
+      final tree = this.$tree;
+      if (tree != null) {
+        final oldNode = this.$children?['person'] as TreeNode?;
+        if (oldNode != null) {
+          tree.removeSubtree(oldNode);
+        }
+      }
+      return;
+    }
+    final tree = this.$tree;
+    if (tree != null) {
+      final oldNode = this.$children?['person'] as TreeNode?;
+      final tempTree = Tree(root: value);
+      final rootNode = tempTree.root;
+      if (rootNode != null) {
+        final subtree = tempTree.removeSubtree(rootNode);
+        if (oldNode != null) {
+          // Replace existing node
+          tree.replaceSubtree(node: oldNode, newSubtree: subtree);
+        } else {
+          // Add new node (property was null before)
+          tree.addSubtree(parent: this, key: 'person', subtree: subtree);
+        }
       }
     }
   }

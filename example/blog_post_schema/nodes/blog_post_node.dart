@@ -5,6 +5,8 @@ import 'package:dart_tree/dart_tree.dart';
 import 'comment_node.dart';
 import 'user_node.dart';
 import '../objects/blog_post_object.dart';
+import '../objects/comment_object.dart';
+import '../objects/user_object.dart';
 
 /// Generated TreeNode class for BlogPost
 class BlogPostNode extends CollectionNode {
@@ -64,6 +66,67 @@ class BlogPostNode extends CollectionNode {
       final object = StringValue(value);
       final newSubtree = Tree(root: object);
       tree.replaceSubtree(node: oldNode, newSubtree: newSubtree);
+    }
+  }
+
+
+  set comments(CommentsListObject? value) {
+    if (value == null) {
+      // Remove node from tree
+      final tree = this.$tree;
+      if (tree != null) {
+        final oldNode = this.comments;
+        if (oldNode != null) {
+          tree.removeSubtree(oldNode);
+        }
+      }
+      return;
+    }
+    final tree = this.$tree;
+    if (tree != null) {
+      final oldNode = this.comments;
+      final tempTree = Tree(root: value);
+      final rootNode = tempTree.root;
+      if (rootNode != null) {
+        final subtree = tempTree.removeSubtree(rootNode);
+        if (oldNode != null) {
+          // Replace existing node
+          tree.replaceSubtree(node: oldNode, newSubtree: subtree);
+        } else {
+          // Add new node (property was null before)
+          tree.addSubtree(parent: this, key: 'comments', subtree: subtree);
+        }
+      }
+    }
+  }
+
+  set user(UserObject? value) {
+    if (value == null) {
+      // Remove node from tree
+      final tree = this.$tree;
+      if (tree != null) {
+        final oldNode = this.user;
+        if (oldNode != null) {
+          tree.removeSubtree(oldNode);
+        }
+      }
+      return;
+    }
+    final tree = this.$tree;
+    if (tree != null) {
+      final oldNode = this.user;
+      final tempTree = Tree(root: value);
+      final rootNode = tempTree.root;
+      if (rootNode != null) {
+        final subtree = tempTree.removeSubtree(rootNode);
+        if (oldNode != null) {
+          // Replace existing node
+          tree.replaceSubtree(node: oldNode, newSubtree: subtree);
+        } else {
+          // Add new node (property was null before)
+          tree.addSubtree(parent: this, key: 'user', subtree: subtree);
+        }
+      }
     }
   }
 

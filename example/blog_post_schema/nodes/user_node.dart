@@ -34,6 +34,7 @@ class UserNode extends CollectionNode {
   }
 
 
+
   UserObject toObject() => UserObject(
     name: this.name.toObject(),
     email: this.email.toObject(),
