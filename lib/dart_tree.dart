@@ -29,20 +29,15 @@ export 'src/objects/tree_object.dart';
 export 'src/objects/value_objects.dart';
 export 'src/objects/list_object.dart';
 export 'src/objects/map_object.dart';
-export 'src/objects/union_objects.dart';
 
 // Annotations
 export 'src/annotations.dart' hide TreeObject;
-
-// Schema definitions
-export 'src/schema/schema.dart';
 
 // Core node types
 export 'src/nodes/tree_node.dart' hide ValueNode;
 export 'src/nodes/value_nodes.dart';
 export 'src/nodes/map_tree_node.dart';
 export 'src/nodes/list_tree_node.dart';
-export 'src/nodes/union_nodes.dart';
 
 // Syntax metadata
 export 'src/syntax/source_position.dart';

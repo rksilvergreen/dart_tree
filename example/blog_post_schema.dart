@@ -1,4 +1,4 @@
-import 'package:dart_tree/dart_tree.dart';
+import 'package:dart_tree_gen/dart_tree_gen.dart';
 
 @schema
 const blogPost = $Object(
@@ -47,4 +47,4 @@ const person = $Union(title: 'Person', types: {user, admin});
 const reference = $Object(title: 'Reference', properties: {r'$ref': $String()});
 
 @schema
-const ref = $Union(title: 'Ref', types: {reference}, typeParameters: {'T': 'value'});
+const ref = $Union(title: 'Ref', types: {reference, admin}, typeParameters: {'T': 'value'});

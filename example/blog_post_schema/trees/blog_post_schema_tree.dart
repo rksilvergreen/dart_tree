@@ -39,6 +39,7 @@ class BlogPostSchemaTree extends Tree {
 
     if (object is RefObject) {
       if (object.isReference) { fromObject(object.asReference!); return; }
+      else if (object.isAdmin) { fromObject(object.asAdmin!); return; }
       else if (object.isValue) { fromObject(object.asValue!); return; }
       return;
     }
