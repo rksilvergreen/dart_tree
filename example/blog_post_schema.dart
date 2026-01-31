@@ -64,7 +64,11 @@ abstract class User {
   static const String NAME = 'name';
   static const String EMAIL = 'email';
 
-  static const schema = $Schema(name: NAME, properties: {NAME: $String(), EMAIL: $String()}, required: [NAME, EMAIL]);
+  static const schema = $Schema(
+    name: SCHEMA_NAME,
+    properties: {NAME: $String(), EMAIL: $String()},
+    required: [NAME, EMAIL],
+  );
 }
 
 abstract class Admin {
