@@ -1,50 +1,120 @@
 import 'package:dart_tree_gen/dart_tree_gen.dart';
 
-@schema
-const blogPost = $Object(
-  title: 'BlogPost',
-  required: ['title', 'content'],
-  allowed: ['title', 'author', 'content', 'comments', 'user'],
-  properties: {
-    'title': $String(minLength: 1, maxLength: 100),
-    'author': $String(minLength: 1, maxLength: 100),
-    'content': $String(minLength: 1, maxLength: 1000),
-    'comments': $Array(title: 'Comments', items: comment),
-    'user': user,
-  },
+@tree
+const treew = $Tree(
+  name: 'BlogPostSchemaTree',
+  schemas: [BlogPost.schema, Comment.schema, User.schema, Admin.schema, Person.schema, Reference.schema, Ref.schema],
 );
 
-@schema
-const comment = $Object(
-  title: 'Comment',
-  required: ['content'],
-  properties: {
-    'content': $String(minLength: 1, maxLength: 1000),
-    'index': $Integer(),
-    'buffer': $String(),
-    'person': person,
-  },
-);
+abstract class BlogPost {
+  // name
+  static const String SCHEMA_NAME = 'BlogPost';
+  // type parameters
+  static const String T = 'T';
+  static const String U = 'U';
+  // properties
+  static const String TITLE = 'title';
+  static const String AUTHOR = 'author';
+  static const String CONTENT = 'content';
+  static const String COMMENTS = 'comments';
+  static const String EXTRA = 'extra';
+  static const String USER = 'user';
 
-@schema
-const user = $Object(
-  title: 'User',
-  required: ['name', 'email'],
-  properties: {'name': $String(minLength: 1, maxLength: 100), 'email': $String(minLength: 1, maxLength: 100)},
-);
+  static const schema = $Schema(
+    name: SCHEMA_NAME,
+    typeParameters: {T, U},
+    properties: {
+      TITLE: $String(),
+      AUTHOR: $String(),
+      CONTENT: $String(),
+      COMMENTS: $Array(items: $Object(schema: Comment.schema)),
+      EXTRA: $TypeParameter(T),
+      USER: $Object(schema: User.schema, typeParameters: {T: $String()}),
+    },
+    required: [TITLE, CONTENT],
+    allowed: [TITLE, AUTHOR, CONTENT, COMMENTS, USER],
+  );
+}
 
-@schema
-const admin = $Object(
-  title: 'Admin',
-  required: ['age', 'address'],
-  properties: {'age': $Integer(minimum: 18), 'address': $String(minLength: 1, maxLength: 100)},
-);
+abstract class Comment {
+  // name
+  static const String SCHEMA_NAME = 'Comment';
+  // properties
+  static const String CONTENT = 'content';
+  static const String INDEX = 'index';
+  static const String BUFFER = 'buffer';
+  static const String PERSON = 'person';
 
-@schema
-const person = $Union(title: 'Person', types: {user, admin});
+  static const schema = $Schema(
+    name: SCHEMA_NAME,
+    properties: {
+      CONTENT: $String(),
+      INDEX: $Integer(),
+      BUFFER: $String(),
+      PERSON: $Object(schema: Person.schema),
+    },
+    required: [CONTENT, INDEX, BUFFER, PERSON],
+  );
+}
 
-@schema
-const reference = $Object(title: 'Reference', properties: {r'$ref': $String()});
+abstract class User {
+  // name
+  static const String SCHEMA_NAME = 'User';
+  // properties
+  static const String NAME = 'name';
+  static const String EMAIL = 'email';
 
-@schema
-const ref = $Union(title: 'Ref', types: {reference, admin}, typeParameters: {'T': 'value'});
+  static const schema = $Schema(name: NAME, properties: {NAME: $String(), EMAIL: $String()}, required: [NAME, EMAIL]);
+}
+
+abstract class Admin {
+  // name
+  static const String SCHEMA_NAME = 'Admin';
+  // properties
+  static const String AGE = 'age';
+  static const String ADDRESS = 'address';
+
+  static const schema = $Schema(
+    name: SCHEMA_NAME,
+    properties: {AGE: $Integer(), ADDRESS: $String()},
+    required: [AGE, ADDRESS],
+  );
+}
+
+abstract class Person {
+  // name
+  static const String SCHEMA_NAME = 'Person';
+
+  static const schema = $Union(
+    name: SCHEMA_NAME,
+    types: {
+      $Object(schema: User.schema),
+      $Object(schema: Admin.schema),
+    },
+  );
+}
+
+abstract class Reference {
+  // name
+  static const String SCHEMA_NAME = 'Reference';
+  // properties
+  static const String REF = r'$ref';
+
+  static const schema = $Schema(name: SCHEMA_NAME, properties: {REF: $String()}, required: [REF]);
+}
+
+abstract class Ref {
+  // name
+  static const String SCHEMA_NAME = 'Ref';
+  // type parameters
+  static const String T = 'T';
+
+  static const schema = $Union(
+    name: SCHEMA_NAME,
+    typeParameters: {T},
+    types: {
+      $Object(schema: Reference.schema),
+      $Object(schema: Admin.schema),
+    },
+  );
+}
