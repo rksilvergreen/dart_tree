@@ -1,0 +1,7 @@
+version: "3"
+
+tasks:
+  gen:
+    desc: "Generate dart_tree code from blog_post_schema.dart"
+    cmds:
+      - dart run ../dart_tree_gen/bin/generate.dart example/blog_post_schema.dart
