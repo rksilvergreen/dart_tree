@@ -26,7 +26,9 @@ class CommentNode extends CollectionNode {
 
   Tree? setContent(StringValue value) {
     Tree? removedSubtree;
-    if (value.value.length < 1 || value.value.length > 1000) {throw ArgumentError('content must be 1-1000 characters');}
+    if (value.value.length < 1 || value.value.length > 1000) {
+      throw ArgumentError('content must be 1-1000 characters');
+    }
     final tree = this.$tree;
     if (tree != null) {
       final oldNode = this.content;
@@ -94,7 +96,6 @@ class CommentNode extends CollectionNode {
     return removedSubtree;
   }
 
-
   Tree? setPerson(PersonObject? value) {
     Tree? removedSubtree;
     if (value == null) {
@@ -126,7 +127,6 @@ class CommentNode extends CollectionNode {
     }
     return removedSubtree;
   }
-
 
   CommentObject toObject() => CommentObject(
     content: this.content.toObject(),

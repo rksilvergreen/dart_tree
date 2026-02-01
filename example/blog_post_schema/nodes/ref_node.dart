@@ -10,16 +10,16 @@ import '../objects/ref_object.dart';
 class RefNode<T extends TreeNode> extends TreeNode {
   final ReferenceNode? _reference;
   final AdminNode? _admin;
-  final T? _value;
+  final T? _t;
 
   /// Creates a Ref node with a ReferenceNode value.
-  RefNode.reference(ReferenceNode reference, {super.id}) : _reference = reference, _admin = null, _value = null;
+  RefNode.reference(ReferenceNode reference, {super.id}) : _reference = reference, _admin = null, _t = null;
 
   /// Creates a Ref node with a AdminNode value.
-  RefNode.admin(AdminNode admin, {super.id}) : _admin = admin, _reference = null, _value = null;
+  RefNode.admin(AdminNode admin, {super.id}) : _admin = admin, _reference = null, _t = null;
 
   /// Creates a Ref node with a T value.
-  RefNode.value(T value, {super.id}) : _value = value, _reference = null, _admin = null;
+  RefNode.t(T t, {super.id}) : _t = t, _reference = null, _admin = null;
 
   /// Returns true if this union contains a ReferenceNode.
   bool get isReference => _reference != null;
@@ -28,7 +28,7 @@ class RefNode<T extends TreeNode> extends TreeNode {
   bool get isAdmin => _admin != null;
 
   /// Returns true if this union contains a T.
-  bool get isValue => _value != null;
+  bool get isT => _t != null;
 
   /// Gets the value as ReferenceNode, or null if it's not that type.
   ReferenceNode? get asReference => _reference;
@@ -37,7 +37,7 @@ class RefNode<T extends TreeNode> extends TreeNode {
   AdminNode? get asAdmin => _admin;
 
   /// Gets the value as T, or null if it's not that type.
-  T? get asValue => _value;
+  T? get asT => _t;
 
   @override
   RefNode clone() {
@@ -45,8 +45,8 @@ class RefNode<T extends TreeNode> extends TreeNode {
       return RefNode.reference(_reference.clone() as ReferenceNode);
     } else if (_admin != null) {
       return RefNode.admin(_admin.clone() as AdminNode);
-    } else if (_value != null) {
-      return RefNode.value(_value.clone() as T);
+    } else if (_t != null) {
+      return RefNode.t(_t.clone() as T);
     } else {
       throw StateError('Union has no value set');
     }
@@ -56,20 +56,20 @@ class RefNode<T extends TreeNode> extends TreeNode {
   T accept<T>(TreeNodeVisitor<T> visitor) {
     if (_reference != null) return _reference.accept(visitor);
     else if (_admin != null) return _admin.accept(visitor);
-    else if (_value != null) return _value.accept(visitor);
+    else if (_t != null) return _t.accept(visitor);
     else throw StateError('Union has no value set');
   }
 
   @override
-  String toString() => 'RefNode($_reference, $_admin, $_value)';
+  String toString() => 'RefNode($_reference, $_admin, $_t)';
 
   RefObject toObject() {
     if (_reference != null) {
       return RefObject.reference(_reference.toObject());
     } else if (_admin != null) {
       return RefObject.admin(_admin.toObject());
-    } else if (_value != null) {
-      return RefObject.value(_value.toObject());
+    } else if (_t != null) {
+      return RefObject.t(_t.toObject());
     } else {
       throw StateError('Union has no value set');
     }
@@ -82,8 +82,8 @@ class RefNode<T extends TreeNode> extends TreeNode {
       ReferenceNode.fromObject(tree, parent, key, object.asReference);
     } else if (object.isAdmin) {
       AdminNode.fromObject(tree, parent, key, object.asAdmin);
-    } else if (object.isValue) {
-      tree.fromObject(object.asValue!);
+    } else if (object.isT) {
+      tree.fromObject(object.asT!);
     }
   }
 }

@@ -13,7 +13,6 @@ class UserNode extends CollectionNode {
 
   Tree? setName(StringValue value) {
     Tree? removedSubtree;
-    if (value.value.length < 1 || value.value.length > 100) {throw ArgumentError('name must be 1-100 characters');}
     final tree = this.$tree;
     if (tree != null) {
       final oldNode = this.name;
@@ -25,7 +24,6 @@ class UserNode extends CollectionNode {
 
   Tree? setEmail(StringValue value) {
     Tree? removedSubtree;
-    if (value.value.length < 1 || value.value.length > 100) {throw ArgumentError('email must be 1-100 characters');}
     final tree = this.$tree;
     if (tree != null) {
       final oldNode = this.email;

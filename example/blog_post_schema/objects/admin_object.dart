@@ -11,10 +11,7 @@ class AdminObject extends TreeObject {
   AdminObject({
     required this.age,
     required this.address,
-  }) {
-    {if (age.value < 18.0) {throw ArgumentError('age must be >= 18.0');}}
-    {if (address.value.length < 1 || address.value.length > 100) {throw ArgumentError('address must be 1-100 characters');}}
-  }
+  });
 
   @override
   String toJson() {

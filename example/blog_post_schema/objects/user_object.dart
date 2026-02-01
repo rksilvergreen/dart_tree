@@ -11,10 +11,7 @@ class UserObject extends TreeObject {
   UserObject({
     required this.name,
     required this.email,
-  }) {
-    {if (name.value.length < 1 || name.value.length > 100) {throw ArgumentError('name must be 1-100 characters');}}
-    {if (email.value.length < 1 || email.value.length > 100) {throw ArgumentError('email must be 1-100 characters');}}
-  }
+  });
 
   @override
   String toJson() {

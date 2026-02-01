@@ -5,17 +5,17 @@ import 'package:dart_tree/dart_tree.dart';
 import '../objects/user_object.dart';
 import '../objects/admin_object.dart';
 import '../objects/person_object.dart';
-import '../objects/comment_object.dart';
-import '../objects/blog_post_object.dart';
 import '../objects/reference_object.dart';
 import '../objects/ref_object.dart';
+import '../objects/comment_object.dart';
+import '../objects/blog_post_object.dart';
 import '../nodes/user_node.dart';
 import '../nodes/admin_node.dart';
 import '../nodes/person_node.dart';
-import '../nodes/comment_node.dart';
-import '../nodes/blog_post_node.dart';
 import '../nodes/reference_node.dart';
 import '../nodes/ref_node.dart';
+import '../nodes/comment_node.dart';
+import '../nodes/blog_post_node.dart';
 
 /// Generated Tree class for blog_post_schema schemas.
 class BlogPostSchemaTree extends Tree {
@@ -40,7 +40,7 @@ class BlogPostSchemaTree extends Tree {
     if (object is RefObject) {
       if (object.isReference) { fromObject(object.asReference!); return; }
       else if (object.isAdmin) { fromObject(object.asAdmin!); return; }
-      else if (object.isValue) { fromObject(object.asValue!); return; }
+      else if (object.isT) { fromObject(object.asT!); return; }
       return;
     }
 
@@ -55,6 +55,11 @@ class BlogPostSchemaTree extends Tree {
       return;
     }
 
+    if (object is ReferenceObject) {
+      ReferenceNode.fromObject(this, null, '/', object);
+      return;
+    }
+
     if (object is CommentObject) {
       CommentNode.fromObject(this, null, '/', object);
       return;
@@ -62,11 +67,6 @@ class BlogPostSchemaTree extends Tree {
 
     if (object is BlogPostObject) {
       BlogPostNode.fromObject(this, null, '/', object);
-      return;
-    }
-
-    if (object is ReferenceObject) {
-      ReferenceNode.fromObject(this, null, '/', object);
       return;
     }
 

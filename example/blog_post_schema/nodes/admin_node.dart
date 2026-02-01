@@ -13,7 +13,6 @@ class AdminNode extends CollectionNode {
 
   Tree? setAge(IntValue value) {
     Tree? removedSubtree;
-    if (value.value < 18.0) {throw ArgumentError('age must be >= 18.0');}
     final tree = this.$tree;
     if (tree != null) {
       final oldNode = this.age;
@@ -25,7 +24,6 @@ class AdminNode extends CollectionNode {
 
   Tree? setAddress(StringValue value) {
     Tree? removedSubtree;
-    if (value.value.length < 1 || value.value.length > 100) {throw ArgumentError('address must be 1-100 characters');}
     final tree = this.$tree;
     if (tree != null) {
       final oldNode = this.address;

@@ -8,33 +8,15 @@ import '../objects/reference_object.dart';
 class ReferenceNode extends CollectionNode {
   ReferenceNode({super.id});
 
-  StringValueNode? get $ref => this.$children?['\$ref'] as StringValueNode?;
+  StringValueNode get $ref => this.$children!['\$ref'] as StringValueNode;
 
-  Tree? set$ref(StringValue? value) {
+  Tree? set$ref(StringValue value) {
     Tree? removedSubtree;
-    if (value == null) {
-      // Remove node from tree
-      final tree = this.$tree;
-      if (tree != null) {
-        final oldNode = this.$ref;
-        if (oldNode != null) {
-          removedSubtree = tree.removeSubtree(oldNode);
-        }
-      }
-      return removedSubtree;
-    }
     final tree = this.$tree;
     if (tree != null) {
       final oldNode = this.$ref;
-      if (oldNode != null) {
-        // Replace existing node
-        final newSubtree = Tree(root: value);
-        removedSubtree = tree.replaceSubtree(node: oldNode, newSubtree: newSubtree);
-      } else {
-        // Add new node (property was null before)
-        final newSubtree = Tree(root: value);
-        tree.addSubtree(parent: this, key: '\$ref', subtree: newSubtree);
-      }
+      final newSubtree = Tree(root: value);
+      removedSubtree = tree.replaceSubtree(node: oldNode, newSubtree: newSubtree);
     }
     return removedSubtree;
   }
@@ -42,7 +24,7 @@ class ReferenceNode extends CollectionNode {
 
 
   ReferenceObject toObject() => ReferenceObject(
-    $ref: this.$ref?.toObject(),
+    $ref: this.$ref.toObject(),
   );
 
   static void fromObject(Tree tree, TreeNode? parent, String key, ReferenceObject? object) {

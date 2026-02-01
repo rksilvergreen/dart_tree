@@ -16,11 +16,11 @@ class BlogPostNode extends CollectionNode {
   StringValueNode? get author => this.$children?['author'] as StringValueNode?;
   StringValueNode get content => this.$children!['content'] as StringValueNode;
   CommentsListNode? get comments => this.$children?['comments'] as CommentsListNode?;
+  TreeNode? get extra => this.$children?['extra'] as TreeNode?;
   UserNode? get user => this.$children?['user'] as UserNode?;
 
   Tree? setTitle(StringValue value) {
     Tree? removedSubtree;
-    if (value.value.length < 1 || value.value.length > 100) {throw ArgumentError('title must be 1-100 characters');}
     final tree = this.$tree;
     if (tree != null) {
       final oldNode = this.title;
@@ -43,7 +43,6 @@ class BlogPostNode extends CollectionNode {
       }
       return removedSubtree;
     }
-    if (value.value.length < 1 || value.value.length > 100) {throw ArgumentError('author must be 1-100 characters');}
     final tree = this.$tree;
     if (tree != null) {
       final oldNode = this.author;
@@ -62,7 +61,6 @@ class BlogPostNode extends CollectionNode {
 
   Tree? setContent(StringValue value) {
     Tree? removedSubtree;
-    if (value.value.length < 1 || value.value.length > 1000) {throw ArgumentError('content must be 1-1000 characters');}
     final tree = this.$tree;
     if (tree != null) {
       final oldNode = this.content;
@@ -143,7 +141,8 @@ class BlogPostNode extends CollectionNode {
     author: this.author?.toObject(),
     content: this.content.toObject(),
     comments: this.comments?.toObject(),
-    user: this.user?.toObject(),
+    extra: this.extra?.toObject(),
+    user: this.user?.toObject() as UserObject?,
   );
 
   static void fromObject(Tree tree, TreeNode? parent, String key, BlogPostObject? object) {
@@ -159,6 +158,14 @@ class BlogPostNode extends CollectionNode {
     StringValueNode.fromObject(tree, node, 'author', object.author);
     StringValueNode.fromObject(tree, node, 'content', object.content);
     CommentsListNode.fromObject(tree, node, 'comments', object.comments);
+    if (object.extra != null) {
+      final tempTree = Tree(root: object.extra!);
+      final rootNode = tempTree.root;
+      if (rootNode != null) {
+        final subtree = tempTree.removeSubtree(rootNode);
+        tree.addSubtree(parent: node, key: 'extra', subtree: subtree);
+      }
+    }
     UserNode.fromObject(tree, node, 'user', object.user);
   }
 

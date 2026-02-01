@@ -5,8 +5,11 @@ import 'package:dart_tree/dart_tree.dart';
 import 'person_node.dart';
 import 'user_node.dart';
 import 'admin_node.dart';
+import 'ref_node.dart';
+import 'reference_node.dart';
 import '../objects/comment_object.dart';
 import '../objects/person_object.dart';
+import '../objects/ref_object.dart';
 
 /// Generated TreeNode class for Comment
 class CommentNode extends CollectionNode {
@@ -23,10 +26,18 @@ class CommentNode extends CollectionNode {
       _ => null,
     };
   }
+  RefNode? get ref {
+    final child = this.$children?['ref'];
+    return switch (child.runtimeType) {
+      ReferenceNode => RefNode.reference(child as ReferenceNode),
+      AdminNode => RefNode.admin(child as AdminNode),
+      TreeNode => RefNode.t(child as TreeNode),
+      _ => null,
+    };
+  }
 
   Tree? setContent(StringValue value) {
     Tree? removedSubtree;
-    if (value.value.length < 1 || value.value.length > 1000) {throw ArgumentError('content must be 1-1000 characters');}
     final tree = this.$tree;
     if (tree != null) {
       final oldNode = this.content;
@@ -127,12 +138,45 @@ class CommentNode extends CollectionNode {
     return removedSubtree;
   }
 
+  Tree? setRef(RefObject<IntValue>? value) {
+    Tree? removedSubtree;
+    if (value == null) {
+      // Remove node from tree
+      final tree = this.$tree;
+      if (tree != null) {
+        final oldNode = this.$children?['ref'] as TreeNode?;
+        if (oldNode != null) {
+          removedSubtree = tree.removeSubtree(oldNode);
+        }
+      }
+      return removedSubtree;
+    }
+    final tree = this.$tree;
+    if (tree != null) {
+      final oldNode = this.$children?['ref'] as TreeNode?;
+      final tempTree = Tree(root: value);
+      final rootNode = tempTree.root;
+      if (rootNode != null) {
+        final subtree = tempTree.removeSubtree(rootNode);
+        if (oldNode != null) {
+          // Replace existing node
+          removedSubtree = tree.replaceSubtree(node: oldNode, newSubtree: subtree);
+        } else {
+          // Add new node (property was null before)
+          tree.addSubtree(parent: this, key: 'ref', subtree: subtree);
+        }
+      }
+    }
+    return removedSubtree;
+  }
+
 
   CommentObject toObject() => CommentObject(
     content: this.content.toObject(),
     index: this.index?.toObject(),
     buffer: this.buffer?.toObject(),
-    person: this.person?.toObject(),
+    person: this.person?.toObject() as PersonObject?,
+    ref: this.ref?.toObject() as RefObject<IntValue>?,
   );
 
   static void fromObject(Tree tree, TreeNode? parent, String key, CommentObject? object) {
@@ -148,6 +192,7 @@ class CommentNode extends CollectionNode {
     IntValueNode.fromObject(tree, node, 'index', object.index);
     StringValueNode.fromObject(tree, node, 'buffer', object.buffer);
     PersonNode.fromObject(tree, node, 'person', object.person);
+    RefNode.fromObject(tree, node, 'ref', object.ref);
   }
 
   @override

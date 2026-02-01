@@ -19,6 +19,7 @@ abstract class BlogPost {
   static const String COMMENTS = 'comments';
   static const String EXTRA = 'extra';
   static const String USER = 'user';
+  static const String CHAMPION = 'champion';
 
   static const schema = $Schema(
     name: SCHEMA_NAME,
@@ -29,7 +30,8 @@ abstract class BlogPost {
       CONTENT: $String(),
       COMMENTS: $Array(items: $Object(schema: Comment.schema)),
       EXTRA: $TypeParameter(T),
-      USER: $Object(schema: User.schema, typeParameters: {T: $String()}),
+      USER: $Object(schema: User.schema),
+      CHAMPION: $Object(schema: Ref.schema, typeParameters: {Ref.T: $TypeParameter(U)}),
     },
     required: [TITLE, CONTENT],
     allowed: [TITLE, AUTHOR, CONTENT, COMMENTS, USER],
@@ -44,6 +46,7 @@ abstract class Comment {
   static const String INDEX = 'index';
   static const String BUFFER = 'buffer';
   static const String PERSON = 'person';
+  static const String REF = 'ref';
 
   static const schema = $Schema(
     name: SCHEMA_NAME,
@@ -52,8 +55,9 @@ abstract class Comment {
       INDEX: $Integer(),
       BUFFER: $String(),
       PERSON: $Object(schema: Person.schema),
+      REF: $Object(schema: Ref.schema, typeParameters: {Ref.T: $Integer()}),
     },
-    required: [CONTENT, INDEX, BUFFER, PERSON],
+    required: [CONTENT],
   );
 }
 
