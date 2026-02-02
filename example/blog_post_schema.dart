@@ -23,15 +23,12 @@ abstract class BlogPost {
 
   static const schema = $Schema(
     name: SCHEMA_NAME,
-    typeParameters: {T, U},
     properties: {
       TITLE: $String(),
       AUTHOR: $String(),
       CONTENT: $String(),
       COMMENTS: $Array(items: $Object(schema: Comment.schema)),
-      EXTRA: $TypeParameter(T),
       USER: $Object(schema: User.schema),
-      CHAMPION: $Object(schema: Ref.schema, typeParameters: {Ref.T: $TypeParameter(U)}),
     },
     required: [TITLE, CONTENT],
     allowed: [TITLE, AUTHOR, CONTENT, COMMENTS, USER],

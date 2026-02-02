@@ -2,6 +2,7 @@
 // Generated from blog_post_schema.dart
 
 import 'package:dart_tree/dart_tree.dart';
+import '../blog_post_schema_deserializers.dart';
 import 'person_object.dart';
 import 'ref_object.dart';
 
@@ -94,7 +95,7 @@ class CommentObject extends TreeObject {
           index: $checkedConvert('index', (v) => v == null ? null : IntValue.fromJson(v as String)),
           buffer: $checkedConvert('buffer', (v) => v == null ? null : StringValue.fromJson(v as String)),
           person: $checkedConvert('person', (v) => v == null ? null : PersonObject.fromJson(v as String)),
-          ref: $checkedConvert('ref', (v) => v == null ? null : RefObject.fromJson<IntValue>(v as String, IntValue.fromJson)),
+          ref: $checkedConvert('ref', (v) => v == null ? null : RefObject.fromJson<IntValue>(v as String, (String s) => IntValue.fromJson(s))),
         );
         return val;
       },
@@ -116,7 +117,7 @@ class CommentObject extends TreeObject {
           index: $checkedConvert('index', (v) => v == null ? null : IntValue.fromYaml(v as String)),
           buffer: $checkedConvert('buffer', (v) => v == null ? null : StringValue.fromYaml(v as String)),
           person: $checkedConvert('person', (v) => v == null ? null : PersonObject.fromYaml(v as String)),
-          ref: $checkedConvert('ref', (v) => v == null ? null : RefObject.fromYaml<IntValue>(v as String, IntValue.fromYaml)),
+          ref: $checkedConvert('ref', (v) => v == null ? null : RefObject.fromYaml<IntValue>(v as String, (String s) => IntValue.fromYaml(s))),
         );
         return val;
       },

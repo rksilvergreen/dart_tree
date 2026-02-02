@@ -56,6 +56,11 @@ class BlogPostObject<T extends TreeObject, U extends TreeObject> extends TreeObj
       buffer.write('"user": ');
       buffer.write(this.user!.toJson());
     }
+    if (this.champion != null) {
+      buffer.write(', ');
+      buffer.write('"champion": ');
+      buffer.write(this.champion!.toJson());
+    }
     buffer.write('}');
     return buffer.toString();
   }
@@ -87,6 +92,11 @@ class BlogPostObject<T extends TreeObject, U extends TreeObject> extends TreeObj
       buffer.writeln();
       buffer.write('user: ');
       buffer.write(this.user!.toYaml());
+    }
+    if (this.champion != null) {
+      buffer.writeln();
+      buffer.write('champion: ');
+      buffer.write(this.champion!.toYaml());
     }
     return buffer.toString();
   }

@@ -4,9 +4,9 @@
 import 'package:dart_tree/dart_tree.dart';
 import 'objects/user_object.dart';
 import 'objects/admin_object.dart';
+import 'objects/person_object.dart';
 import 'objects/reference_object.dart';
 import 'objects/comment_object.dart';
-import 'objects/blog_post_object.dart';
 
 typedef Deserializer<T> = T Function(String json);
 
@@ -14,9 +14,9 @@ typedef Deserializer<T> = T Function(String json);
 T fromJson<T extends TreeObject>(String json) {
   if (T == UserObject) return UserObject.fromJson(json) as T;
   if (T == AdminObject) return AdminObject.fromJson(json) as T;
+  if (T == PersonObject) return PersonObject.fromJson(json) as T;
   if (T == ReferenceObject) return ReferenceObject.fromJson(json) as T;
   if (T == CommentObject) return CommentObject.fromJson(json) as T;
-  if (T == BlogPostObject) return BlogPostObject.fromJson(json) as T;
   throw UnsupportedError('Type $T is not supported for fromJson in this schema');
 }
 
@@ -24,8 +24,8 @@ T fromJson<T extends TreeObject>(String json) {
 T fromYaml<T extends TreeObject>(String yaml) {
   if (T == UserObject) return UserObject.fromYaml(yaml) as T;
   if (T == AdminObject) return AdminObject.fromYaml(yaml) as T;
+  if (T == PersonObject) return PersonObject.fromYaml(yaml) as T;
   if (T == ReferenceObject) return ReferenceObject.fromYaml(yaml) as T;
   if (T == CommentObject) return CommentObject.fromYaml(yaml) as T;
-  if (T == BlogPostObject) return BlogPostObject.fromYaml(yaml) as T;
   throw UnsupportedError('Type $T is not supported for fromYaml in this schema');
 }
