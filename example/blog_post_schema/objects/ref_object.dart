@@ -2,7 +2,6 @@
 // Generated from blog_post_schema.dart
 
 import 'package:dart_tree/dart_tree.dart';
-import '../blog_post_schema_deserializers.dart';
 import 'reference_object.dart';
 import 'admin_object.dart';
 
@@ -56,7 +55,7 @@ class RefObject<T extends TreeObject> extends TreeObject {
   }
 
   /// Attempts to decode from JSON by trying each type in order.
-  static RefObject<T> fromJson<T extends TreeObject>(String json, Deserializer<T> deserializer_T) {
+  static RefObject<T> fromJson<T extends TreeObject>(String json, TextParser<T> textParser_T) {
     try {
       return RefObject.reference(ReferenceObject.fromJson(json));
     } catch (_) {
@@ -64,7 +63,7 @@ class RefObject<T extends TreeObject> extends TreeObject {
       return RefObject.admin(AdminObject.fromJson(json));
     } catch (_) {
     try {
-      return RefObject.t(deserializer_T(json));
+      return RefObject.t(textParser_T(json));
     } catch (e) {
       throw FormatException('Could not decode RefObject from JSON: $e');
     }
@@ -73,7 +72,7 @@ class RefObject<T extends TreeObject> extends TreeObject {
   }
 
   /// Attempts to decode from YAML by trying each type in order.
-  static RefObject<T> fromYaml<T extends TreeObject>(String yaml, Deserializer<T> deserializer_T) {
+  static RefObject<T> fromYaml<T extends TreeObject>(String yaml, TextParser<T> textParser_T) {
     try {
       return RefObject.reference(ReferenceObject.fromYaml(yaml));
     } catch (_) {
@@ -81,7 +80,7 @@ class RefObject<T extends TreeObject> extends TreeObject {
       return RefObject.admin(AdminObject.fromYaml(yaml));
     } catch (_) {
     try {
-      return RefObject.t(deserializer_T(yaml));
+      return RefObject.t(textParser_T(yaml));
     } catch (e) {
       throw FormatException('Could not decode RefObject from YAML: $e');
     }

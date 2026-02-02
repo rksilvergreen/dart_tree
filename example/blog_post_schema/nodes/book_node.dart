@@ -7,7 +7,7 @@ import 'user_node.dart';
 import '../objects/book_object.dart';
 
 /// Generated union node class for Book
-class BookNode<GORDON_BANKS extends TreeNode, U extends TreeNode> extends TreeNode {
+class BookNode<GORDON_BANKS extends TreeNode, U extends TreeNode>  {
   final CommentNode? _comment;
   final UserNode? _user;
   final GORDON_BANKS? _gordonBanks;
@@ -99,13 +99,13 @@ class BookNode<GORDON_BANKS extends TreeNode, U extends TreeNode> extends TreeNo
     }
   }
 
-  static void fromObject(
+  static void fromObject<GORDON_BANKS extends TreeObject, U extends TreeObject>(
     Tree tree,
     TreeNode? parent,
     String key,
-    BookObject? object,
-    void Function(Tree tree, TreeNode? parent, String key, TreeObject object) deserializer_GORDON_BANKS,
-    void Function(Tree tree, TreeNode? parent, String key, TreeObject object) deserializer_U,
+    BookObject<GORDON_BANKS, U>? object,
+    ObjectParser<GORDON_BANKS> objectParser_GORDON_BANKS,
+    ObjectParser<U> objectParser_U,
   ) {
     if (object == null) return;
 
@@ -114,9 +114,9 @@ class BookNode<GORDON_BANKS extends TreeNode, U extends TreeNode> extends TreeNo
     } else if (object.isUser) {
       UserNode.fromObject(tree, parent, key, object.asUser);
     } else if (object.isGordonBanks) {
-      deserializer_GORDON_BANKS(tree, parent, key, object.asGordonBanks!);
+      objectParser_GORDON_BANKS(tree, parent, key, object.asGordonBanks!);
     } else if (object.isU) {
-      deserializer_U(tree, parent, key, object.asU!);
+      objectParser_U(tree, parent, key, object.asU!);
     }
   }
 }

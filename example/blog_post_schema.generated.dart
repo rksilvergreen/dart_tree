@@ -25,6 +25,3 @@ export 'blog_post_schema/nodes/blog_post_node.dart';
 
 // Tree export
 export 'blog_post_schema/trees/blog_post_schema_tree.dart';
-
-// Deserializers export
-export 'blog_post_schema/blog_post_schema_deserializers.dart';

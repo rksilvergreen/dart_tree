@@ -2,7 +2,6 @@
 // Generated from blog_post_schema.dart
 
 import 'package:dart_tree/dart_tree.dart';
-import '../blog_post_schema_deserializers.dart';
 import 'comment_object.dart';
 import 'user_object.dart';
 
@@ -74,8 +73,8 @@ class BookObject<GORDON_BANKS extends TreeObject, U extends TreeObject> extends 
   /// Attempts to decode from JSON by trying each type in order.
   static BookObject<GORDON_BANKS, U> fromJson<GORDON_BANKS extends TreeObject, U extends TreeObject>(
     String json,
-    Deserializer<GORDON_BANKS> deserializer_GORDON_BANKS,
-    Deserializer<U> deserializer_U,
+    TextParser<GORDON_BANKS> textParser_GORDON_BANKS,
+    TextParser<U> textParser_U,
   ) {
     try {
       return BookObject.comment(CommentObject.fromJson(json));
@@ -84,10 +83,10 @@ class BookObject<GORDON_BANKS extends TreeObject, U extends TreeObject> extends 
         return BookObject.user(UserObject.fromJson(json));
       } catch (_) {
         try {
-          return BookObject.gordonBanks(deserializer_GORDON_BANKS(json));
+          return BookObject.gordonBanks(textParser_GORDON_BANKS(json));
         } catch (_) {
           try {
-            return BookObject.u(deserializer_U(json));
+            return BookObject.u(textParser_U(json));
           } catch (e) {
             throw FormatException('Could not decode BookObject from JSON: $e');
           }
@@ -99,8 +98,8 @@ class BookObject<GORDON_BANKS extends TreeObject, U extends TreeObject> extends 
   /// Attempts to decode from YAML by trying each type in order.
   static BookObject<GORDON_BANKS, U> fromYaml<GORDON_BANKS extends TreeObject, U extends TreeObject>(
     String yaml,
-    Deserializer<GORDON_BANKS> deserializer_GORDON_BANKS,
-    Deserializer<U> deserializer_U,
+    TextParser<GORDON_BANKS> textParser_GORDON_BANKS,
+    TextParser<U> textParser_U,
   ) {
     try {
       return BookObject.comment(CommentObject.fromYaml(yaml));
@@ -109,10 +108,10 @@ class BookObject<GORDON_BANKS extends TreeObject, U extends TreeObject> extends 
         return BookObject.user(UserObject.fromYaml(yaml));
       } catch (_) {
         try {
-          return BookObject.gordonBanks(deserializer_GORDON_BANKS(yaml));
+          return BookObject.gordonBanks(textParser_GORDON_BANKS(yaml));
         } catch (_) {
           try {
-            return BookObject.u(deserializer_U(yaml));
+            return BookObject.u(textParser_U(yaml));
           } catch (e) {
             throw FormatException('Could not decode BookObject from YAML: $e');
           }

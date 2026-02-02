@@ -2,7 +2,6 @@
 // Generated from blog_post_schema.dart
 
 import 'package:dart_tree/dart_tree.dart';
-import '../blog_post_schema_deserializers.dart';
 import 'user_object.dart';
 import 'admin_object.dart';
 

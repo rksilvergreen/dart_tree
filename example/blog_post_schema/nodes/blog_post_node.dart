@@ -240,7 +240,7 @@ class BlogPostNode extends CollectionNode {
     StringValueNode.fromObject(tree, node, 'content', object.content);
     CommentsListNode.fromObject(tree, node, 'comments', object.comments);
     UserNode.fromObject(tree, node, 'user', object.user);
-    BookNode.fromObject(tree, node, 'book', object.book, (Tree t, TreeNode? p, String k, TreeObject o) => ReferencesListNode.fromObject(t, p, k, o as ReferencesListObject), (Tree t, TreeNode? p, String k, TreeObject o) => AdminNode.fromObject(t, p, k, o as AdminObject));
+    BookNode.fromObject<ReferencesListObject, AdminObject>(tree, node, 'book', object.book, (Tree t, TreeNode? p, String k, ReferencesListObject o) => ReferencesListNode.fromObject(t, p, k, o), (Tree t, TreeNode? p, String k, AdminObject o) => AdminNode.fromObject(t, p, k, o));
     ReferencesListNode.fromObject(tree, node, 'library', object.library);
   }
 
