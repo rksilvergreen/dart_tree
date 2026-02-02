@@ -6,11 +6,13 @@ import 'comment_node.dart';
 import 'user_node.dart';
 import 'book_node.dart';
 import 'reference_node.dart';
+import 'admin_node.dart';
 import '../objects/blog_post_object.dart';
 import '../objects/comment_object.dart';
 import '../objects/user_object.dart';
 import '../objects/book_object.dart';
 import '../objects/reference_object.dart';
+import '../objects/admin_object.dart';
 
 /// Generated TreeNode class for BlogPost
 class BlogPostNode extends CollectionNode {
@@ -31,7 +33,7 @@ class BlogPostNode extends CollectionNode {
       _ => null,
     };
   }
-  LibraryListNode? get library => this.$children?['library'] as LibraryListNode?;
+  ReferencesListNode? get library => this.$children?['library'] as ReferencesListNode?;
 
   Tree? setTitle(StringValue value) {
     Tree? removedSubtree;
@@ -149,7 +151,7 @@ class BlogPostNode extends CollectionNode {
     return removedSubtree;
   }
 
-  Tree? setBook(BookObject<_typeArg_TListObject, AdminObject>? value) {
+  Tree? setBook(BookObject<ReferencesListObject, AdminObject>? value) {
     Tree? removedSubtree;
     if (value == null) {
       // Remove node from tree
@@ -181,7 +183,7 @@ class BlogPostNode extends CollectionNode {
     return removedSubtree;
   }
 
-  Tree? setLibrary(LibraryListObject? value) {
+  Tree? setLibrary(ReferencesListObject? value) {
     Tree? removedSubtree;
     if (value == null) {
       // Remove node from tree
@@ -220,7 +222,7 @@ class BlogPostNode extends CollectionNode {
     content: this.content.toObject(),
     comments: this.comments?.toObject(),
     user: this.user?.toObject(),
-    book: this.book?.toObject() as BookObject<_typeArg_TListObject, AdminObject>?,
+    book: this.book?.toObject() as BookObject<ReferencesListObject, AdminObject>?,
     library: this.library?.toObject(),
   );
 
@@ -239,7 +241,7 @@ class BlogPostNode extends CollectionNode {
     CommentsListNode.fromObject(tree, node, 'comments', object.comments);
     UserNode.fromObject(tree, node, 'user', object.user);
     BookNode.fromObject(tree, node, 'book', object.book);
-    LibraryListNode.fromObject(tree, node, 'library', object.library);
+    ReferencesListNode.fromObject(tree, node, 'library', object.library);
   }
 
   @override

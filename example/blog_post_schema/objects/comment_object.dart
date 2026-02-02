@@ -126,7 +126,7 @@ class CommentObject extends TreeObject {
   }
 }
 
-/// Generated ListObject for comments
+/// Generated ListObject for Comment
 class CommentsListObject extends ListObject<CommentObject> {
   CommentsListObject(super.elements);
 }

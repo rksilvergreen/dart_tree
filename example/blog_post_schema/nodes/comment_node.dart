@@ -10,6 +10,7 @@ import 'reference_node.dart';
 import '../objects/comment_object.dart';
 import '../objects/person_object.dart';
 import '../objects/ref_object.dart';
+import '../objects/admin_object.dart';
 
 /// Generated TreeNode class for Comment
 class CommentNode extends CollectionNode {
@@ -199,7 +200,7 @@ class CommentNode extends CollectionNode {
   CommentNode clone() => CommentNode(id: id);
 }
 
-/// Generated ListNode for comments
+/// Generated ListNode for Comment
 class CommentsListNode extends ListTreeNode<CommentNode> {
   CommentsListNode({super.id});
 

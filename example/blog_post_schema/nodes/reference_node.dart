@@ -43,20 +43,20 @@ class ReferenceNode extends CollectionNode {
   ReferenceNode clone() => ReferenceNode(id: id);
 }
 
-/// Generated ListNode for library
-class LibraryListNode extends ListTreeNode<ReferenceNode> {
-  LibraryListNode({super.id});
+/// Generated ListNode for Reference
+class ReferencesListNode extends ListTreeNode<ReferenceNode> {
+  ReferencesListNode({super.id});
 
-  LibraryListObject toObject() => LibraryListObject(this.map((node) => node.toObject()).toList());
+  ReferencesListObject toObject() => ReferencesListObject(this.map((node) => node.toObject()).toList());
 
-  static void fromObject(Tree tree, TreeNode? parent, String key, LibraryListObject? object) {
+  static void fromObject(Tree tree, TreeNode? parent, String key, ReferencesListObject? object) {
     if (object == null) return;
 
     final parentRecord = tree.nodes[parent?.id];
     final pointer = Pointer.build(parentRecord?.pointer, key);
-    final node = LibraryListNode();
+    final node = ReferencesListNode();
     tree.$nodes[node.id] = TreeNodeRecord(node: node, pointer: pointer, parent: parent?.id);
-    parentRecord?.children[Edge(LibraryListNode, key)] = node.id;
+    parentRecord?.children[Edge(ReferencesListNode, key)] = node.id;
 
     for (int i = 0; i < object.length; i++) {
       ReferenceNode.fromObject(tree, node, i.toString(), object[i]);
@@ -64,5 +64,5 @@ class LibraryListNode extends ListTreeNode<ReferenceNode> {
   }
 
   @override
-  LibraryListNode clone() => LibraryListNode(id: id);
+  ReferencesListNode clone() => ReferencesListNode(id: id);
 }

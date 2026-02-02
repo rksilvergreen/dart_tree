@@ -58,7 +58,7 @@ class ReferenceObject extends TreeObject {
   }
 }
 
-/// Generated ListObject for library
-class LibraryListObject extends ListObject<ReferenceObject> {
-  LibraryListObject(super.elements);
+/// Generated ListObject for Reference
+class ReferencesListObject extends ListObject<ReferenceObject> {
+  ReferencesListObject(super.elements);
 }
