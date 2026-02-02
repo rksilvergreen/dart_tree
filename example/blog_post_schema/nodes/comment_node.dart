@@ -10,7 +10,7 @@ import 'reference_node.dart';
 import '../objects/comment_object.dart';
 import '../objects/person_object.dart';
 import '../objects/ref_object.dart';
-import '../objects/admin_object.dart';
+import '../objects/user_object.dart';
 
 /// Generated TreeNode class for Comment
 class CommentNode extends CollectionNode {
@@ -27,12 +27,12 @@ class CommentNode extends CollectionNode {
       _ => null,
     };
   }
-  RefNode? get ref {
+  RefNode<UserNode>? get ref {
     final child = this.$children?['ref'];
     return switch (child.runtimeType) {
-      ReferenceNode => RefNode.reference(child as ReferenceNode),
-      AdminNode => RefNode.admin(child as AdminNode),
-      TreeNode => RefNode.t(child as TreeNode),
+      ReferenceNode => RefNode<UserNode>.reference(child as ReferenceNode),
+      AdminNode => RefNode<UserNode>.admin(child as AdminNode),
+      UserNode => RefNode<UserNode>.t(child as UserNode),
       _ => null,
     };
   }
@@ -139,7 +139,7 @@ class CommentNode extends CollectionNode {
     return removedSubtree;
   }
 
-  Tree? setRef(RefObject<AdminObject>? value) {
+  Tree? setRef(RefObject<UserObject>? value) {
     Tree? removedSubtree;
     if (value == null) {
       // Remove node from tree
@@ -177,7 +177,7 @@ class CommentNode extends CollectionNode {
     index: this.index?.toObject(),
     buffer: this.buffer?.toObject(),
     person: this.person?.toObject() as PersonObject?,
-    ref: this.ref?.toObject() as RefObject<AdminObject>?,
+    ref: this.ref?.toObject() as RefObject<UserObject>?,
   );
 
   static void fromObject(Tree tree, TreeNode? parent, String key, CommentObject? object) {

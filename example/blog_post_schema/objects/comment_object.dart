@@ -5,7 +5,7 @@ import 'package:dart_tree/dart_tree.dart';
 import '../blog_post_schema_deserializers.dart';
 import 'person_object.dart';
 import 'ref_object.dart';
-import 'admin_object.dart';
+import 'user_object.dart';
 
 /// Generated TreeObject class for Comment
 class CommentObject extends TreeObject {
@@ -13,9 +13,15 @@ class CommentObject extends TreeObject {
   final IntValue? index;
   final StringValue? buffer;
   final PersonObject? person;
-  final RefObject<AdminObject>? ref;
+  final RefObject<UserObject>? ref;
 
-  CommentObject({required this.content, this.index, this.buffer, this.person, this.ref});
+  CommentObject({
+    required this.content,
+    this.index,
+    this.buffer,
+    this.person,
+    this.ref,
+  });
 
   @override
   String toJson() {
@@ -77,38 +83,46 @@ class CommentObject extends TreeObject {
 
   static CommentObject fromJson(String json) {
     final map = extractJsonObjectFields(json);
-    return $checkedCreate('CommentObject', map, ($checkedConvert) {
-      $checkKeys(map, requiredKeys: const ['content']);
-      final val = CommentObject(
-        content: $checkedConvert('content', (v) => StringValue.fromJson(v as String)),
-        index: $checkedConvert('index', (v) => v == null ? null : IntValue.fromJson(v as String)),
-        buffer: $checkedConvert('buffer', (v) => v == null ? null : StringValue.fromJson(v as String)),
-        person: $checkedConvert('person', (v) => v == null ? null : PersonObject.fromJson(v as String)),
-        ref: $checkedConvert(
-          'ref',
-          (v) => v == null ? null : RefObject.fromJson<AdminObject>(v as String, (String s) => AdminObject.fromJson(s)),
-        ),
-      );
-      return val;
-    });
+    return $checkedCreate(
+      'CommentObject',
+      map,
+      ($checkedConvert) {
+        $checkKeys(
+          map,
+          requiredKeys: const ['content'],
+        );
+        final val = CommentObject(
+          content: $checkedConvert('content', (v) => StringValue.fromJson(v as String)),
+          index: $checkedConvert('index', (v) => v == null ? null : IntValue.fromJson(v as String)),
+          buffer: $checkedConvert('buffer', (v) => v == null ? null : StringValue.fromJson(v as String)),
+          person: $checkedConvert('person', (v) => v == null ? null : PersonObject.fromJson(v as String)),
+          ref: $checkedConvert('ref', (v) => v == null ? null : RefObject.fromJson<UserObject>(v as String, (String s) => UserObject.fromJson(s))),
+        );
+        return val;
+      },
+    );
   }
 
   static CommentObject fromYaml(String yaml) {
     final map = extractYamlMappingFields(yaml);
-    return $checkedCreate('CommentObject', map, ($checkedConvert) {
-      $checkKeys(map, requiredKeys: const ['content']);
-      final val = CommentObject(
-        content: $checkedConvert('content', (v) => StringValue.fromYaml(v as String)),
-        index: $checkedConvert('index', (v) => v == null ? null : IntValue.fromYaml(v as String)),
-        buffer: $checkedConvert('buffer', (v) => v == null ? null : StringValue.fromYaml(v as String)),
-        person: $checkedConvert('person', (v) => v == null ? null : PersonObject.fromYaml(v as String)),
-        ref: $checkedConvert(
-          'ref',
-          (v) => v == null ? null : RefObject.fromYaml<AdminObject>(v as String, (String s) => AdminObject.fromYaml(s)),
-        ),
-      );
-      return val;
-    });
+    return $checkedCreate(
+      'CommentObject',
+      map,
+      ($checkedConvert) {
+        $checkKeys(
+          map,
+          requiredKeys: const ['content'],
+        );
+        final val = CommentObject(
+          content: $checkedConvert('content', (v) => StringValue.fromYaml(v as String)),
+          index: $checkedConvert('index', (v) => v == null ? null : IntValue.fromYaml(v as String)),
+          buffer: $checkedConvert('buffer', (v) => v == null ? null : StringValue.fromYaml(v as String)),
+          person: $checkedConvert('person', (v) => v == null ? null : PersonObject.fromYaml(v as String)),
+          ref: $checkedConvert('ref', (v) => v == null ? null : RefObject.fromYaml<UserObject>(v as String, (String s) => UserObject.fromYaml(s))),
+        );
+        return val;
+      },
+    );
   }
 }
 
@@ -116,9 +130,11 @@ class CommentObject extends TreeObject {
 class CommentsListObject extends ListObject<CommentObject> {
   CommentsListObject(super.elements);
 
-  static CommentsListObject fromJson(String json) =>
-      CommentsListObject(extractJsonArrayElements(json).map((item) => CommentObject.fromJson(item)).toList());
+  static CommentsListObject fromJson(String json) => CommentsListObject(
+    extractJsonArrayElements(json).map((item) => CommentObject.fromJson(item)).toList(),
+  );
 
-  static CommentsListObject fromYaml(String yaml) =>
-      CommentsListObject(extractYamlSequenceElements(yaml).map((item) => CommentObject.fromYaml(item)).toList());
+  static CommentsListObject fromYaml(String yaml) => CommentsListObject(
+    extractYamlSequenceElements(yaml).map((item) => CommentObject.fromYaml(item)).toList(),
+  );
 }

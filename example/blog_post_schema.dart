@@ -70,7 +70,7 @@ abstract class Comment {
       PERSON: $Object(schema: Person.schema),
       REF: $Object(
         schema: Ref.schema,
-        typeParameters: {Ref.T: $Object(schema: Admin.schema)},
+        typeParameters: {Ref.T: $Object(schema: User.schema)},
       ),
     },
     required: [CONTENT],

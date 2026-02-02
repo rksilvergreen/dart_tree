@@ -23,13 +23,13 @@ class BlogPostNode extends CollectionNode {
   StringValueNode get content => this.$children!['content'] as StringValueNode;
   CommentsListNode? get comments => this.$children?['comments'] as CommentsListNode?;
   UserNode? get user => this.$children?['user'] as UserNode?;
-  BookNode? get book {
+  BookNode<ReferencesListNode, AdminNode>? get book {
     final child = this.$children?['book'];
     return switch (child.runtimeType) {
-      CommentNode => BookNode.comment(child as CommentNode),
-      UserNode => BookNode.user(child as UserNode),
-      TreeNode => BookNode.t(child as TreeNode),
-      TreeNode => BookNode.u(child as TreeNode),
+      CommentNode => BookNode<ReferencesListNode, AdminNode>.comment(child as CommentNode),
+      UserNode => BookNode<ReferencesListNode, AdminNode>.user(child as UserNode),
+      ReferencesListNode => BookNode<ReferencesListNode, AdminNode>.t(child as ReferencesListNode),
+      AdminNode => BookNode<ReferencesListNode, AdminNode>.u(child as AdminNode),
       _ => null,
     };
   }

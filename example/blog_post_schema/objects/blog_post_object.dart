@@ -105,61 +105,51 @@ class BlogPostObject extends TreeObject {
 
   static BlogPostObject fromJson(String json) {
     final map = extractJsonObjectFields(json);
-    return $checkedCreate('BlogPostObject', map, ($checkedConvert) {
-      $checkKeys(
-        map,
-        allowedKeys: const ['title', 'author', 'content', 'comments', 'user'],
-        requiredKeys: const ['title', 'content'],
-      );
-      final val = BlogPostObject(
-        title: $checkedConvert('title', (v) => StringValue.fromJson(v as String)),
-        author: $checkedConvert('author', (v) => v == null ? null : StringValue.fromJson(v as String)),
-        content: $checkedConvert('content', (v) => StringValue.fromJson(v as String)),
-        comments: $checkedConvert('comments', (v) => v == null ? null : CommentsListObject.fromJson(v as String)),
-        user: $checkedConvert('user', (v) => v == null ? null : UserObject.fromJson(v as String)),
-        book: $checkedConvert(
-          'book',
-          (v) => v == null
-              ? null
-              : BookObject.fromJson<ReferencesListObject, AdminObject>(
-                  v as String,
-                  (String s) => ReferencesListObject.fromJson(s),
-                  (String s) => AdminObject.fromJson(s),
-                ),
-        ),
-        library: $checkedConvert('library', (v) => v == null ? null : ReferencesListObject.fromJson(v as String)),
-      );
-      return val;
-    });
+    return $checkedCreate(
+      'BlogPostObject',
+      map,
+      ($checkedConvert) {
+        $checkKeys(
+          map,
+          allowedKeys: const ['title', 'author', 'content', 'comments', 'user'],
+          requiredKeys: const ['title', 'content'],
+        );
+        final val = BlogPostObject(
+          title: $checkedConvert('title', (v) => StringValue.fromJson(v as String)),
+          author: $checkedConvert('author', (v) => v == null ? null : StringValue.fromJson(v as String)),
+          content: $checkedConvert('content', (v) => StringValue.fromJson(v as String)),
+          comments: $checkedConvert('comments', (v) => v == null ? null : CommentsListObject.fromJson(v as String)),
+          user: $checkedConvert('user', (v) => v == null ? null : UserObject.fromJson(v as String)),
+          book: $checkedConvert('book', (v) => v == null ? null : BookObject.fromJson<ReferencesListObject, AdminObject>(v as String, (String s) => ReferencesListObject.fromJson(s), (String s) => AdminObject.fromJson(s))),
+          library: $checkedConvert('library', (v) => v == null ? null : ReferencesListObject.fromJson(v as String)),
+        );
+        return val;
+      },
+    );
   }
 
   static BlogPostObject fromYaml(String yaml) {
     final map = extractYamlMappingFields(yaml);
-    return $checkedCreate('BlogPostObject', map, ($checkedConvert) {
-      $checkKeys(
-        map,
-        allowedKeys: const ['title', 'author', 'content', 'comments', 'user'],
-        requiredKeys: const ['title', 'content'],
-      );
-      final val = BlogPostObject(
-        title: $checkedConvert('title', (v) => StringValue.fromYaml(v as String)),
-        author: $checkedConvert('author', (v) => v == null ? null : StringValue.fromYaml(v as String)),
-        content: $checkedConvert('content', (v) => StringValue.fromYaml(v as String)),
-        comments: $checkedConvert('comments', (v) => v == null ? null : CommentsListObject.fromYaml(v as String)),
-        user: $checkedConvert('user', (v) => v == null ? null : UserObject.fromYaml(v as String)),
-        book: $checkedConvert(
-          'book',
-          (v) => v == null
-              ? null
-              : BookObject.fromYaml<ReferencesListObject, AdminObject>(
-                  v as String,
-                  (String s) => ReferencesListObject.fromYaml(s),
-                  (String s) => AdminObject.fromYaml(s),
-                ),
-        ),
-        library: $checkedConvert('library', (v) => v == null ? null : ReferencesListObject.fromYaml(v as String)),
-      );
-      return val;
-    });
+    return $checkedCreate(
+      'BlogPostObject',
+      map,
+      ($checkedConvert) {
+        $checkKeys(
+          map,
+          allowedKeys: const ['title', 'author', 'content', 'comments', 'user'],
+          requiredKeys: const ['title', 'content'],
+        );
+        final val = BlogPostObject(
+          title: $checkedConvert('title', (v) => StringValue.fromYaml(v as String)),
+          author: $checkedConvert('author', (v) => v == null ? null : StringValue.fromYaml(v as String)),
+          content: $checkedConvert('content', (v) => StringValue.fromYaml(v as String)),
+          comments: $checkedConvert('comments', (v) => v == null ? null : CommentsListObject.fromYaml(v as String)),
+          user: $checkedConvert('user', (v) => v == null ? null : UserObject.fromYaml(v as String)),
+          book: $checkedConvert('book', (v) => v == null ? null : BookObject.fromYaml<ReferencesListObject, AdminObject>(v as String, (String s) => ReferencesListObject.fromYaml(s), (String s) => AdminObject.fromYaml(s))),
+          library: $checkedConvert('library', (v) => v == null ? null : ReferencesListObject.fromYaml(v as String)),
+        );
+        return val;
+      },
+    );
   }
 }
