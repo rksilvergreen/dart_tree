@@ -115,14 +115,7 @@ class BlogPostObject extends TreeObject {
         title: $checkedConvert('title', (v) => StringValue.fromJson(v as String)),
         author: $checkedConvert('author', (v) => v == null ? null : StringValue.fromJson(v as String)),
         content: $checkedConvert('content', (v) => StringValue.fromJson(v as String)),
-        comments: $checkedConvert(
-          'comments',
-          (v) => v == null
-              ? null
-              : CommentsListObject(
-                  extractJsonArrayElements(v as String).map((item) => CommentObject.fromJson(item)).toList(),
-                ),
-        ),
+        comments: $checkedConvert('comments', (v) => v == null ? null : CommentsListObject.fromJson(v as String)),
         user: $checkedConvert('user', (v) => v == null ? null : UserObject.fromJson(v as String)),
         book: $checkedConvert(
           'book',
@@ -130,20 +123,11 @@ class BlogPostObject extends TreeObject {
               ? null
               : BookObject.fromJson<ReferencesListObject, AdminObject>(
                   v as String,
-                  (String s) => ReferencesListObject(
-                    extractJsonArrayElements(s).map((item) => ReferenceObject.fromJson(item)).toList(),
-                  ),
+                  (String s) => ReferencesListObject.fromJson(s),
                   (String s) => AdminObject.fromJson(s),
                 ),
         ),
-        library: $checkedConvert(
-          'library',
-          (v) => v == null
-              ? null
-              : ReferencesListObject(
-                  extractJsonArrayElements(v as String).map((item) => ReferenceObject.fromJson(item)).toList(),
-                ),
-        ),
+        library: $checkedConvert('library', (v) => v == null ? null : ReferencesListObject.fromJson(v as String)),
       );
       return val;
     });
@@ -161,14 +145,7 @@ class BlogPostObject extends TreeObject {
         title: $checkedConvert('title', (v) => StringValue.fromYaml(v as String)),
         author: $checkedConvert('author', (v) => v == null ? null : StringValue.fromYaml(v as String)),
         content: $checkedConvert('content', (v) => StringValue.fromYaml(v as String)),
-        comments: $checkedConvert(
-          'comments',
-          (v) => v == null
-              ? null
-              : CommentsListObject(
-                  extractYamlSequenceElements(v as String).map((item) => CommentObject.fromYaml(item)).toList(),
-                ),
-        ),
+        comments: $checkedConvert('comments', (v) => v == null ? null : CommentsListObject.fromYaml(v as String)),
         user: $checkedConvert('user', (v) => v == null ? null : UserObject.fromYaml(v as String)),
         book: $checkedConvert(
           'book',
@@ -176,20 +153,11 @@ class BlogPostObject extends TreeObject {
               ? null
               : BookObject.fromYaml<ReferencesListObject, AdminObject>(
                   v as String,
-                  (String s) => ReferencesListObject(
-                    extractYamlSequenceElements(s).map((item) => ReferenceObject.fromYaml(item)).toList(),
-                  ),
+                  (String s) => ReferencesListObject.fromYaml(s),
                   (String s) => AdminObject.fromYaml(s),
                 ),
         ),
-        library: $checkedConvert(
-          'library',
-          (v) => v == null
-              ? null
-              : ReferencesListObject(
-                  extractYamlSequenceElements(v as String).map((item) => ReferenceObject.fromYaml(item)).toList(),
-                ),
-        ),
+        library: $checkedConvert('library', (v) => v == null ? null : ReferencesListObject.fromYaml(v as String)),
       );
       return val;
     });

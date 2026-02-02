@@ -61,4 +61,12 @@ class ReferenceObject extends TreeObject {
 /// Generated ListObject for Reference
 class ReferencesListObject extends ListObject<ReferenceObject> {
   ReferencesListObject(super.elements);
+
+  static ReferencesListObject fromJson(String json) => ReferencesListObject(
+    extractJsonArrayElements(json).map((item) => ReferenceObject.fromJson(item)).toList(),
+  );
+
+  static ReferencesListObject fromYaml(String yaml) => ReferencesListObject(
+    extractYamlSequenceElements(yaml).map((item) => ReferenceObject.fromYaml(item)).toList(),
+  );
 }

@@ -15,13 +15,7 @@ class CommentObject extends TreeObject {
   final PersonObject? person;
   final RefObject<AdminObject>? ref;
 
-  CommentObject({
-    required this.content,
-    this.index,
-    this.buffer,
-    this.person,
-    this.ref,
-  });
+  CommentObject({required this.content, this.index, this.buffer, this.person, this.ref});
 
   @override
   String toJson() {
@@ -83,50 +77,48 @@ class CommentObject extends TreeObject {
 
   static CommentObject fromJson(String json) {
     final map = extractJsonObjectFields(json);
-    return $checkedCreate(
-      'CommentObject',
-      map,
-      ($checkedConvert) {
-        $checkKeys(
-          map,
-          requiredKeys: const ['content'],
-        );
-        final val = CommentObject(
-          content: $checkedConvert('content', (v) => StringValue.fromJson(v as String)),
-          index: $checkedConvert('index', (v) => v == null ? null : IntValue.fromJson(v as String)),
-          buffer: $checkedConvert('buffer', (v) => v == null ? null : StringValue.fromJson(v as String)),
-          person: $checkedConvert('person', (v) => v == null ? null : PersonObject.fromJson(v as String)),
-          ref: $checkedConvert('ref', (v) => v == null ? null : RefObject.fromJson<AdminObject>(v as String, (String s) => AdminObject.fromJson(s))),
-        );
-        return val;
-      },
-    );
+    return $checkedCreate('CommentObject', map, ($checkedConvert) {
+      $checkKeys(map, requiredKeys: const ['content']);
+      final val = CommentObject(
+        content: $checkedConvert('content', (v) => StringValue.fromJson(v as String)),
+        index: $checkedConvert('index', (v) => v == null ? null : IntValue.fromJson(v as String)),
+        buffer: $checkedConvert('buffer', (v) => v == null ? null : StringValue.fromJson(v as String)),
+        person: $checkedConvert('person', (v) => v == null ? null : PersonObject.fromJson(v as String)),
+        ref: $checkedConvert(
+          'ref',
+          (v) => v == null ? null : RefObject.fromJson<AdminObject>(v as String, (String s) => AdminObject.fromJson(s)),
+        ),
+      );
+      return val;
+    });
   }
 
   static CommentObject fromYaml(String yaml) {
     final map = extractYamlMappingFields(yaml);
-    return $checkedCreate(
-      'CommentObject',
-      map,
-      ($checkedConvert) {
-        $checkKeys(
-          map,
-          requiredKeys: const ['content'],
-        );
-        final val = CommentObject(
-          content: $checkedConvert('content', (v) => StringValue.fromYaml(v as String)),
-          index: $checkedConvert('index', (v) => v == null ? null : IntValue.fromYaml(v as String)),
-          buffer: $checkedConvert('buffer', (v) => v == null ? null : StringValue.fromYaml(v as String)),
-          person: $checkedConvert('person', (v) => v == null ? null : PersonObject.fromYaml(v as String)),
-          ref: $checkedConvert('ref', (v) => v == null ? null : RefObject.fromYaml<AdminObject>(v as String, (String s) => AdminObject.fromYaml(s))),
-        );
-        return val;
-      },
-    );
+    return $checkedCreate('CommentObject', map, ($checkedConvert) {
+      $checkKeys(map, requiredKeys: const ['content']);
+      final val = CommentObject(
+        content: $checkedConvert('content', (v) => StringValue.fromYaml(v as String)),
+        index: $checkedConvert('index', (v) => v == null ? null : IntValue.fromYaml(v as String)),
+        buffer: $checkedConvert('buffer', (v) => v == null ? null : StringValue.fromYaml(v as String)),
+        person: $checkedConvert('person', (v) => v == null ? null : PersonObject.fromYaml(v as String)),
+        ref: $checkedConvert(
+          'ref',
+          (v) => v == null ? null : RefObject.fromYaml<AdminObject>(v as String, (String s) => AdminObject.fromYaml(s)),
+        ),
+      );
+      return val;
+    });
   }
 }
 
 /// Generated ListObject for Comment
 class CommentsListObject extends ListObject<CommentObject> {
   CommentsListObject(super.elements);
+
+  static CommentsListObject fromJson(String json) =>
+      CommentsListObject(extractJsonArrayElements(json).map((item) => CommentObject.fromJson(item)).toList());
+
+  static CommentsListObject fromYaml(String yaml) =>
+      CommentsListObject(extractYamlSequenceElements(yaml).map((item) => CommentObject.fromYaml(item)).toList());
 }
