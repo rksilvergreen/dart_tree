@@ -6,7 +6,7 @@ import 'reference_object.dart';
 import 'admin_object.dart';
 
 /// Generated union class for Ref
-class RefObject<T extends TreeObject> extends TreeObject {
+class RefObject<T extends TreeObject> {
   final ReferenceObject? _reference;
   final AdminObject? _admin;
   final T? _t;
@@ -38,7 +38,6 @@ class RefObject<T extends TreeObject> extends TreeObject {
   /// Gets the value as T, or null if it's not that type.
   T? get asT => _t;
 
-  @override
   String toJson() {
     if (_reference != null) return _reference.toJson();
     if (_admin != null) return _admin.toJson();
@@ -46,7 +45,6 @@ class RefObject<T extends TreeObject> extends TreeObject {
     throw StateError('Union has no value set');
   }
 
-  @override
   String toYaml() {
     if (_reference != null) return _reference.toYaml();
     if (_admin != null) return _admin.toYaml();
@@ -88,10 +86,8 @@ class RefObject<T extends TreeObject> extends TreeObject {
     }
   }
 
-  @override
   String toString() => 'RefObject($_reference, $_admin, $_t)';
 
-  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is RefObject<T> &&
@@ -99,6 +95,5 @@ class RefObject<T extends TreeObject> extends TreeObject {
       _admin == other._admin &&
       _t == other._t;
 
-  @override
   int get hashCode => Object.hash(_reference, _admin, _t);
 }

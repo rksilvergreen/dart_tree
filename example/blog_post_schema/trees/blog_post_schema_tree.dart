@@ -21,10 +21,10 @@ import '../nodes/blog_post_node.dart';
 
 /// Generated Tree class for blog_post_schema schemas.
 class BlogPostSchemaTree extends Tree {
-  BlogPostSchemaTree({required super.root});
+  BlogPostSchemaTree({required TreeObject root}) : super.fromObject(root: root);
 
   @override
-  void fromObject<T extends TreeObject>(TreeObject object) {
+  void fromObject(Object object) {
     // Handle value objects
     if (object is StringValue) { StringValueNode.fromObject(this, null, '/', object); return; }
     if (object is IntValue) { IntValueNode.fromObject(this, null, '/', object); return; }
@@ -49,7 +49,7 @@ class BlogPostSchemaTree extends Tree {
     if (object is BookObject) {
       if (object.isComment) { fromObject(object.asComment!); return; }
       else if (object.isUser) { fromObject(object.asUser!); return; }
-      else if (object.isGordonBanks) { fromObject(object.asGordonBanks!); return; }
+      else if (object.isT) { fromObject(object.asT!); return; }
       else if (object.isU) { fromObject(object.asU!); return; }
       return;
     }

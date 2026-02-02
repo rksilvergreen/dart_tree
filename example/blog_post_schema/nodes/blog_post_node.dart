@@ -28,7 +28,7 @@ class BlogPostNode extends CollectionNode {
     return switch (child.runtimeType) {
       CommentNode => BookNode<ReferencesListNode, AdminNode>.comment(child as CommentNode),
       UserNode => BookNode<ReferencesListNode, AdminNode>.user(child as UserNode),
-      ReferencesListNode => BookNode<ReferencesListNode, AdminNode>.gordonBanks(child as ReferencesListNode),
+      ReferencesListNode => BookNode<ReferencesListNode, AdminNode>.t(child as ReferencesListNode),
       AdminNode => BookNode<ReferencesListNode, AdminNode>.u(child as AdminNode),
       _ => null,
     };

@@ -7,15 +7,15 @@ import 'admin_node.dart';
 import '../objects/person_object.dart';
 
 /// Generated union node class for Person
-class PersonNode extends TreeNode {
+class PersonNode {
   final UserNode? _user;
   final AdminNode? _admin;
 
   /// Creates a Person node with a UserNode value.
-  PersonNode.user(UserNode user, {super.id}) : _user = user, _admin = null;
+  PersonNode.user(UserNode user) : _user = user, _admin = null;
 
   /// Creates a Person node with a AdminNode value.
-  PersonNode.admin(AdminNode admin, {super.id}) : _admin = admin, _user = null;
+  PersonNode.admin(AdminNode admin) : _admin = admin, _user = null;
 
   /// Returns true if this union contains a UserNode.
   bool get isUser => _user != null;
@@ -29,7 +29,6 @@ class PersonNode extends TreeNode {
   /// Gets the value as AdminNode, or null if it's not that type.
   AdminNode? get asAdmin => _admin;
 
-  @override
   PersonNode clone() {
     if (_user != null) {
       return PersonNode.user(_user.clone() as UserNode);
@@ -40,14 +39,12 @@ class PersonNode extends TreeNode {
     }
   }
 
-  @override
   T accept<T>(TreeNodeVisitor<T> visitor) {
     if (_user != null) return _user.accept(visitor);
     else if (_admin != null) return _admin.accept(visitor);
     else throw StateError('Union has no value set');
   }
 
-  @override
   String toString() => 'PersonNode($_user, $_admin)';
 
   PersonObject toObject() {

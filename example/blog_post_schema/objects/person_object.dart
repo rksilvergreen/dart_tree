@@ -6,7 +6,7 @@ import 'user_object.dart';
 import 'admin_object.dart';
 
 /// Generated union class for Person
-class PersonObject extends TreeObject {
+class PersonObject {
   final UserObject? _user;
   final AdminObject? _admin;
 
@@ -28,14 +28,12 @@ class PersonObject extends TreeObject {
   /// Gets the value as AdminObject, or null if it's not that type.
   AdminObject? get asAdmin => _admin;
 
-  @override
   String toJson() {
     if (_user != null) return _user.toJson();
     if (_admin != null) return _admin.toJson();
     throw StateError('Union has no value set');
   }
 
-  @override
   String toYaml() {
     if (_user != null) return _user.toYaml();
     if (_admin != null) return _admin.toYaml();
@@ -68,16 +66,13 @@ class PersonObject extends TreeObject {
     }
   }
 
-  @override
   String toString() => 'PersonObject($_user, $_admin)';
 
-  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is PersonObject &&
       _user == other._user &&
       _admin == other._admin;
 
-  @override
   int get hashCode => Object.hash(_user, _admin);
 }

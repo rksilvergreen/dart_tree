@@ -57,16 +57,16 @@ class Tree {
 
   /// Creates a new tree with the given root object.
   ///
-  /// The root can be either a TreeObject (which will be converted to a TreeNode)
-  /// or a TreeNode directly. The tree will recursively process the root and all
-  /// its children, assigning paths and establishing parent-child relationships.
-  Tree({String? id, required TreeObject root}) : id = id ?? _uuid.v4() {
+  /// The root can be a TreeObject, a union object (e.g. BookObject), or a TreeNode
+  /// directly. The tree will recursively process the root and all its children,
+  /// assigning paths and establishing parent-child relationships.
+  Tree.fromObject({String? id, required Object root}) : id = id ?? _uuid.v4() {
     // _createNode(pointer: '/', object: root);
     fromObject(root);
   }
 
   /// Creates a tree from an existing node registry (internal use).
-  Tree._internal({required this.id, required Map<String, TreeNodeRecord> nodes}) {
+  Tree.FromRecords({String? id, required Map<String, TreeNodeRecord> nodes}) : id = id ?? _uuid.v4() {
     _nodes.addAll(nodes);
     for (final record in _nodes.values) {
       record.node.$tree = this;
@@ -202,7 +202,7 @@ class Tree {
   // /// Default implementation returns null. The generated extension will override this.
   // (TreeNode, List<(Edge, Object)>)? objectToNode(Object object) => null;
 
-  void fromObject<T extends TreeObject>(TreeObject object) => null;
+  void fromObject(Object object) => null;
 
   // /// Creates a node from an object and attaches it to the tree.
   // TreeNodeRecord _createNode({required String pointer, required Object object}) {
@@ -265,7 +265,7 @@ class Tree {
     }
 
     // Create new tree with the subtree
-    return Tree._internal(id: _uuid.v4(), nodes: subtreeNodes);
+    return Tree.FromRecords(nodes: subtreeNodes);
   }
 
   /// Collects all nodes in a subtree, updating their pointers relative to newRoot.
@@ -438,7 +438,7 @@ class Tree {
       clonedNodes[clonedNode.id] = clonedRecord;
     }
 
-    return Tree._internal(id: _uuid.v4(), nodes: clonedNodes);
+    return Tree.FromRecords(nodes: clonedNodes);
   }
 
   @override
