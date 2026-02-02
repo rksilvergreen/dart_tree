@@ -8,6 +8,7 @@ import '../objects/person_object.dart';
 import '../objects/reference_object.dart';
 import '../objects/ref_object.dart';
 import '../objects/comment_object.dart';
+import '../objects/book_object.dart';
 import '../objects/blog_post_object.dart';
 import '../nodes/user_node.dart';
 import '../nodes/admin_node.dart';
@@ -15,6 +16,7 @@ import '../nodes/person_node.dart';
 import '../nodes/reference_node.dart';
 import '../nodes/ref_node.dart';
 import '../nodes/comment_node.dart';
+import '../nodes/book_node.dart';
 import '../nodes/blog_post_node.dart';
 
 /// Generated Tree class for blog_post_schema schemas.
@@ -41,6 +43,14 @@ class BlogPostSchemaTree extends Tree {
       if (object.isReference) { fromObject(object.asReference!); return; }
       else if (object.isAdmin) { fromObject(object.asAdmin!); return; }
       else if (object.isT) { fromObject(object.asT!); return; }
+      return;
+    }
+
+    if (object is BookObject) {
+      if (object.isComment) { fromObject(object.asComment!); return; }
+      else if (object.isUser) { fromObject(object.asUser!); return; }
+      else if (object.isT) { fromObject(object.asT!); return; }
+      else if (object.isU) { fromObject(object.asU!); return; }
       return;
     }
 

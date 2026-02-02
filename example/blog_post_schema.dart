@@ -3,7 +3,16 @@ import 'package:dart_tree_gen/dart_tree_gen.dart';
 @tree
 const treew = $Tree(
   name: 'BlogPostSchemaTree',
-  schemas: [BlogPost.schema, Comment.schema, User.schema, Admin.schema, Person.schema, Reference.schema, Ref.schema],
+  schemas: [
+    BlogPost.schema,
+    Comment.schema,
+    User.schema,
+    Admin.schema,
+    Person.schema,
+    Reference.schema,
+    Ref.schema,
+    Book.schema,
+  ],
 );
 
 abstract class BlogPost {
@@ -17,9 +26,8 @@ abstract class BlogPost {
   static const String AUTHOR = 'author';
   static const String CONTENT = 'content';
   static const String COMMENTS = 'comments';
-  static const String EXTRA = 'extra';
   static const String USER = 'user';
-  static const String CHAMPION = 'champion';
+  static const String BOOK = 'book';
 
   static const schema = $Schema(
     name: SCHEMA_NAME,
@@ -29,6 +37,14 @@ abstract class BlogPost {
       CONTENT: $String(),
       COMMENTS: $Array(items: $Object(schema: Comment.schema)),
       USER: $Object(schema: User.schema),
+      BOOK: $Object(
+        schema: Book.schema,
+        typeParameters: {
+          Book.T: $Array(items: $Object(schema: Reference.schema)),
+          Book.U: $Object(schema: Admin.schema),
+        },
+      ),
+      'library': $Array(items: $Object(schema: Reference.schema))
     },
     required: [TITLE, CONTENT],
     allowed: [TITLE, AUTHOR, CONTENT, COMMENTS, USER],
@@ -52,7 +68,10 @@ abstract class Comment {
       INDEX: $Integer(),
       BUFFER: $String(),
       PERSON: $Object(schema: Person.schema),
-      REF: $Object(schema: Ref.schema, typeParameters: {Ref.T: $Integer()}),
+      REF: $Object(
+        schema: Ref.schema,
+        typeParameters: {Ref.T: $Object(schema: Admin.schema)},
+      ),
     },
     required: [CONTENT],
   );
@@ -120,6 +139,23 @@ abstract class Ref {
     types: {
       $Object(schema: Reference.schema),
       $Object(schema: Admin.schema),
+    },
+  );
+}
+
+abstract class Book {
+  // name
+  static const String SCHEMA_NAME = 'Book';
+  // type parameters
+  static const String T = 'T';
+  static const String U = 'U';
+
+  static const schema = $Union(
+    name: SCHEMA_NAME,
+    typeParameters: {T, U},
+    types: {
+      $Object(schema: Comment.schema),
+      $Object(schema: User.schema),
     },
   );
 }

@@ -10,6 +10,7 @@ export 'blog_post_schema/objects/person_object.dart';
 export 'blog_post_schema/objects/reference_object.dart';
 export 'blog_post_schema/objects/ref_object.dart';
 export 'blog_post_schema/objects/comment_object.dart';
+export 'blog_post_schema/objects/book_object.dart';
 export 'blog_post_schema/objects/blog_post_object.dart';
 
 // TreeNode exports
@@ -19,6 +20,7 @@ export 'blog_post_schema/nodes/person_node.dart';
 export 'blog_post_schema/nodes/reference_node.dart';
 export 'blog_post_schema/nodes/ref_node.dart';
 export 'blog_post_schema/nodes/comment_node.dart';
+export 'blog_post_schema/nodes/book_node.dart';
 export 'blog_post_schema/nodes/blog_post_node.dart';
 
 // Tree export

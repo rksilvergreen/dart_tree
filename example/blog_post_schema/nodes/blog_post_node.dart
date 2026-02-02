@@ -4,13 +4,13 @@
 import 'package:dart_tree/dart_tree.dart';
 import 'comment_node.dart';
 import 'user_node.dart';
-import 'ref_node.dart';
+import 'book_node.dart';
 import 'reference_node.dart';
-import 'admin_node.dart';
 import '../objects/blog_post_object.dart';
 import '../objects/comment_object.dart';
 import '../objects/user_object.dart';
-import '../objects/ref_object.dart';
+import '../objects/book_object.dart';
+import '../objects/reference_object.dart';
 
 /// Generated TreeNode class for BlogPost
 class BlogPostNode extends CollectionNode {
@@ -20,17 +20,18 @@ class BlogPostNode extends CollectionNode {
   StringValueNode? get author => this.$children?['author'] as StringValueNode?;
   StringValueNode get content => this.$children!['content'] as StringValueNode;
   CommentsListNode? get comments => this.$children?['comments'] as CommentsListNode?;
-  TreeNode? get extra => this.$children?['extra'] as TreeNode?;
   UserNode? get user => this.$children?['user'] as UserNode?;
-  RefNode? get champion {
-    final child = this.$children?['champion'];
+  BookNode? get book {
+    final child = this.$children?['book'];
     return switch (child.runtimeType) {
-      ReferenceNode => RefNode.reference(child as ReferenceNode),
-      AdminNode => RefNode.admin(child as AdminNode),
-      TreeNode => RefNode.t(child as TreeNode),
+      CommentNode => BookNode.comment(child as CommentNode),
+      UserNode => BookNode.user(child as UserNode),
+      TreeNode => BookNode.t(child as TreeNode),
+      TreeNode => BookNode.u(child as TreeNode),
       _ => null,
     };
   }
+  LibraryListNode? get library => this.$children?['library'] as LibraryListNode?;
 
   Tree? setTitle(StringValue value) {
     Tree? removedSubtree;
@@ -148,13 +149,13 @@ class BlogPostNode extends CollectionNode {
     return removedSubtree;
   }
 
-  Tree? setChampion(RefObject? value) {
+  Tree? setBook(BookObject<_typeArg_TListObject, AdminObject>? value) {
     Tree? removedSubtree;
     if (value == null) {
       // Remove node from tree
       final tree = this.$tree;
       if (tree != null) {
-        final oldNode = this.$children?['champion'] as TreeNode?;
+        final oldNode = this.$children?['book'] as TreeNode?;
         if (oldNode != null) {
           removedSubtree = tree.removeSubtree(oldNode);
         }
@@ -163,7 +164,7 @@ class BlogPostNode extends CollectionNode {
     }
     final tree = this.$tree;
     if (tree != null) {
-      final oldNode = this.$children?['champion'] as TreeNode?;
+      final oldNode = this.$children?['book'] as TreeNode?;
       final tempTree = Tree(root: value);
       final rootNode = tempTree.root;
       if (rootNode != null) {
@@ -173,7 +174,39 @@ class BlogPostNode extends CollectionNode {
           removedSubtree = tree.replaceSubtree(node: oldNode, newSubtree: subtree);
         } else {
           // Add new node (property was null before)
-          tree.addSubtree(parent: this, key: 'champion', subtree: subtree);
+          tree.addSubtree(parent: this, key: 'book', subtree: subtree);
+        }
+      }
+    }
+    return removedSubtree;
+  }
+
+  Tree? setLibrary(LibraryListObject? value) {
+    Tree? removedSubtree;
+    if (value == null) {
+      // Remove node from tree
+      final tree = this.$tree;
+      if (tree != null) {
+        final oldNode = this.library;
+        if (oldNode != null) {
+          removedSubtree = tree.removeSubtree(oldNode);
+        }
+      }
+      return removedSubtree;
+    }
+    final tree = this.$tree;
+    if (tree != null) {
+      final oldNode = this.library;
+      final tempTree = Tree(root: value);
+      final rootNode = tempTree.root;
+      if (rootNode != null) {
+        final subtree = tempTree.removeSubtree(rootNode);
+        if (oldNode != null) {
+          // Replace existing node
+          removedSubtree = tree.replaceSubtree(node: oldNode, newSubtree: subtree);
+        } else {
+          // Add new node (property was null before)
+          tree.addSubtree(parent: this, key: 'library', subtree: subtree);
         }
       }
     }
@@ -186,9 +219,9 @@ class BlogPostNode extends CollectionNode {
     author: this.author?.toObject(),
     content: this.content.toObject(),
     comments: this.comments?.toObject(),
-    extra: this.extra?.toObject(),
     user: this.user?.toObject(),
-    champion: this.champion?.toObject() as RefObject?,
+    book: this.book?.toObject() as BookObject<_typeArg_TListObject, AdminObject>?,
+    library: this.library?.toObject(),
   );
 
   static void fromObject(Tree tree, TreeNode? parent, String key, BlogPostObject? object) {
@@ -204,16 +237,9 @@ class BlogPostNode extends CollectionNode {
     StringValueNode.fromObject(tree, node, 'author', object.author);
     StringValueNode.fromObject(tree, node, 'content', object.content);
     CommentsListNode.fromObject(tree, node, 'comments', object.comments);
-    if (object.extra != null) {
-      final tempTree = Tree(root: object.extra!);
-      final rootNode = tempTree.root;
-      if (rootNode != null) {
-        final subtree = tempTree.removeSubtree(rootNode);
-        tree.addSubtree(parent: node, key: 'extra', subtree: subtree);
-      }
-    }
     UserNode.fromObject(tree, node, 'user', object.user);
-    RefNode.fromObject(tree, node, 'champion', object.champion);
+    BookNode.fromObject(tree, node, 'book', object.book);
+    LibraryListNode.fromObject(tree, node, 'library', object.library);
   }
 
   @override

@@ -138,7 +138,7 @@ class CommentNode extends CollectionNode {
     return removedSubtree;
   }
 
-  Tree? setRef(RefObject<IntValue>? value) {
+  Tree? setRef(RefObject<AdminObject>? value) {
     Tree? removedSubtree;
     if (value == null) {
       // Remove node from tree
@@ -176,7 +176,7 @@ class CommentNode extends CollectionNode {
     index: this.index?.toObject(),
     buffer: this.buffer?.toObject(),
     person: this.person?.toObject() as PersonObject?,
-    ref: this.ref?.toObject() as RefObject<IntValue>?,
+    ref: this.ref?.toObject() as RefObject<AdminObject>?,
   );
 
   static void fromObject(Tree tree, TreeNode? parent, String key, CommentObject? object) {
