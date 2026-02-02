@@ -60,15 +60,15 @@ class RefObject<T extends TreeObject> extends TreeObject {
     try {
       return RefObject.reference(ReferenceObject.fromJson(json));
     } catch (_) {
-      try {
-        return RefObject.admin(AdminObject.fromJson(json));
-      } catch (_) {
-        try {
-          return RefObject.t(deserializer_T(json));
-        } catch (e) {
-          throw FormatException('Could not decode RefObject from JSON: $e');
-        }
-      }
+    try {
+      return RefObject.admin(AdminObject.fromJson(json));
+    } catch (_) {
+    try {
+      return RefObject.t(deserializer_T(json));
+    } catch (e) {
+      throw FormatException('Could not decode RefObject from JSON: $e');
+    }
+    }
     }
   }
 
@@ -77,15 +77,15 @@ class RefObject<T extends TreeObject> extends TreeObject {
     try {
       return RefObject.reference(ReferenceObject.fromYaml(yaml));
     } catch (_) {
-      try {
-        return RefObject.admin(AdminObject.fromYaml(yaml));
-      } catch (_) {
-        try {
-          return RefObject.t(deserializer_T(yaml));
-        } catch (e) {
-          throw FormatException('Could not decode RefObject from YAML: $e');
-        }
-      }
+    try {
+      return RefObject.admin(AdminObject.fromYaml(yaml));
+    } catch (_) {
+    try {
+      return RefObject.t(deserializer_T(yaml));
+    } catch (e) {
+      throw FormatException('Could not decode RefObject from YAML: $e');
+    }
+    }
     }
   }
 
@@ -95,7 +95,10 @@ class RefObject<T extends TreeObject> extends TreeObject {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is RefObject<T> && _reference == other._reference && _admin == other._admin && _t == other._t;
+      other is RefObject<T> &&
+      _reference == other._reference &&
+      _admin == other._admin &&
+      _t == other._t;
 
   @override
   int get hashCode => Object.hash(_reference, _admin, _t);

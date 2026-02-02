@@ -54,10 +54,14 @@ class RefNode<T extends TreeNode> extends TreeNode {
 
   @override
   T accept<T>(TreeNodeVisitor<T> visitor) {
-    if (_reference != null) return _reference.accept(visitor);
-    else if (_admin != null) return _admin.accept(visitor);
-    else if (_t != null) return _t.accept(visitor);
-    else throw StateError('Union has no value set');
+    if (_reference != null)
+      return _reference.accept(visitor);
+    else if (_admin != null)
+      return _admin.accept(visitor);
+    else if (_t != null)
+      return _t.accept(visitor);
+    else
+      throw StateError('Union has no value set');
   }
 
   @override
@@ -75,7 +79,13 @@ class RefNode<T extends TreeNode> extends TreeNode {
     }
   }
 
-  static void fromObject(Tree tree, TreeNode? parent, String key, RefObject? object) {
+  static void fromObject(
+    Tree tree,
+    TreeNode? parent,
+    String key,
+    RefObject? object,
+    void Function(Tree tree, TreeNode? parent, String key, TreeObject object) deserializer_T,
+  ) {
     if (object == null) return;
 
     if (object.isReference) {
@@ -83,7 +93,7 @@ class RefNode<T extends TreeNode> extends TreeNode {
     } else if (object.isAdmin) {
       AdminNode.fromObject(tree, parent, key, object.asAdmin);
     } else if (object.isT) {
-      tree.fromObject(object.asT!);
+      deserializer_T(tree, parent, key, object.asT!);
     }
   }
 }

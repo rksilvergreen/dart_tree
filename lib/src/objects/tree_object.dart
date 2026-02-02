@@ -71,3 +71,5 @@ abstract class TreeObject {
     throw UnsupportedError('fromYaml must be implemented as a static method in subclasses');
   }
 }
+
+typedef TextParser<T extends TreeObject> = T Function(String text);

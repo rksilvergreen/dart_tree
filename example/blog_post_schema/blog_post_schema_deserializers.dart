@@ -9,7 +9,7 @@ import 'objects/reference_object.dart';
 import 'objects/comment_object.dart';
 import 'objects/blog_post_object.dart';
 
-typedef Deserializer<T> = T Function(String json);
+
 
 /// Generic fromJson function that dispatches to the correct type.
 T fromJson<T extends TreeObject>(String json) {

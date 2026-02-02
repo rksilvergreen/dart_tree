@@ -90,3 +90,5 @@ abstract class TreeNodeVisitor<T> {
   /// Default handler for any node type.
   T visitNode(TreeNode node);
 }
+
+typedef ObjectParser<T extends TreeObject> = void Function(Tree tree, TreeNode? parent, String key, T object);

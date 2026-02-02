@@ -193,7 +193,7 @@ class CommentNode extends CollectionNode {
     IntValueNode.fromObject(tree, node, 'index', object.index);
     StringValueNode.fromObject(tree, node, 'buffer', object.buffer);
     PersonNode.fromObject(tree, node, 'person', object.person);
-    RefNode.fromObject(tree, node, 'ref', object.ref);
+    RefNode.fromObject(tree, node, 'ref', object.ref, (Tree t, TreeNode? p, String k, TreeObject o) => UserNode.fromObject(t, p, k, o as UserObject));
   }
 
   @override

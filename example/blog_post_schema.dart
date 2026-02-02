@@ -147,7 +147,7 @@ abstract class Book {
   // name
   static const String SCHEMA_NAME = 'Book';
   // type parameters
-  static const String T = 'T';
+  static const String T = 'GORDON_BANKS';
   static const String U = 'U';
 
   static const schema = $Union(

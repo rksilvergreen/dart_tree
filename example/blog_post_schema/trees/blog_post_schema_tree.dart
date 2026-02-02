@@ -49,7 +49,7 @@ class BlogPostSchemaTree extends Tree {
     if (object is BookObject) {
       if (object.isComment) { fromObject(object.asComment!); return; }
       else if (object.isUser) { fromObject(object.asUser!); return; }
-      else if (object.isT) { fromObject(object.asT!); return; }
+      else if (object.isGordonBanks) { fromObject(object.asGordonBanks!); return; }
       else if (object.isU) { fromObject(object.asU!); return; }
       return;
     }

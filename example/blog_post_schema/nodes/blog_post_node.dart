@@ -28,7 +28,7 @@ class BlogPostNode extends CollectionNode {
     return switch (child.runtimeType) {
       CommentNode => BookNode<ReferencesListNode, AdminNode>.comment(child as CommentNode),
       UserNode => BookNode<ReferencesListNode, AdminNode>.user(child as UserNode),
-      ReferencesListNode => BookNode<ReferencesListNode, AdminNode>.t(child as ReferencesListNode),
+      ReferencesListNode => BookNode<ReferencesListNode, AdminNode>.gordonBanks(child as ReferencesListNode),
       AdminNode => BookNode<ReferencesListNode, AdminNode>.u(child as AdminNode),
       _ => null,
     };
@@ -240,7 +240,7 @@ class BlogPostNode extends CollectionNode {
     StringValueNode.fromObject(tree, node, 'content', object.content);
     CommentsListNode.fromObject(tree, node, 'comments', object.comments);
     UserNode.fromObject(tree, node, 'user', object.user);
-    BookNode.fromObject(tree, node, 'book', object.book);
+    BookNode.fromObject(tree, node, 'book', object.book, (Tree t, TreeNode? p, String k, TreeObject o) => ReferencesListNode.fromObject(t, p, k, o as ReferencesListObject), (Tree t, TreeNode? p, String k, TreeObject o) => AdminNode.fromObject(t, p, k, o as AdminObject));
     ReferencesListNode.fromObject(tree, node, 'library', object.library);
   }
 
