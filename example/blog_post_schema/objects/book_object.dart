@@ -65,52 +65,44 @@ class BookObject<T extends TreeObject, U extends TreeObject> {
   }
 
   /// Attempts to decode from JSON by trying each type in order.
-  static BookObject<T, U> fromJson<T extends TreeObject, U extends TreeObject>(
-    String json,
-    TextParser<T> textParser_T,
-    TextParser<U> textParser_U,
-  ) {
+  static BookObject<T, U> fromJson<T extends TreeObject, U extends TreeObject>(String json, TextParser<T> textParser_T, TextParser<U> textParser_U) {
     try {
       return BookObject.comment(CommentObject.fromJson(json));
     } catch (_) {
-      try {
-        return BookObject.user(UserObject.fromJson(json));
-      } catch (_) {
-        try {
-          return BookObject.t(textParser_T(json));
-        } catch (_) {
-          try {
-            return BookObject.u(textParser_U(json));
-          } catch (e) {
-            throw FormatException('Could not decode BookObject from JSON: $e');
-          }
-        }
-      }
+    try {
+      return BookObject.user(UserObject.fromJson(json));
+    } catch (_) {
+    try {
+      return BookObject.t(textParser_T(json));
+    } catch (_) {
+    try {
+      return BookObject.u(textParser_U(json));
+    } catch (e) {
+      throw FormatException('Could not decode BookObject from JSON: $e');
+    }
+    }
+    }
     }
   }
 
   /// Attempts to decode from YAML by trying each type in order.
-  static BookObject<T, U> fromYaml<T extends TreeObject, U extends TreeObject>(
-    String yaml,
-    TextParser<T> textParser_T,
-    TextParser<U> textParser_U,
-  ) {
+  static BookObject<T, U> fromYaml<T extends TreeObject, U extends TreeObject>(String yaml, TextParser<T> textParser_T, TextParser<U> textParser_U) {
     try {
       return BookObject.comment(CommentObject.fromYaml(yaml));
     } catch (_) {
-      try {
-        return BookObject.user(UserObject.fromYaml(yaml));
-      } catch (_) {
-        try {
-          return BookObject.t(textParser_T(yaml));
-        } catch (_) {
-          try {
-            return BookObject.u(textParser_U(yaml));
-          } catch (e) {
-            throw FormatException('Could not decode BookObject from YAML: $e');
-          }
-        }
-      }
+    try {
+      return BookObject.user(UserObject.fromYaml(yaml));
+    } catch (_) {
+    try {
+      return BookObject.t(textParser_T(yaml));
+    } catch (_) {
+    try {
+      return BookObject.u(textParser_U(yaml));
+    } catch (e) {
+      throw FormatException('Could not decode BookObject from YAML: $e');
+    }
+    }
+    }
     }
   }
 
@@ -119,10 +111,10 @@ class BookObject<T extends TreeObject, U extends TreeObject> {
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is BookObject<T, U> &&
-          _comment == other._comment &&
-          _user == other._user &&
-          _t == other._t &&
-          _u == other._u;
+      _comment == other._comment &&
+      _user == other._user &&
+      _t == other._t &&
+      _u == other._u;
 
   int get hashCode => Object.hash(_comment, _user, _t, _u);
 }

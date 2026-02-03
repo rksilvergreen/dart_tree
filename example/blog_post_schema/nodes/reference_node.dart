@@ -3,6 +3,7 @@
 
 import 'package:dart_tree/dart_tree.dart';
 import '../objects/reference_object.dart';
+import '../trees/blog_post_schema_tree.dart';
 
 /// Generated TreeNode class for Reference
 class ReferenceNode extends CollectionNode {
@@ -15,7 +16,7 @@ class ReferenceNode extends CollectionNode {
     final tree = this.$tree;
     if (tree != null) {
       final oldNode = this.$ref;
-      final newSubtree = Tree(root: value);
+      final newSubtree = BlogPostSchemaTree.fromObject(root: value);
       removedSubtree = tree.replaceSubtree(node: oldNode, newSubtree: newSubtree);
     }
     return removedSubtree;

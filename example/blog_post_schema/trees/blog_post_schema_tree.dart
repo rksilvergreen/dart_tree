@@ -21,7 +21,8 @@ import '../nodes/blog_post_node.dart';
 
 /// Generated Tree class for blog_post_schema schemas.
 class BlogPostSchemaTree extends Tree {
-  BlogPostSchemaTree({required TreeObject root}) : super.fromObject(root: root);
+  BlogPostSchemaTree({required Object root}) : super.fromObject(root: root);
+  factory BlogPostSchemaTree.fromObject({required Object root}) => BlogPostSchemaTree(root: root);
 
   @override
   void fromObject(Object object) {

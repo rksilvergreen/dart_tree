@@ -3,6 +3,7 @@
 
 import 'package:dart_tree/dart_tree.dart';
 import '../objects/user_object.dart';
+import '../trees/blog_post_schema_tree.dart';
 
 /// Generated TreeNode class for User
 class UserNode extends CollectionNode {
@@ -16,7 +17,7 @@ class UserNode extends CollectionNode {
     final tree = this.$tree;
     if (tree != null) {
       final oldNode = this.name;
-      final newSubtree = Tree(root: value);
+      final newSubtree = BlogPostSchemaTree.fromObject(root: value);
       removedSubtree = tree.replaceSubtree(node: oldNode, newSubtree: newSubtree);
     }
     return removedSubtree;
@@ -27,7 +28,7 @@ class UserNode extends CollectionNode {
     final tree = this.$tree;
     if (tree != null) {
       final oldNode = this.email;
-      final newSubtree = Tree(root: value);
+      final newSubtree = BlogPostSchemaTree.fromObject(root: value);
       removedSubtree = tree.replaceSubtree(node: oldNode, newSubtree: newSubtree);
     }
     return removedSubtree;

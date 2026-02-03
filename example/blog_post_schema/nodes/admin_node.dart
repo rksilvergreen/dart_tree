@@ -3,6 +3,7 @@
 
 import 'package:dart_tree/dart_tree.dart';
 import '../objects/admin_object.dart';
+import '../trees/blog_post_schema_tree.dart';
 
 /// Generated TreeNode class for Admin
 class AdminNode extends CollectionNode {
@@ -16,7 +17,7 @@ class AdminNode extends CollectionNode {
     final tree = this.$tree;
     if (tree != null) {
       final oldNode = this.age;
-      final newSubtree = Tree(root: value);
+      final newSubtree = BlogPostSchemaTree.fromObject(root: value);
       removedSubtree = tree.replaceSubtree(node: oldNode, newSubtree: newSubtree);
     }
     return removedSubtree;
@@ -27,7 +28,7 @@ class AdminNode extends CollectionNode {
     final tree = this.$tree;
     if (tree != null) {
       final oldNode = this.address;
-      final newSubtree = Tree(root: value);
+      final newSubtree = BlogPostSchemaTree.fromObject(root: value);
       removedSubtree = tree.replaceSubtree(node: oldNode, newSubtree: newSubtree);
     }
     return removedSubtree;

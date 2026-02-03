@@ -13,6 +13,7 @@ import '../objects/user_object.dart';
 import '../objects/book_object.dart';
 import '../objects/reference_object.dart';
 import '../objects/admin_object.dart';
+import '../trees/blog_post_schema_tree.dart';
 
 /// Generated TreeNode class for BlogPost
 class BlogPostNode extends CollectionNode {
@@ -40,7 +41,7 @@ class BlogPostNode extends CollectionNode {
     final tree = this.$tree;
     if (tree != null) {
       final oldNode = this.title;
-      final newSubtree = Tree(root: value);
+      final newSubtree = BlogPostSchemaTree.fromObject(root: value);
       removedSubtree = tree.replaceSubtree(node: oldNode, newSubtree: newSubtree);
     }
     return removedSubtree;
@@ -64,11 +65,11 @@ class BlogPostNode extends CollectionNode {
       final oldNode = this.author;
       if (oldNode != null) {
         // Replace existing node
-        final newSubtree = Tree(root: value);
+        final newSubtree = BlogPostSchemaTree.fromObject(root: value);
         removedSubtree = tree.replaceSubtree(node: oldNode, newSubtree: newSubtree);
       } else {
         // Add new node (property was null before)
-        final newSubtree = Tree(root: value);
+        final newSubtree = BlogPostSchemaTree.fromObject(root: value);
         tree.addSubtree(parent: this, key: 'author', subtree: newSubtree);
       }
     }
@@ -80,7 +81,7 @@ class BlogPostNode extends CollectionNode {
     final tree = this.$tree;
     if (tree != null) {
       final oldNode = this.content;
-      final newSubtree = Tree(root: value);
+      final newSubtree = BlogPostSchemaTree.fromObject(root: value);
       removedSubtree = tree.replaceSubtree(node: oldNode, newSubtree: newSubtree);
     }
     return removedSubtree;
@@ -103,7 +104,7 @@ class BlogPostNode extends CollectionNode {
     final tree = this.$tree;
     if (tree != null) {
       final oldNode = this.comments;
-      final tempTree = Tree(root: value);
+      final tempTree = BlogPostSchemaTree.fromObject(root: value);
       final rootNode = tempTree.root;
       if (rootNode != null) {
         final subtree = tempTree.removeSubtree(rootNode);
@@ -135,7 +136,7 @@ class BlogPostNode extends CollectionNode {
     final tree = this.$tree;
     if (tree != null) {
       final oldNode = this.user;
-      final tempTree = Tree(root: value);
+      final tempTree = BlogPostSchemaTree.fromObject(root: value);
       final rootNode = tempTree.root;
       if (rootNode != null) {
         final subtree = tempTree.removeSubtree(rootNode);
@@ -167,7 +168,7 @@ class BlogPostNode extends CollectionNode {
     final tree = this.$tree;
     if (tree != null) {
       final oldNode = this.$children?['book'] as TreeNode?;
-      final tempTree = Tree(root: value);
+      final tempTree = BlogPostSchemaTree.fromObject(root: value);
       final rootNode = tempTree.root;
       if (rootNode != null) {
         final subtree = tempTree.removeSubtree(rootNode);
@@ -199,7 +200,7 @@ class BlogPostNode extends CollectionNode {
     final tree = this.$tree;
     if (tree != null) {
       final oldNode = this.library;
-      final tempTree = Tree(root: value);
+      final tempTree = BlogPostSchemaTree.fromObject(root: value);
       final rootNode = tempTree.root;
       if (rootNode != null) {
         final subtree = tempTree.removeSubtree(rootNode);
